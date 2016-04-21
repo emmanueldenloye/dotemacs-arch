@@ -1,0 +1,11 @@
+(defvar elisp-guide-mode-map (make-sparse-keymap))
+(define-minor-mode elisp-guide-mode "A simple minor mode example."
+  :lighter " ELGuide"
+  :keymap elisp-guide-mode-map
+  (if (bound-and-true-p elisp-guide-mode)
+      (message "Elisp guide activated!")
+    (message "Bye!")))
+(define-key elisp-guide-mode-map (kbd "C-c C-a") 'elisp-guide-go)
+(defun elisp-guide-go ()
+  (interactive)
+  (message "Go!"))

@@ -1,0 +1,29 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/emmanuel/Dropbox/" . "Research Paper Repository/")
+ ("/home/emmanuel/" . "Dropbox/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/emmanuel/Dropbox/Research Paper Repository/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "lin2008riemannian.pdf"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/emmanuel/Dropbox/Research Paper Repository/" (22215 32889 956105 250000) "shinagawa2009untangling.pdf" "Manifolds in Image Science and Visualization.pdf" "lin2008riemannian.pdf" "gopalan2011domainWriteUp.pdf" "gopalan2011domain.pdf" "brun2005fast.org" "freedman2002efficient.pdf" "bo2011object.pdf" "brun2005fast.pdf" "Homology of Simplicial Complexes.pdf" "Synthetic_Differential_GeometryIntro.pdf" "li2010object.pdf" "VIVAPresentation-11-18-2015.pdf" "./" ".dropbox" "drost2010model.pdf" "2016-01-26-agenda.pdf" "../" "persisthomologymetricmeasurespaces.pdf" "persisthomologysurvey.pdf")
+
+ ("/home/emmanuel/Dropbox/" (22271 14393 298007 30000) "music/" "Public/" "Apps/" "scheme/" "PHPractice.pdf" "AGentleIntroductiontoHaskell98.pdf" "haskell/" "Unorganized_Pdfs/" ".dropbox.cache/" "Research_Files/" "Photos/" "./" ".dropbox" "americanpresidents.txt" "Javaplex Tutorial.pdf" "toRemember.el" "beamerPres-non-org/" "Howard share/" "splineNotes/" "python/" "Research Paper Repository/" "Barcodes.pdf" "org/" "The Quickhull Algorithm for Convex Hulls.pdf" "toexclude/" "../" "GNU Scientific Library Manual.pdf")
+
+ ("/home/emmanuel/" (22274 39140 638460 401000) "tmp.scm" "repatest.hs~" ".pki/" ".gnus.el" "repatest.hs" "test2.png" ".bashrc" "test.png" "confBACKUPS/" "inductive-mazes/" "Documents/" ".synergy/" "Downloads/" ".xmobarrc" ".Xresources~" ".xinitrc~" ".mozilla/" ".i3/" "Pictures/" ".emacs.d/" "packer/" ".rtorrent.session/" "kmedoids.hs" ".steampid" "top_block.py" ".bash_history" ".ghci~" ".zoom/" ".rtorrent.rc~" "test.hs" ".pentadactylrc~" ".mplayer/" "testfile" ".pyvim/" ".authinfo" ".dbus/" ".pentadactylrc.bak" "stupid.js" "pentadactyl-solarized/" ".esd_auth" "haskell/" ".gstreamer-0.10/" ".newsrc" "matToDat.py" ".config/" "SIZES.txt" "minfree.hp" ".Xresources" ".typespeed/" ".bash_profile" "ls" ".octave_hist" ".python_history" ".cblrepo/" ".zprofile~" ".grc_gnuradio/" ".bash_logout" "switch.sh" ".xmobarrc~" ".Xauthority" "dumb.o" "test3.png" "auto/" ".gem/" ".w3m/" ".ghci" ".fehbg" ".emacs.d.pre-prelude.tar" "matToDat.py~" "boltzmann.hs" "Trash/" ".lastpass/" ".vimgolf/" ".lesshst" "foo.txt" ".moonchild productions/" ".nv/" "./" ".dropbox/" ".archey3.cfg" "*message*-20160226-161644" ".vimrc~" ".xinitrc" "TAGS" ".thumbnails/" ".emacs.prelude.old.d/" "wat.hs" ".newsrc.eld" ".gvfs/" "test.hs~" "dumb" "Node-Stock-Market/" ".aspell.en.prepl" ".gimp-2.8/" "News/" ".gnome2/" ".conkeror.mozdev.org/" ".gdrive/" ".gitconfig" ".vimrc" ".gnuplot_history" ".local/" ".ghc/" ".cache/" "mandel.py" ".erc/" "Videos/" ".rtorrent.rc" ".zshrc" ".aspell.en.pws" "vimproc/" "simple.hs~" ".zshrc~" ".steam/" ".gnus" ".gr_fftw_wisdom" "haskell_git/" ".pentadactylrc" ".pulse-cookie" "wat.hs~" "matToDatOlivetti.py" ".backups/" ".emacs.keyfreq" "dumb.hi" "xkcd.py" "experiment.grc" ".histfile" ".npm/" "qhull-simple-0.1/" "matToDat3.py" ".gnuradio/" "*message*-20160401-180208" ".steampath" "test4.png" "Dropbox/" ".node-gyp/" "stupid.js~" "IHaskell/" ".cabal/" ".gnupg/" "org/" ".synergy.conf" ".gnome2_private/" ".ghc-mod/" ".xmonad/" ".gitTRASH/" "recentf" "AllHorsesAreBlack.txt" ".zcompdump" ".zshrc.zni" ".zprofile" "../" ".node_repl_history" "Desktop/" ".stack/" "tmp/" ".dropbox-dist/" "\\" ".vim/" ".pentadactyl/" ".newsbeuter/" ".irssi/" "simple.hs" "downloaded/" "watch/" ".ssh/" ".viminfo")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

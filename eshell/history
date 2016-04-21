@@ -1,0 +1,128 @@
+(/ (* 200 199) 2)
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+hp2ps -c Isomap.hp
+zathura Isomap.ps &
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+hp2ps -c Isomap.hp
+zathura Isomap.ps &
+ls ~/Downloads/ | grep tar
+ls ~/Downloads/ | grep zi
+ls ~/Downloads/ | grep zip
+pushd ~/Downloads/
+unzip -l fwdcs145.zip 
+mv fwdcs145.zip mcatFunctionalLectureNotes.zip
+ls
+ls | grep zip
+popd
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm Isomap.hs
+time ./Isomap +RTS -s -hT
+ghc -O2 --make -rtsopts -fllvm testByte.hs
+ghc -O2 --make -rtsopts -fllvm testByte.hs
+time ./testByte 1 +RTS -s -hT
+time ./testByte 0 +RTS -s -hT
+time ./testByte 2 +RTS -s -hT
+time ./testByte 3 +RTS -s -hT
+time ./testByte 4 +RTS -s -hT
+time ./testByte 5 +RTS -s 
+time ./testByte 6 +RTS -s 
+time ./testByte 7 +RTS -s 
+time ./testByte 8 +RTS -s 
+time ./testByte 9 +RTS -s 
+hp2ps testByte.hp
+hp2ps -c testByte.hp
+zathura testByte.ps &
+ghc -O2 --make -rtsopts -fllvm testMNISTIsomap.hs
+time ./testMNISTIsomap +RTS -s
+time ./testMNISTIsomap 1 +RTS -s
+ls
+cd ..
+cd freedman-writeup/src
+ls
+ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs 
+time ./testMNISTSimplicialComplex 5 2 +RTS -s
+time ./testMNISTSimplicialComplex 10 2 +RTS -s
+time ./testMNISTSimplicialComplex -1 2 +RTS -s
+ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs 
+time ./testMNISTSimplicialComplex 0 2 +RTS -s
+ghc -O2 -prof -fprof-auto -fprof-cafs testMNISTSimplicialComplex: && ./testMNISTSimplicialComplex -xc
+ghc -O2 -prof -fprof-auto -fprof-cafs testMNISTSimplicialComplex.hs && ./testMNISTSimplicialComplex -xc
+ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs
+time ./testMNISTSimplicialComplex 5 2 +RTS -s
+(* 784 2)
+(/ 784 434)
+(/ 784.0 434)
+(/ 434 784.0)
+(/ 569 784.0)
+time ./testMNISTSimplicialComplex 5 0.3 +RTS -s
+ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs
+time ./testMNISTSimplicialComplex 5 0.3 +RTS -s
+5,769,528 bytes maximum slop
+ls
+pushd ~
+cabal update
+cabal list Chart
+ghc-pkg describe Chart
+cabal list Chart-cairo
+ghc-pkg describe Chart-cairo
+cabal list Chart-diagrams
+cabal install Chart-diagrams
+ghc-pkg describe Chart-cairo
+ghc minfree.hs
+exit
+pwd
+df -sh
+df -hs
+df -h
+quit
+exit
+pacman -Ss opam
+packer -Ss opam

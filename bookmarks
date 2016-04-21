@@ -1,0 +1,50 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("setup-haskell.el"
+ (filename . "~/.emacs.d/custom/setup-haskell.el")
+ (front-context-string . "\n\n(add-hook 'inf")
+ (rear-context-string . "skell-mode +1)))")
+ (position . 6280))
+("custom.el"
+ (filename . "~/.emacs.d/custom.el")
+ (front-context-string . "(custom-set-vari")
+ (rear-context-string . "ary:\n;;; Code:\n\n")
+ (position . 52))
+("manifoldRML"
+ (filename . "~/haskell/manifoldRML/")
+ (front-context-string . "dist\n  drwxr-xr-")
+ (rear-context-string . "0K Jan 14 16:13 ")
+ (position . 247))
+("Random Haskell Code"
+ (filename . "~/Dropbox/haskell/random/")
+ (front-context-string . "collatz.c\n  -rw-")
+ (rear-context-string . "86 Dec  7 17:01 ")
+ (position . 3317))
+("manifoldRNC"
+ (filename . "~/Dropbox/haskell/brun_fast_git/")
+ (front-context-string . ".cabal-sandbox\n ")
+ (rear-context-string . "0K Oct 29 18:25 ")
+ (position . 260))
+("xmonad config"
+ (filename . "~/.xmonad/xmonad.hs")
+ (front-context-string . "import          ")
+ (rear-context-string)
+ (position . 1))
+("i3config"
+ (filename . "~/.i3/config")
+ (front-context-string . "\n# resize window")
+ (rear-context-string . " 'i3-msg exit'\"\n")
+ (position . 5294))
+(".pentadactylrc"
+ (filename . "~/.pentadactylrc")
+ (front-context-string . "\nset showtabline")
+ (rear-context-string . "t guioptions=CNs")
+ (position . 31))
+(".emacs.d/custom"
+ (filename . "~/.emacs.d/custom/")
+ (front-context-string . "setup-programmin")
+ (rear-context-string . "5K Aug 20 01:41 ")
+ (position . 1348))
+)

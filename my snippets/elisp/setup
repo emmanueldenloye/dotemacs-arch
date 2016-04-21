@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: setup-install
+# key: setup
+# binding: direct-keybinding
+# --
+;;; package --- Summary
+;;; Commentary:
+;;; Code:
+
+
+
+;;;setup- .el ends here

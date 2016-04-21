@@ -1,0 +1,33 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/emmanuel/Dropbox/" . "Research Paper Repository/")
+ ("/home/emmanuel/" . "Dropbox/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/emmanuel/Dropbox/"
+ "/home/emmanuel/"
+ "/home/emmanuel/Dropbox/Research Paper Repository/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "python"
+ "test.py"
+ "lin2008riemannian.pdf"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/emmanuel/Dropbox/" (22293 36255 245172 499000) "music/" "Public/" "Apps/" "personal/" "scheme/" "AGentleIntroductiontoHaskell98.pdf" "haskell/" "Unorganized_Pdfs/" ".dropbox.cache/" "Research_Files/" "Photos/" "./" ".dropbox" "americanpresidents.txt" "Javaplex Tutorial.pdf" "toRemember.el" "beamerPres-non-org/" "Howard share/" "presGuideLines.org" "splineNotes/" "python/" "Research Paper Repository/" "org/" "The Quickhull Algorithm for Convex Hulls.pdf" "toexclude/" "../" "GNU Scientific Library Manual.pdf")
+
+ ("/home/emmanuel/" (22294 32716 168057 17000) "tmp.scm" "reader1.hs" "repatest.hs~" ".pki/" ".gnus.el" "test2.png" ".bashrc" "test.png" "confBACKUPS/" "inductive-mazes/" "Documents/" ".synergy/" "kmedoids.hs~" "Downloads/" ".xmobarrc" ".Xresources~" ".xinitrc~" ".mozilla/" ".i3/" "Pictures/" ".emacs.d/" "packer/" ".rtorrent.session/" ".steampid" ".bash_history" ".ghci~" ".zoom/" ".rtorrent.rc~" ".pentadactylrc~" ".mplayer/" "testfile" ".pyvim/" ".authinfo" ".dbus/" ".pentadactylrc.bak" "stupid.js" "pentadactyl-solarized/" ".esd_auth" "reader1.o" "haskell/" ".gstreamer-0.10/" ".newsrc" ".config/" "SIZES.txt" "tmp.hs" "minfree.hp" ".Xresources" ".typespeed/" ".bash_profile" "ls" ".octave_hist" ".python_history" ".cblrepo/" ".zprofile~" ".grc_gnuradio/" ".bash_logout" "switch.sh" ".xmobarrc~" ".Xauthority" "test3.png" "auto/" "reader1.hi" ".gem/" ".w3m/" ".ghci" ".fehbg" ".emacs.d.pre-prelude.tar" ".electron/" "reader1" "Trash/" ".lastpass/" "readerT.hs" ".vimgolf/" ".lesshst" "foo.txt" ".moonchild productions/" ".nv/" "./" ".dropbox/" ".archey3.cfg" "*message*-20160226-161644" ".vimrc~" ".xinitrc" "TAGS" ".thumbnails/" ".cvimrc" ".emacs.prelude.old.d/" ".newsrc.eld" ".gvfs/" "test.hs~" "Node-Stock-Market/" ".aspell.en.prepl" ".gimp-2.8/" "News/" ".gnome2/" ".conkeror.mozdev.org/" ".gdrive/" ".gitconfig" ".vimrc" ".gnuplot_history" ".local/" ".ghc/" ".cache/" ".erc/" "reader2.hs" "Videos/" ".rtorrent.rc" ".zshrc" ".aspell.en.pws" "vimproc/" "simple.hs~" ".zshrc~" ".steam/" ".gnus" "reader1.hs~" ".gr_fftw_wisdom" "haskell_git/" ".pentadactylrc" ".pulse-cookie" "wat.hs~" ".backups/" ".emacs.keyfreq" "experiment.grc" ".histfile" ".npm/" "qhull-simple-0.1/" ".gnuradio/" "*message*-20160401-180208" ".steampath" ".gnome/" "test4.png" "Dropbox/" ".node-gyp/" "stupid.js~" "IHaskell/" ".cabal/" ".gnupg/" "org/" ".synergy.conf" ".gnome2_private/" ".ghc-mod/" ".xmonad/" ".gitTRASH/" "recentf" "AllHorsesAreBlack.txt" ".zcompdump" ".zshrc.zni" ".zprofile" "../" ".node_repl_history" "Desktop/" ".stack/" "tmp/" ".dropbox-dist/" "\\" ".vim/" ".pentadactyl/" ".newsbeuter/" ".irssi/" "downloaded/" "watch/" ".ssh/" ".viminfo")
+
+ ("/home/emmanuel/Dropbox/Research Paper Repository/" (22215 32889 956105 250000) "shinagawa2009untangling.pdf" "Manifolds in Image Science and Visualization.pdf" "lin2008riemannian.pdf" "gopalan2011domainWriteUp.pdf" "gopalan2011domain.pdf" "brun2005fast.org" "freedman2002efficient.pdf" "bo2011object.pdf" "brun2005fast.pdf" "Homology of Simplicial Complexes.pdf" "Synthetic_Differential_GeometryIntro.pdf" "li2010object.pdf" "VIVAPresentation-11-18-2015.pdf" "./" ".dropbox" "drost2010model.pdf" "2016-01-26-agenda.pdf" "../" "persisthomologymetricmeasurespaces.pdf" "persisthomologysurvey.pdf")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
