@@ -168,12 +168,12 @@ With a prefix arg, INSERT it into the buffer."
       (message
        "Copied buffer file name '%s' to the clipboard. " filename))))
 
-(defun eval-sexp-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (let ((value (eval (preceding-sexp))))
-    (backward-kill-sexp)
-    (insert (format "%s" value))))
+(defun eval-sexp-and-replace (value)
+  "Evaluate the sexp at point and replace it with its value "
+  (interactive (list (eval-last-sexp nil)))
+  (mark-sexp -1)
+  (delete-region (region-beginning) (region-end))
+  (insert (format "%S" value)))
 
 (global-set-key (kbd "C-c e") 'eval-sexp-and-replace)
 
@@ -417,8 +417,10 @@ about what flexible matching means in this context."
           (mapconcat (lambda (x) (concat "\\w*" (list x))) str "")
           "\\w*" "\\b"))
 
+;;; This is not the cleanest implementation, but it works so whatever.
 (defun eod-comment-or-uncomment-line (arg)
-  "Comment or uncomment the current line if ARG is positive."
+  "Comment or uncomment the next ARG lines. If ARG is negative,
+comment or uncomment the previous ARG lines."
   (interactive "p")
   (let (start end)
     (save-excursion
@@ -430,7 +432,11 @@ about what flexible matching means in this context."
           (end-of-line)
           (setq start (point))))
       (when (not  (eq arg 0))
-        (forward-line arg)
+        (cond
+         ((> arg 1) (forward-line arg))
+         ((< arg 0) (forward-line (+ arg 1)))
+         (t
+          (forward-line)))
         (setq end (point))
         (if (>= arg 0)
             (comment-or-uncomment-region start end)
@@ -446,6 +452,8 @@ current major mode is org-mode or latex-mode."
       (progn (insert "$$")
              (backward-char))
     (insert "$")))
+
+(global-set-key (kbd "$") 'eod-insert-dollar)
 
 (defun avy-move-region ()
   "Select two lines and move the text between them here."
@@ -463,8 +471,8 @@ current major mode is org-mode or latex-mode."
           (line-end-position)))
        pad))))
 
-;;; This isn't very satisfying. If you keyboard quit during
-;;; avy-goto-line, then fci-mode is not turned back on.
+;;; This isn't very satisfying. When `keyboard quit' is executed
+;;; during avy-goto-line, then fci-mode is not re-enabled.
 (defadvice avy-goto-line (around avy-fci activate)
   (global-fci-mode -1)
   ad-do-it
@@ -566,6 +574,36 @@ line."
       (when (< arg 0)
         (forward-line (* -1 arg))
         (forward-char col)))))
+
+(defun eod-replace-string-with-same-char (arg)
+  (interactive "c")
+  (let ((len (length (thing-at-point 'word)))
+        (location (point))
+        (bds (bounds-of-thing-at-point 'word)))
+    (delete-region (car bds) (cdr bds))
+    (insert (make-string len arg))
+    (goto-char location)))
+
+(defun eod-increment-number-at-point (arg)
+  (interactive "N")
+  (let ((num (number-at-point))
+        (p (point))
+        (bds (bounds-of-thing-at-point 'word)))
+    (when num
+      (delete-and-extract-region (car bds) (cdr bds))
+      (insert (format "%d" (+ arg num)))
+      (goto-char p))))
+
+(global-set-key (kbd "C-c +") 'eod-increment-number-at-point)
+
+(defun n-choose-k (arg1 arg2)
+  "Calculate n choose k. ARG1 must be greater than or equal to ARG2."
+  (if (and (numberp arg1) (numberp arg2)
+           (<= arg2 arg1) (>= arg2 0))
+      (let ((numerator (apply '* (number-sequence (+ 1 (- arg1 arg2)) arg1)))
+            (denominator (apply '* (number-sequence 1 arg2))))
+        (/ numerator denominator))
+    (message "What have you done?")))
 
 (provide 'init-defuns)
 ;; init-defuns.el ends here

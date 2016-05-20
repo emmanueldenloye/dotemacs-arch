@@ -16,6 +16,8 @@
     (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
     (add-to-list 'exec-path my-cabal-path))
   (setq ghc-ghc-options '("-idir1" "-idir2"))
+  (add-hook 'haskell-mode-hook (lambda ()
+                                 (setq )))
   (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
   (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
   (add-hook 'haskell-mode-hook 'subword-mode)
@@ -37,6 +39,7 @@
              ("C-c C-n C-p C-c" . haskell-process-cabal-build)
              ("C-c C-n c" . haskell-process-cabal)
              ("C-c C-o" . haskell-compile)
+             ("C-c C-d" . inferior-haskell-send-decl)
              ("C-c C-." . haskell-format-imports)
              ("C-c ." . haskell-indent-align-guards-and-rhs)
              ("C-c ?" . helm-ghc-errors)
@@ -47,8 +50,7 @@
              ("M-t" . transpose-words)
              ("C-c n i" . eod-haskell-navigate-imports)
              ("C-c n g" . haskell-navigate-imports)
-             ("C-c v c" . haskell-cabal-visit-file)
-             ("SPC" . haskell-mode-contextual-space))
+             ("C-c v c" . haskell-cabal-visit-file))
   (bind-keys :map haskell-cabal-mode-map
              ("C-c C-z" . haskell-interactive-switch)
              ("C-c C-k" . haskell-interactive-mode-clear)
@@ -81,6 +83,32 @@
   :ensure t
   :config
   (add-to-list 'company-backends 'company-cabal))
+
+(defadvice comment-dwim
+    (after haskell-fix-indentation-empty-line)
+  "Fix the comment so that it starts at the beginning of the line
+when the region is not active and the current line is empty."
+  (when (and
+         (derived-mode-p major-mode 'haskell-parent-mode)
+         (not (eq major-mode 'literate-haskell-mode))
+         (not (region-active-p))
+         ;; (= (point) (line-end-position))
+         (looking-back "^ +-- "))
+    (save-excursion
+      (back-to-indentation)
+      (delete-region (line-beginning-position) (point)))))
+
+;; (ad-activate 'comment-dwim)
+
+(defun eod-hindent-defun ()
+  "Indent the current haskell function (including the function's
+signature) surround point while not moving the point (as far the
+user can tell)."
+  (interactive)
+  (save-excursion
+    (mark-defun)
+    (next-line)
+    (hindent-reformat-region)))
 
 (defun eod-haskell-navigate-imports ()
   (interactive)
@@ -149,6 +177,8 @@ thing at point with some give delimiter."
 (add-hook 'interactive-haskell-mode-hook 'subword-mode)
 (add-hook 'interactive-haskell-mode-hook 'turn-on-smartparens-mode)
 (add-hook 'interactive-haskell-mode-hook 'company-mode)
+
+
 
 (provide 'init-haskell)
 ;;; init-haskell.el ends here

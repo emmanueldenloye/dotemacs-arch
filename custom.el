@@ -21,10 +21,10 @@
      (109 . avy-action-mark)
      (99 . avy-action-copy))))
  '(company-ghc-show-info t)
- '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
+ '(custom-enabled-themes (quote (sanityinc-solarized-light)))
  '(custom-safe-themes
    (quote
-    ("d12c2cae6c13a834084e06a3062d5a27cac7627e0872bd1728d203b46ae6a5bb" "787574e2eb71953390ed2fb65c3831849a195fd32dfdd94b8b623c04c7f753f0" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
+    ("b97a01622103266c1a26a032567e02d920b2c697ff69d40b7d9956821ab666cc" "795d8a0785b16437ee67da091c2c684e4149a12991199c7f5ae4b91637ea0c9c" "d12c2cae6c13a834084e06a3062d5a27cac7627e0872bd1728d203b46ae6a5bb" "787574e2eb71953390ed2fb65c3831849a195fd32dfdd94b8b623c04c7f753f0" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
  '(default-input-method "TeX")
  '(evil-jumper-mode t)
  '(evil-want-C-u-scroll t)
@@ -51,6 +51,7 @@
  '(main-line-color1 "#1e1e1e")
  '(main-line-color2 "#111111")
  '(main-line-separator-style (quote chamfer))
+ '(menu-bar-mode nil)
  '(powerline-color1 "#1e1e1e")
  '(powerline-color2 "#111111")
  '(save-place t nil (saveplace))
@@ -58,6 +59,7 @@
  '(set-mark-command-repeat-pop t)
  '(shm-indent-point-after-adding-where-clause t)
  '(shm-lambda-indent-style 0)
+ '(tool-bar-mode nil)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote

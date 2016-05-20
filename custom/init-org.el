@@ -11,6 +11,8 @@
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'org-mode-hook 'auto-fill-mode))
 
+;; (require 'ob-haskell)
+
 (use-package ox-latex
   :config
   (add-to-list 'org-latex-classes
@@ -21,7 +23,9 @@
                  ("\\subsubsection\{%s\}" . "\\subsubsection\{%s\}")))
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((dot . t))))
+   '((emacs-lisp . t)
+     (haskell . t)
+     (dot . t))))
 
 
 

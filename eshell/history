@@ -1,128 +1,128 @@
-(/ (* 200 199) 2)
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-hp2ps -c Isomap.hp
-zathura Isomap.ps &
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-hp2ps -c Isomap.hp
-zathura Isomap.ps &
-ls ~/Downloads/ | grep tar
-ls ~/Downloads/ | grep zi
-ls ~/Downloads/ | grep zip
-pushd ~/Downloads/
-unzip -l fwdcs145.zip 
-mv fwdcs145.zip mcatFunctionalLectureNotes.zip
+`cat /proc/loadavg | cut -c 1-4`*100  | bc
+echo `cat /proc/loadavg | cut -c 1-4`*100  
+cat /proc/loadavg | cut -c 1-4  
+free -m
+free -m | tail -n 1
+free -m | tail -n +1
+free -m | tail -n -1
+free -m 
+cd
+sudo mv /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/PKG-INFO /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/PKG-INFObackup
+sudo mv /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/SOURCES.txt /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/SOURCES.txtbackup
+sudo mv  backup
+sudo mv /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/dependency_links.txt /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/dependency_links.txtbackup
+sudo mv /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/top_level.txt /usr/lib/python3.5/site-packages/numpy-1.11.0-py3.5.egg-info/top_level.txtbackup
+sudo mv /usr/lib/python3.5/site-packages/numpy/core/tests/test_extint128.py /usr/lib/python3.5/site-packages/numpy/core/tests/test_extint128.pybackup
+sudo mv /usr/lib/python3.5/site-packages/numpy/core/tests/test_longdouble.py /usr/lib/python3.5/site-packages/numpy/core/tests/test_longdouble.pybackup
+sudo mv /usr/lib/python3.5/site-packages/numpy/core/tests/test_mem_overlap.py /usr/lib/python3.5/site-packages/numpy/core/tests/test_mem_overlap.pybackup
+sudo mv /usr/lib/python3.5/site-packages/numpy/tests/test_numpy_version.py /usr/lib/python3.5/site-packages/numpy/tests/test_numpy_version.pybackup
+sudo mv /usr/lib/python3.5/site-packages/pip/_vendor/packaging/__pycache__/requirements.cpython-35.pyc /usr/lib/python3.5/site-packages/pip/_vendor/packaging/__pycache__/requirements.cpython-35.pycbackup
+sudo mv /usr/lib/python3.5/site-packages/pip/_vendor/packaging/__pycache__/utils.cpython-35.pyc /usr/lib/python3.5/site-packages/pip/_vendor/packaging/__pycache__/utils.cpython-35.pycbackup
+sudo mv /usr/lib/python3.5/site-packages/pip/_vendor/packaging/requirements.py /usr/lib/python3.5/site-packages/pip/_vendor/packaging/requirements.pybackup
+sudo mv /usr/lib/python3.5/site-packages/pip/_vendor/packaging/utils.py /usr/lib/python3.5/site-packages/pip/_vendor/packaging/utils.pybackup
+sudo mv /usr/lib/python3.5/site-packages/pip/compat/__pycache__/ordereddict.cpython-35.pyc /usr/lib/python3.5/site-packages/pip/compat/__pycache__/ordereddict.cpython-35.pycbackup
+sudo mv /usr/lib/python3.5/site-packages/pip/compat/ordereddict.py /usr/lib/python3.5/site-packages/pip/compat/ordereddict.pybackup
+sudo mv /usr/lib/python3.5/site-packages/pip/utils/__pycache__/encoding.cpython-35.pyc /usr/lib/python3.5/site-packages/pip/utils/__pycache__/encoding.cpython-35.pycbackup
+sudo mv /usr/lib/python3.5/site-packages/pip/utils/encoding.py /usr/lib/python3.5/site-packages/pip/utils/encoding.pybackup
+sudo mv /usr/lib/python3.5/site-packages/pytz/zoneinfo/Asia/Barnaul /usr/lib/python3.5/site-packages/pytz/zoneinfo/Asia/Barnaulbackup
+sudo mv /usr/lib/python3.5/site-packages/pytz/zoneinfo/Europe/Astrakhan /usr/lib/python3.5/site-packages/pytz/zoneinfo/Europe/Astrakhanbackup
+sudo mv /usr/lib/python3.5/site-packages/pytz/zoneinfo/Europe/Ulyanovsk /usr/lib/python3.5/site-packages/pytz/zoneinfo/Europe/Ulyanovskbackup
+sudo mv /usr/lib/python3.5/site-packages/qutebrowser/html/doc/CONTRIBUTING.html /usr/lib/python3.5/site-packages/qutebrowser/html/doc/CONTRIBUTING.htmlbackup
+sudo mv /usr/lib/python3.5/site-packages/qutebrowser/html/undef_error.html /usr/lib/python3.5/site-packages/qutebrowser/html/undef_error.htmlbackup
+echo Emmanuel Denloye-Ito is such a weird person
+echo "what in the world is even going on right now"
+cd
+which git
+git clone --recursive git://git.haskell.org/ghc.git
 ls
-ls | grep zip
-popd
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm Isomap.hs
-time ./Isomap +RTS -s -hT
-ghc -O2 --make -rtsopts -fllvm testByte.hs
-ghc -O2 --make -rtsopts -fllvm testByte.hs
-time ./testByte 1 +RTS -s -hT
-time ./testByte 0 +RTS -s -hT
-time ./testByte 2 +RTS -s -hT
-time ./testByte 3 +RTS -s -hT
-time ./testByte 4 +RTS -s -hT
-time ./testByte 5 +RTS -s 
-time ./testByte 6 +RTS -s 
-time ./testByte 7 +RTS -s 
-time ./testByte 8 +RTS -s 
-time ./testByte 9 +RTS -s 
-hp2ps testByte.hp
-hp2ps -c testByte.hp
-zathura testByte.ps &
-ghc -O2 --make -rtsopts -fllvm testMNISTIsomap.hs
-time ./testMNISTIsomap +RTS -s
-time ./testMNISTIsomap 1 +RTS -s
+ls | grep ghc
+mv ghc /home/emmanuel/ 
+mv ghc /home/emmanuel/ghc8.0
+mv ghc8.0/ ghc
+ls ghc
+pwd
+cabal update
+ghc-pkg describe hmatirx
+ghc-pkg describe hmatrix
+ghc-pkg describe fgl
+ghc-pkg describe lens
+ghc-pkg describe monad-loops
+ghc-pkg describe vector
+ghc-pkg describe vector-algorithms
+cabal install hmatrix vector vector-algorithms monad-loops lens fgl
+cabal install vector vector-algorithms monad-loops lens fgl
+cabal install hmatrix
+git clone https://github.com/albertoruiz/hmatrix.git
+cd hmatrix
 ls
 cd ..
-cd freedman-writeup/src
+cd hmatrix
+cabal install hmatrix-tests
 ls
-ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs 
-time ./testMNISTSimplicialComplex 5 2 +RTS -s
-time ./testMNISTSimplicialComplex 10 2 +RTS -s
-time ./testMNISTSimplicialComplex -1 2 +RTS -s
-ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs 
-time ./testMNISTSimplicialComplex 0 2 +RTS -s
-ghc -O2 -prof -fprof-auto -fprof-cafs testMNISTSimplicialComplex: && ./testMNISTSimplicialComplex -xc
-ghc -O2 -prof -fprof-auto -fprof-cafs testMNISTSimplicialComplex.hs && ./testMNISTSimplicialComplex -xc
-ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs
-time ./testMNISTSimplicialComplex 5 2 +RTS -s
-(* 784 2)
-(/ 784 434)
-(/ 784.0 434)
-(/ 434 784.0)
-(/ 569 784.0)
-time ./testMNISTSimplicialComplex 5 0.3 +RTS -s
-ghc -O2 --make -rtsopts -fllvm testMNISTSimplicialComplex.hs
-time ./testMNISTSimplicialComplex 5 0.3 +RTS -s
-5,769,528 bytes maximum slop
+cabal install
 ls
-pushd ~
-cabal update
-cabal list Chart
-ghc-pkg describe Chart
-cabal list Chart-cairo
-ghc-pkg describe Chart-cairo
-cabal list Chart-diagrams
-cabal install Chart-diagrams
-ghc-pkg describe Chart-cairo
-ghc minfree.hs
-exit
-pwd
-df -sh
-df -hs
-df -h
-quit
-exit
-pacman -Ss opam
-packer -Ss opam
+cd packages
+ls
+cd tests
+ls
+.
+..
+ls
+cd base
+ls
+cabal install
+cd ..
+cd tests
+ls
+cabal install
+ls
+cd ..
+ls
+cd gsl
+ls
+cabal install
+cd ..
+cd special
+cabal install
+..
+ls
+cd sparse
+cabal install
+pacman -Ss mkl_
+packer -Ss mkl_
+cd ..
+ls
+cd glpk
+ls
+cabal install
+cd ..
+ls
+cd ..
+ls
+cd examples
+ls
+cd ..
+ls
+cd
+ghc-pkg describe hmatrx
+ghc-pkg describe hmatrix
+cd Dropbox/haskell/homologyWork/freedman-writeup/src
+ls
+cd ..
+ls
+stack setup
+stack build
+ghc-pkg describe fgl
+ls
+cd ..
+l
+ls
+cd qhull-simple-0.1-patched/
+ls
+cabal install
+cd
+cabal instal pointfree
+cabal install pointfree
+cabal install hindent
+ghc-pkg unregister qhull
+ghc-pkg unregister qhull-simple

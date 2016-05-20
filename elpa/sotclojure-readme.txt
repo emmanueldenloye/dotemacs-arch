@@ -56,10 +56,3 @@
   │ (when-let [{:keys [x]}
   │            (and (number? y) (first y))])
   └────
-
-
-(require 'sotlisp)
-(require 'clojure-mode)
-(require 'cider)
-
-

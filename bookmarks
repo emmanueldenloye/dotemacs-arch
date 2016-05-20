@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("setup-haskell.el"
+(("init-haskell.el"
+ (filename . "~/.emacs.d/custom/init-haskell.el")
+ (front-context-string . "(defun eod-hinde")
+ (rear-context-string . "ompany-cabal))\n\n")
+ (position . 3389))
+("setup-haskell.el"
  (filename . "~/.emacs.d/custom/setup-haskell.el")
  (front-context-string . "\n\n(add-hook 'inf")
  (rear-context-string . "skell-mode +1)))")

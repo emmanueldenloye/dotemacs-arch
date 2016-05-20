@@ -29,13 +29,13 @@
   (helm-mode 1)
   (helm-autoresize-mode t)
   (setq
-   helm-split-window-in-side-p t	;open helm buffer inside current window,
+   helm-split-window-in-side-p t ;open helm buffer inside current window,
                                         ;not occupy whole other window
    helm-move-to-line-cycle-in-source t ;move to end or beginning of source when
                                         ;reaching top or bottom of source.
-   helm-ff-search-libray-in-sexp t     ; search for library in `require' and
+   helm-ff-search-libray-in-sexp t ; search for library in `require' and
                                         ;`declare-function' sexp.
-   helm-scroll-amount t                ; scroll 8 lines other window using
+   helm-scroll-amount t            ; scroll 8 lines other window using
                                         ;M-<next>/M-<prior>
    helm-ff-file-name-history-use-recentf t
    helm-M-x-fuzzy-match t
@@ -50,7 +50,11 @@
    helm-mode-fuzzy-match t
    helm-input-idle-delay 0.02
    helm-candidate-number-limit 100
+   helm-autoresize-max-height 30
+   helm-autoresize-min-height 30
+   helm-display-header-line nil
    helm-locate-fuzzy-match t)
+  (set-face-attribute 'helm-source-header nil :height 0.1)
   (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
   (add-to-list
    'helm-boring-file-regexp-list

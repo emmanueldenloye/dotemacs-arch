@@ -1,4 +1,4 @@
-;; udate any change made on file to the current buffer
+;; update any change made on file to the current buffer
 (global-auto-revert-mode)
 
 (global-set-key (kbd "C-x a r") 'align-regexp)
@@ -45,7 +45,7 @@
       )
 
 (setq
- kill-ring-max 5000			; increase kill-ring capacity
+ kill-ring-max 5000			; increase kill-ring capacity.
  kill-whole-line t			; if NIL, kill whole line and move the next line up
  )
 
@@ -213,7 +213,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;;     `(eval-after-load ,feature
 ;;        '(progn ,@body))))
 
-;;; This is very important to get right.
+;;; This is very important to get right!
 (use-package tetris
   :config
   (define-key tetris-mode-map (kbd "c") 'tetris-rotate-prev)
@@ -244,7 +244,7 @@ new window."
                                            "tmp" (buffer-name b))))
                                     b
                                   nil))
-                              (buffer-list))))) )
+                              (buffer-list))))))
         (sb (lambda (b) (switch-to-buffer
                     (completing-read "Go to Haskell file: " b))))
         (sw (lambda (b) (switch-to-buffer-other-window
@@ -255,8 +255,11 @@ new window."
 
 (global-set-key (kbd "C-c b h") 'haskell-buffer-list)
 
+(global-set-key (kbd "M-W") 'delete-region)
+
 (display-time-mode 1)
 
-;;; Keybindings for tetris in emacs are really important!!!!!!!
+(setq browse-kill-ring-recenter t)      ;This makes the browse-kill-ring buffer less annoying to read.
+
 (provide 'init-misc)
 ;; init-misc.el ends here
