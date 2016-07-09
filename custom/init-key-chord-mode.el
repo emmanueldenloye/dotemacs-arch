@@ -10,7 +10,7 @@
                            'switch-to-previous-buffer-other-window)
   (key-chord-define-global ";w" 'ace-window)
   (key-chord-define-global "uu" 'undo-tree-visualize)
-  (key-chord-define-global ";d" 'duplicate-thing)
+  (key-chord-define-global ";d" 'eod-duplicate-line)
   (key-chord-define-global ";b" 'helm-mini)
   (key-chord-define-global ";f" 'helm-find-files)
   (key-chord-define-global "yy" 'browse-kill-ring)

@@ -24,21 +24,29 @@
   (setq evil-motion-state-cursor '("blue" box)))
 
 (use-package evil-surround
-  :ensure t)
+  :ensure t
+  :defer  t)
 (use-package evil-anzu
-  :ensure t)
+  :ensure t
+  :defer  t)
 (use-package evil-numbers
-  :ensure t)
+  :ensure t
+  :defer  t)
 (use-package evil-easymotion
-  :ensure t)
+  :ensure t
+  :defer  t)
 (use-package evil-mark-replace
-  :ensure t)
+  :ensure t
+  :defer  t)
 (use-package evil-jumper
-  :ensure t)
+  :ensure t
+  :defer  t)
 (use-package evil-visualstar
-  :ensure t)
+  :ensure t
+  :defer  t)
 (use-package evil-leader
   :ensure t
+  :defer  t
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key

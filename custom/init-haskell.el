@@ -59,11 +59,12 @@
              ("C-c C-o" . haskell-compile))
   (use-package hare
     :init
-    (add-to-list 'load-path "~/.cabal/share/HaRe-0.8.2.3/elisp")
+    ;; (add-to-list 'load-path "~/.cabal/share/HaRe-0.8.2.3/elisp")
+    ;; (autoload 'hare-init "hare" nil t)
     (add-to-list 'load-path "~/.cabal/share/i386-linux-ghc-7.10.3/HaRe-0.8.2.3/elisp")
-    (autoload 'hare-init "hare" nil t)
     :config
-    (add-hook 'haskell-mode-hook (lambda () (hare-init)))))
+    ;; (add-hook 'haskell-mode-hook (lambda () (hare-init)))
+    ))
 
 (use-package haskell-process)
 
@@ -142,11 +143,17 @@ thing at point with some give delimiter."
 (defun haskell-simple-run ()
   "Run the current haskell file using \"runhaskell\"."
   (interactive)
-  (when (eq major-mode 'haskell-mode)
-    (async-shell-command
-     (concat
-      "runhaskell "
-      (filename (buffer-file-name))))))
+  (let ((arguments
+         (format
+          "%s"
+          (read-from-minibuffer "Enter arguments (if any): "))))
+    (when (eq major-mode 'haskell-mode)
+      (async-shell-command
+       (concat
+        "runhaskell "
+        (buffer-file-name)
+        " "
+        arguments)))))
 
 (defun  haskell-auto-insert-module-template ()
   "Insert  a module template for the newly created buffer."
@@ -164,10 +171,11 @@ thing at point with some give delimiter."
       (if (string= name "")
           (insert "Main")
         (insert name)))
-    (insert " where"
-            "\n"
-            "\n"
-            )
+    (insert
+     " where"
+     "\n"
+     "\n"
+     )
     (goto-char (point-min))
     (forward-char 4)))
 
@@ -177,8 +185,6 @@ thing at point with some give delimiter."
 (add-hook 'interactive-haskell-mode-hook 'subword-mode)
 (add-hook 'interactive-haskell-mode-hook 'turn-on-smartparens-mode)
 (add-hook 'interactive-haskell-mode-hook 'company-mode)
-
-
 
 (provide 'init-haskell)
 ;;; init-haskell.el ends here

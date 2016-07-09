@@ -1,0 +1,9 @@
+data/gap-process.el.i
+data/README.txt.i
+data/gap-mode.el.i
+data/.hgignore.i
+data/emacs.gaprc.i
+data/gap-smie.el.i
+data/comint.el.i
+data/gap-mode.doc.i
+data/README.md.i

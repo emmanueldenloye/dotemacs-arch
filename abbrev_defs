@@ -3,6 +3,8 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
+(define-abbrev-table 'bibtex-mode-abbrev-table '())
+
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
@@ -25,6 +27,8 @@
 
 (define-abbrev-table 'dig-mode-abbrev-table '())
 
+(define-abbrev-table 'display-time-world-mode-abbrev-table '())
+
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
@@ -32,6 +36,10 @@
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'erc-list-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'erc-mode-abbrev-table '())
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
@@ -41,7 +49,10 @@
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
-(define-abbrev-table 'global-abbrev-table '())
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ("eod" "Emmanuel Oluwadurotimi Denloye-Ito" nil 7)
+   ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
@@ -140,6 +151,8 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'pianobar-mode-abbrev-table '())
+
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
@@ -168,6 +181,8 @@
 
 (define-abbrev-table 'term-mode-abbrev-table '())
 
+(define-abbrev-table 'tetris-mode-abbrev-table '())
+
 (define-abbrev-table 'text-mode-abbrev-table '())
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
@@ -185,4 +200,3 @@
 (define-abbrev-table 'vc-mtn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
-

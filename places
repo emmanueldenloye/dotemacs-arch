@@ -1,47 +1,147 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/emmanuel/.emacs.d/recentf" . 6858)
- ("/home/emmanuel/.emacs.d/custom.el" . 880)
+(("/tmp/global.js" . 2291)
+ ("/home/emmanuel/.emacs.d/recentf" . 11078)
  ("/home/emmanuel/.emacs.d/eshell/alias" . 195)
+ ("/home/emmanuel/.emacs.d/custom/"
+  (dired-filename . "/home/emmanuel/.emacs.d/custom/init-ercn.el"))
+ ("/home/emmanuel/.emacs.d/custom/init-ercn.el" . 133)
+ ("/home/emmanuel/.emacs.d/xkcd/1685.json" . 336)
+ ("/home/emmanuel/"
+  (dired-filename . "/home/emmanuel/auto"))
+ ("/home/emmanuel/.emacs.d/custom/init-misc.el" . 3867)
+ ("/usr/share/emacs/24.5/lisp/loaddefs.el" . 297114)
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/stack.yaml" . 81)
+ ("/home/emmanuel/.cabal/packages/hackage.haskell.org/hmatrix/0.17.0.1/"
+  (dired-filename . "/home/emmanuel/.cabal/packages/hackage.haskell.org/hmatrix/0.17.0.1/.."))
+ ("/home/emmanuel/.cabal/packages/hackage.haskell.org/hmatrix/"
+  (dired-filename . "/home/emmanuel/.cabal/packages/hackage.haskell.org/hmatrix/.."))
+ ("/home/emmanuel/.cabal/packages/hackage.haskell.org/hmatrix-tests/"
+  (dired-filename . "/home/emmanuel/.cabal/packages/hackage.haskell.org/hmatrix-tests/0.5.0.0"))
+ ("/home/emmanuel/.cabal/packages/"
+  (dired-filename . "/home/emmanuel/.cabal/packages/hackage.haskell.org"))
+ ("/home/emmanuel/hmatrix/"
+  (dired-filename . "/home/emmanuel/hmatrix/packages"))
+ ("/home/emmanuel/hmatrix/packages/"
+  (dired-filename . "/home/emmanuel/hmatrix/packages/base"))
+ ("/home/emmanuel/.cabal/"
+  (dired-filename . "/home/emmanuel/.cabal/packages"))
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/"
+  (dired-filename . "/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/LocalRegionEdgeSet.hs"))
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/freedman-writeup.cabal" . 1023)
+ ("/home/emmanuel/Downloads/"
+  (dired-filename . "/home/emmanuel/Downloads/ihaskell-hatex (1).cabal"))
+ ("/"
+  (dired-filename . "/lib64"))
+ ("/lib64/"
+  (dired-filename . "/lib64/gap"))
+ ("/lib64/gap/bin/"
+  (dired-filename . "/lib64/gap/bin/gapicon.ico"))
+ ("/lib64/gap/prim/"
+  (dired-filename . "/lib64/gap/prim/grps"))
+ ("/lib64/gap/pkg/homalg/examples/"
+  (dired-filename . "/lib64/gap/pkg/homalg/examples/Hom(Hom(-,Z128),Z16)_On_Seq.g"))
+ ("/lib64/gap/pkg/homalg/"
+  (dired-filename . "/lib64/gap/pkg/homalg/examples"))
+ ("/lib64/gap/pkg/homology/doc/"
+  (dired-filename . "/lib64/gap/pkg/homology/doc/about.tex"))
+ ("/lib64/gap/pkg/homology/src/Commentator/"
+  (dired-filename . "/lib64/gap/pkg/homology/src/Commentator/commentator.cc"))
+ ("/lib64/gap/pkg/homology/src/Pascal/"
+  (dired-filename . "/lib64/gap/pkg/homology/src/Pascal/arith_gmp.pas"))
+ ("/lib64/gap/pkg/homology/src/Smith/"
+  (dired-filename . "/lib64/gap/pkg/homology/src/Smith/Generic"))
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/testSineSimplicial.hs" . 429)
+ ("/lib64/gap/pkg/homology/src/"
+  (dired-filename . "/lib64/gap/pkg/homology/src/Smith"))
+ ("/lib64/gap/pkg/homology/gap/"
+  (dired-filename . "/lib64/gap/pkg/homology/gap/simplicialhomology.gi"))
+ ("/lib64/gap/pkg/homology/"
+  (dired-filename . "/lib64/gap/pkg/homology/gap"))
+ ("/lib64/gap/pkg/"
+  (dired-filename . "/lib64/gap/pkg/HomalgToCAS"))
+ ("/lib64/gap/trans/"
+  (dired-filename . "/lib64/gap/trans/trans10.grp"))
+ ("/lib64/gap/tst/teststandard/"
+  (dired-filename . "/lib64/gap/tst/teststandard/arithlst.tst"))
+ ("/lib64/gap/tst/example-dir/dir-test/D/"
+  (dired-filename . "/lib64/gap/tst/example-dir/dir-test/D/b"))
+ ("/lib64/gap/tst/example-dir/dir-test/"
+  (dired-filename . "/lib64/gap/tst/example-dir/dir-test/D"))
+ ("/lib64/gap/tst/example-dir/"
+  (dired-filename . "/lib64/gap/tst/example-dir/readme.txt"))
+ ("/lib64/gap/tst/"
+  (dired-filename . "/lib64/gap/tst/example-dir"))
+ ("/lib64/gap/"
+  (dired-filename . "/lib64/gap/lib"))
+ ("/home/emmanuel/.emacs.d/init.el" . 1281)
+ ("/lib64/gap/pkg/homology/gap/simplicialhomology.gi" . 1361)
+ ("/lib64/gap/pkg/HomalgToCAS/"
+  (dired-filename . "/lib64/gap/pkg/HomalgToCAS/README"))
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/Homology.hs" . 7926)
+ ("/home/emmanuel/Dropbox/haskell/random/primes.hs" . 256)
+ ("/home/emmanuel/.emacs.d/elpa/helm-core-20150908.916/helm.el" . 175940)
+ ("/home/emmanuel/.emacs.d/custom/init-key-chord-mode.el" . 477)
+ ("/home/emmanuel/.emacs.d/custom/init-cpp.el" . 52)
+ ("/home/emmanuel/.emacs.d/custom/init-gap.el" . 334)
+ ("/lib64/gap/tst/polytest.g" . 515)
+ ("/home/emmanuel/.emacs.d/custom/init-flyspell.el" . 278)
+ ("/lib64/gap/pkg/homology/init.g" . 176)
+ ("/lib64/gap/pkg/homology/doc/about.tex" . 3806)
+ ("/lib64/gap/pkg/homology/doc/manual.tex" . 2577)
+ ("/lib64/gap/pkg/homology/doc/homology.tex" . 5140)
+ ("/lib64/gap/pkg/homalg/examples/Hom(Hom(-,Z128),Z16)_On_Seq.g" . 6780)
+ ("/lib64/gap/pkg/homology/configure" . 8486)
+ ("/lib/gap/pkg/homology/README.html" . 4)
+ ("/home/emmanuel/dropboxError.txt" . 304)
+ ("/home/emmanuel/.emacs.d/custom/init-pianobar.el" . 376)
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/BuildSimplexes.hs" . 362)
+ ("/home/emmanuel/.emacs.d/custom/init-defuns.el" . 11472)
+ ("/usr/share/emacs/24.5/lisp/erc/erc-desktop-notifications.el.gz" . 3121)
+ ("/home/emmanuel/.emacs.d/elpa/haskell-mode-13.20/haskell.el" . 18255)
+ ("/home/emmanuel/.emacs.d/elpa/ercn-1.1.1/ercn-autoloads.el" . 663)
+ ("/home/emmanuel/.emacs.d/url/cookies" . 1411)
+ ("/home/emmanuel/generatorClass.py" . 445)
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/qhull-simple-0.1-patched/src/Numeric/Qhull.hs" . 5228)
+ ("/home/emmanuel/.zshrc" . 1189)
+ ("/home/emmanuel/.emacs.d/custom.el" . 3847)
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/qhull-simple-0.1-patched/qhull-simple.cabal" . 2289)
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/qhull-simple-0.1-patched/foreign-src/qhull_wrapper.h" . 36)
+ ("/home/emmanuel/Dropbox/haskell/homologyWork/qhull-simple-0.1-patched/foreign-src/qhull_wrapper.c" . 2692)
+ ("/home/emmanuel/.emacs.d/abbrev_defs" . 2177)
+ ("/home/emmanuel/.emacs.d/README.md" . 29)
+ ("/home/emmanuel/.pentadactylrc" . 2314)
+ ("/home/emmanuel/hmatrix/INSTALL.md" . 842)
+ ("/home/emmanuel/.cabal/config" . 799)
  ("/home/emmanuel/.emacs.d/"
   (dired-filename . "/home/emmanuel/.emacs.d/custom"))
- ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/Homology.hs" . 5843)
  ("/tmp/"
   (dired-filename . "/tmp/category.hs"))
- ("/home/emmanuel/.emacs.d/custom/init-defuns.el" . 14959)
  ("/home/emmanuel/.emacs.d/custom/init-haskell.el" . 2485)
  ("/home/emmanuel/.emacs.d/elpa/haskell-mode-13.20/haskell-mode.el" . 34609)
  ("/home/emmanuel/.emacs.d/custom/init-vimish.el" . 167)
- ("/home/emmanuel/.emacs.d/init.el" . 1280)
- ("/tmp/TAGS" . 6128)
  ("/home/emmanuel/Dropbox/haskell/manifoldAlgos/"
   (dired-filename . "/home/emmanuel/Dropbox/haskell/manifoldAlgos/Isomap.prof"))
  ("/home/emmanuel/Dropbox/haskell/manifoldAlgos/testMNISTIsomap.hs" . 1138)
  ("/home/emmanuel/Dropbox/haskell/PDFS/FunctionalDifferentialGeometry.pdf"
   (dired-filename . "/home/emmanuel/Dropbox/haskell/PDFS/FunctionalDifferentialGeometry.pdf"))
- ("/home/emmanuel/.emacs.d/custom/init-misc.el" . 6616)
- ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/BuildSimplexes.hs" . 1758)
  ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/ignoreDump/tmp.hs" . 1521)
  ("/home/emmanuel/.emacs.d/elpa/browse-kill-ring-2.0.0/browse-kill-ring.el" . 9553)
  ("/usr/share/emacs/24.5/etc/NEWS" . 52)
  ("/home/emmanuel/.emacs.d/elpa/yasnippet-20150912.1330/snippets/haskell-mode/instance" . 25)
  ("/home/emmanuel/tmp2.hs" . 338)
  ("/home/emmanuel/.emacs.d/custom/init-org.el" . 402)
- ("/usr/share/emacs/24.5/lisp/loaddefs.el" . 280467)
  ("/home/emmanuel/.emacs.d/elpa/paredit-20150217.713/paredit.el" . 77372)
  ("/home/emmanuel/.emacs.d/elpa/smartparens-20150813.1451/smartparens.el" . 201168)
  ("/usr/share/emacs/24.5/lisp/newcomment.el.gz" . 52419)
  ("/usr/share/emacs/24.5/lisp/org/ob-haskell.el.gz" . 1933)
  ("/home/emmanuel/.emacs.d/elpa/helm-dash-1.2.0/helm-dash-autoloads.el" . 1014)
  ("/home/emmanuel/Dropbox/haskell/homologyWork/freedman-writeup/src/TangentSpaces.hs" . 3163)
- ("/home/emmanuel/.emacs.d/elpa/aggressive-indent-1.7/aggressive-indent-autoloads.el" . 2123)
  ("/home/emmanuel/.emacs.d/elpa/dracula-theme-1.2.5/dracula-theme-autoloads.el" . 427)
  ("/home/emmanuel/.emacs.d/elpa/keyfreq-1.8/keyfreq-autoloads.el" . 1485)
  ("/home/emmanuel/Dropbox/haskell/manifoldAlgos/Isomap.hs" . 157)
  ("/usr/share/emacs/24.5/lisp/simple.el.gz" . 20901)
  ("/home/emmanuel/game.py" . 471)
  ("/home/emmanuel/.emacs.d/custom/init-ace-jump-line.el" . 95)
- ("/home/emmanuel/.emacs.d/elpa/vimish-fold-0.2.1/vimish-fold-autoloads.el" . 2950)
- ("/home/emmanuel/.zshrc" . 448)
  ("/home/emmanuel/Dropbox/haskell/homologyWork/.gitignore" . 430)
  ("/home/emmanuel/.xmonad/xmonad.hs" . 981)
  ("/home/emmanuel/.config/conky/conky.conf" . 1409)
@@ -69,16 +169,13 @@
  ("/home/emmanuel/Dropbox/haskell/brun_fast_git/Main.hs" . 2108)
  ("/home/emmanuel/itch.hs" . 238)
  ("/usr/share/emacs/24.5/lisp/emacs-lisp/lisp.el.gz" . 21381)
- ("/home/emmanuel/.emacs.d/elpa/beacon-1.3.0/beacon-autoloads.el" . 1177)
  ("/home/emmanuel/.emacs.d/elpa/evil-snipe-2.0.1/evil-snipe-autoloads.el" . 3082)
  ("/home/emmanuel/.emacs.d/elpa/haskell-mode-13.20/haskell-mode-autoloads.el" . 34501)
  ("/home/emmanuel/.emacs.d/elpa/evil-20150912.1655/evil-common.el" . 32252)
- ("/home/emmanuel/.emacs.d/custom/init-pianobar.el" . 376)
  ("/home/emmanuel/.emacs.d/custom/init-emacs-lisp.el" . 332)
  ("/usr/share/emacs/24.5/lisp/window.el.gz" . 182764)
  ("/home/emmanuel/panGalaticDiv.hs" . 333)
  ("/home/emmanuel/.emacs.d/custom/init-flycheck.el" . 183)
- ("/home/emmanuel/.emacs.d/custom/init-flyspell.el" . 278)
  ("/home/emmanuel/.ghci" . 439)
  ("/usr/share/emacs/24.5/lisp/speedbar.el.gz" . 14334)
  ("/usr/share/emacs/24.5/lisp/play/zone.el.gz" . 6382)
@@ -89,8 +186,6 @@
  ("/usr/share/emacs/24.5/lisp/delsel.el.gz" . 12581)
  ("/home/emmanuel/TAGS" . 379690)
  ("/home/emmanuel/.emacs.d/elpa/use-package-20150906.2051/use-package.el" . 17433)
- ("/home/emmanuel/Downloads/"
-  (dired-filename . "/home/emmanuel/Downloads/256_ObjectCategories.tar"))
  ("/home/emmanuel/Dropbox/haskell/manifoldAlgos/LLE.hs" . 1157)
  ("/home/emmanuel/.emacs.d/elpa/duplicate-thing-20120515.948/duplicate-thing.el" . 1248)
  ("/home/emmanuel/.emacs.d/elpa/elisp-slime-nav-20150805.1248/elisp-slime-nav.el" . 876)
@@ -180,7 +275,6 @@
  ("/home/emmanuel/haskell/manifoldRML/Main.hs" . 19)
  ("/home/emmanuel/Dropbox/haskell/random/testThomas.hs" . 84)
  ("/home/emmanuel/Dropbox/haskell/random/undirGraph.hs" . 2867)
- ("/home/emmanuel/.pentadactylrc" . 4655)
  ("/home/emmanuel/.cabal/packages/hackage.haskell.org/ghc-mod/5.4.0.0/ghc-mod-5.4.0.0.tar.gz" . 211)
  ("/home/emmanuel/.i3/config" . 6606)
  ("/home/emmanuel/.emacs.d/tutorial/"

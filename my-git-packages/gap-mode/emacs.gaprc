@@ -1,0 +1,39 @@
+# -*- gap -*-
+
+# Override the screen help mechanism to be more robust and faster.
+if IsBound(HELP_VIEWER_INFO) and IsRecord(HELP_VIEWER_INFO) then
+
+    HELP_VIEWER_INFO.orig_screen := HELP_VIEWER_INFO.screen;
+    HELP_VIEWER_INFO.screen := rec( type := "text",
+                                    show := function(lines)
+        local tmpDir, filename;
+
+        # Standardize input
+        if not IsRecord( lines ) then
+            lines := rec(lines := lines,
+                         exitAtEnd := true,
+                         start := 0 );
+        fi;
+
+        # Dump all the data to a temp file.  This should be much
+        # faster than paging it all, and we don't have to worry about
+        # incorrectly parsing the paging construct if it ever changes.
+        tmpDir := DirectoryTemporary( );
+        filename := Filename( tmpDir, "emacs.help" );
+        FileString( filename, lines.lines );
+
+        # This is what emacs will parse to know where to look for help data
+        Print( "GAP Help in ", filename, " with offset ", lines.start );
+    end );
+
+fi;
+
+if IsBound(GAPInfo.UseReadline) then
+    Print( "\n\n\tIt appears that you have readline editing enabled.\n" );
+    Print( "\tThis is known to cause problems in which the output is not displayed.\n" );
+    Print( "\tIf you experience such problems, please customize `gap-start-options'\n" );
+    Print( "\tand add or remove \"-E\"\n\n" );
+    Print( "\tTo do this, position you cursor after the closing parenthesis below\n");
+    Print( "\tand type Control-x Control-e.\n\n" );
+    Print( "\t(customize-variable 'gap-start-options)\n\n\n" );
+fi;

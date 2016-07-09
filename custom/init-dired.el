@@ -30,7 +30,8 @@
 (use-package dired-x
   :defer t
   :config
-  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode)))) ; provide extra commands dired
+  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode)))
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))) ; provide extra commands dired
 
 (use-package dired+
   :defer t)
@@ -45,6 +46,8 @@
 
 
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+
+(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
 
 (provide 'init-dired)
 ;; init-dired.el ends here

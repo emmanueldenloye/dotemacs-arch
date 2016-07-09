@@ -9,6 +9,7 @@
         '(self-insert-commands
           abort-recursive-edit
           previous-line
+          keyboard-quit
           next-line))
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))

@@ -23,14 +23,16 @@
    'paredit-close-round))
 
 (defun  paredit-barf-all-the-way-backward ()
-  "Barf all the items from point to beginning of sexp out."
+  "Barf all the items from point to beginning of sexp surrounding
+the point out."
   (interactive)
   (paredit-split-sexp)
   (paredit-backward-down)
   (paredit-splice-sexp))
 
 (defun paredit-barf-all-the-way-forward ()
-  "Barf all the items from point to end of sexp out."
+  "Barf all the items from point to end of the sexp surrounding
+the point out."
   (interactive)
   (paredit-split-sexp)
   (paredit-forward-down)

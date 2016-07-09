@@ -28,7 +28,15 @@ NEW-NAME."
   "Create a new scratch buffer."
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch*"))
-  (emacs-lisp-mode))
+  (emacs-lisp-mode)
+  (insert
+   (format
+    ";; %s\n\n"
+    (replace-regexp-in-string
+     "\n" "\n;; " ; comment each line
+     (replace-regexp-in-string
+      "\n$" "" ; remove trailing linebreak
+      (shell-command-to-string "fortune"))))))
 
 (defun my-insert-last-kbd-macro ()
   "Insert the last keyboard macro into current buffer."
@@ -45,11 +53,13 @@ file `PATTERNS'."
 (defun switch-to-previous-buffer ()
   "Switch to previous buffer."
   (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) 1)))
+  (switch-to-buffer
+   (other-buffer (current-buffer) 1)))
 
 (defun switch-to-previous-buffer-other-window ()
   (interactive)
-  (switch-to-buffer-other-window (other-buffer (current-buffer) 1)))
+  (switch-to-buffer-other-window
+   (other-buffer (current-buffer) 1)))
 
 (defun eod-kill-buffer ()
   "Kill the current buffer."
@@ -96,6 +106,15 @@ minibuffer area."
            (file-exists-p filename)
            (not (eq major-mode 'dired-mode)))
       (message (file-name-directory filename)))))
+
+(defun eod-get-buffer-filename ()
+  "Place the buffer's filename at the top of the kill ring."
+  (let ((filename (buffer-file-name)))
+    (when (and
+           (not (file-directory-p filename))
+           (file-exists-p filename)
+           (not (eq major-mode 'dired-mode)))
+      (kill-new filename))))
 
 (defun dont-kill-emacs ()
   (interactive)
@@ -353,6 +372,7 @@ interactive command to search through them"
 (add-hook 'emacs-startup-hook 'toggle-window-split)
 
 (global-set-key (kbd "C-c C-)") 'toggle-window-split)
+(global-set-key (kbd "C-c )") 'toggle-window-split)
 
 (defun prelude-colorize-compilation-buffer ()
   "Colorize a compilation buffer."
@@ -431,7 +451,7 @@ comment or uncomment the previous ARG lines."
         (progn
           (end-of-line)
           (setq start (point))))
-      (when (not  (eq arg 0))
+      (when (not (eq arg 0))
         (cond
          ((> arg 1) (forward-line arg))
          ((< arg 0) (forward-line (+ arg 1)))
@@ -585,16 +605,29 @@ line."
     (goto-char location)))
 
 (defun eod-increment-number-at-point (arg)
-  (interactive "N")
-  (let ((num (number-at-point))
-        (p (point))
-        (bds (bounds-of-thing-at-point 'word)))
-    (when num
-      (delete-and-extract-region (car bds) (cdr bds))
-      (insert (format "%d" (+ arg num)))
-      (goto-char p))))
+  (interactive "p")
+  (let ((num
+         (number-at-point))
+        (start
+         (car (bounds-of-thing-at-point 'word)))
+        (end
+         (cdr (bounds-of-thing-at-point 'word))))
+    (when (numberp num)
+      (delete-and-extract-region start end)
+      (insert (format "%d" (+ num arg))))))
 
-(global-set-key (kbd "C-c +") 'eod-increment-number-at-point)
+(global-set-key (kbd "C-c C-+") 'eod-increment-number-at-point)
+
+(defun eod-increment-inner-number (arg)
+  (interactive "p")
+  (insert
+   (format
+    "%d"
+    (+ arg
+       (string-to-int
+        (delete-and-extract-region
+         (1+ (search-backward-regexp "[^0-9]+"))
+         (search-forward-regexp "[0-9]+")))))))
 
 (defun n-choose-k (arg1 arg2)
   "Calculate n choose k. ARG1 must be greater than or equal to ARG2."
@@ -604,6 +637,17 @@ line."
             (denominator (apply '* (number-sequence 1 arg2))))
         (/ numerator denominator))
     (message "What have you done?")))
+
+(defun eod-delete-region ()
+  (interactive)
+  (when
+      (and (string-match
+            "undefined"
+            (format "%s" (describe-key-briefly (kbd "C-c d"))))
+           (not
+            (member major-mode
+                    '(lisp-interaction-mode 'emacs-lisp-mode))))
+    (local-set-key (kbd "C-c d") 'delete-region)))
 
 (provide 'init-defuns)
 ;; init-defuns.el ends here

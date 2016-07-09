@@ -21,7 +21,7 @@
      (109 . avy-action-mark)
      (99 . avy-action-copy))))
  '(company-ghc-show-info t)
- '(custom-enabled-themes (quote (sanityinc-solarized-light)))
+ '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
  '(custom-safe-themes
    (quote
     ("b97a01622103266c1a26a032567e02d920b2c697ff69d40b7d9956821ab666cc" "795d8a0785b16437ee67da091c2c684e4149a12991199c7f5ae4b91637ea0c9c" "d12c2cae6c13a834084e06a3062d5a27cac7627e0872bd1728d203b46ae6a5bb" "787574e2eb71953390ed2fb65c3831849a195fd32dfdd94b8b623c04c7f753f0" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
@@ -88,7 +88,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "Source Code Pro"))))
+ '(default ((t
+             (:inherit nil
+                       :stipple nil
+                       :inverse-video nil
+                       :box nil
+                       :strike-through nil
+                       :overline nil
+                       :underline nil
+                       :slant normal
+                       :weight normal
+                       :height 120
+                       :width normal
+                       :foundry "unknown"
+                       :family "Monaco"))))
  '(cursor ((t (:background "#Ff69b4")))))
 
 ;;; I don't really use shm-current-face.

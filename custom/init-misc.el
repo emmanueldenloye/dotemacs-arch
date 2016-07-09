@@ -135,7 +135,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;; the blinking cursor is nothing but an annoyance
 (blink-cursor-mode -1)
 
-(setq-default cursor-type 'box)
+(setq-default cursor-type 'bar)
 
 (setq scroll-margin 0
       scroll-conservatively 100000
@@ -162,7 +162,7 @@ point reaches the beginning or end of the buffer, stop there."
   (global-whitespace-mode -1))
 
 (setq user-mail-address "emmanuel.denloye@gmail.com"
-      user-full-name "Emmanuel Denloye-Ito")
+      user-full-name "Emmanuel Oluwadurotimi Denloye-Ito")
 
 (use-package info+
   :ensure t
@@ -255,11 +255,24 @@ new window."
 
 (global-set-key (kbd "C-c b h") 'haskell-buffer-list)
 
-(global-set-key (kbd "M-W") 'delete-region)
-
 (display-time-mode 1)
 
 (setq browse-kill-ring-recenter t)      ;This makes the browse-kill-ring buffer less annoying to read.
+
+(add-hook 'messages-buffer-mode-hook
+          (lambda () (turn-off-fci-mode)))  ;I don't want to see that annoying line.
+
+(add-hook 'occur-mode-hook (lambda () (next-error-follow-minor-mode)))
+
+(add-hook 'prog-mode-hook 'eod-delete-region)
+
+(key-chord-define-global ",+" 'er/expand-region)
+
+;;; I love Emacs! Every desire can be fulfilled. It is invigorating!!!!
+(defadvice push-button (around push-button activate)
+  (when (eq major-mode 'help-mode)
+    ad-do-it
+    (recenter-top-bottom)))
 
 (provide 'init-misc)
 ;; init-misc.el ends here

@@ -23,7 +23,11 @@
    ("M-g g" . avy-goto-line)
    ("M-g M-g" . avy-goto-line))
   :config
-  (avy-setup-default))
+  (avy-setup-default)
+  (defadvice avy-goto-line (after avy-goto-line-indentation)
+    (when (derived-mode-p 'prog-mode 'org-mode)
+      (back-to-indentation)))
+  (ad-activate 'avy-goto-line))
 
 (provide 'init-avy)
 ;; init-avy.el ends here
