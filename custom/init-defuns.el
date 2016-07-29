@@ -44,6 +44,8 @@ NEW-NAME."
   (name-last-kbd-macro 'my-last-macro)
   (insert-kbd-macro 'my-last-macro))
 
+
+
 (defun add-auto-mode (mode &rest patterns)
   "Add entries to `auto-mode-alist' to use `MODE' for all given
 file `PATTERNS'."
@@ -242,15 +244,18 @@ With a prefix arg, INSERT it into the buffer."
   (interactive)
   (async-shell-command "dropbox-cli status"))
 
-(defun eod-dropbbox-print-directory-status ()
-  "Print the status of the file's current directory."
+(defun eod-dropbox-print-directory-status ()
+  "Print the status of the file's current directory.
+This still needs some work."
   (interactive)
-  (when (file-in-directory-p
-         (buffer-file-name)
-         "~/Dropbox")
-    (async-shell-command
-     (concat "dropbox-cli filestatus "
-             (file-name-directory (buffer-file-name))))))
+  (let (file (buffer-file-name))
+    (if (and (file-exists-p file)
+             (file-in-directory-p file "~/Dropbox"))
+        (async-shell-command
+         (concat "dropbox-cli filestatus "
+                 (file-name-directory file)
+                 "*"))
+      (message "Check if the current directory is a sub directory of \"~/Dropbox\""))))
 
 (defun eod-sudo-edit (&optional arg)
   (interactive "p")
@@ -588,23 +593,24 @@ line."
     (when (/= arg 0)
       (save-excursion
         (end-of-line)
-        (newline)
         (dotimes (i (abs arg))
+          (newline)
           (insert text)))
       (when (< arg 0)
         (forward-line (* -1 arg))
         (forward-char col)))))
 
-(defun eod-replace-string-with-same-char (arg)
-  (interactive "c")
+(defun eod-replace-string-with-same-char ()
+  (interactive)
   (let ((len (length (thing-at-point 'word)))
         (location (point))
+        (char (read-string "GIVE ME DAT CHAR: "))
         (bds (bounds-of-thing-at-point 'word)))
     (delete-region (car bds) (cdr bds))
     (insert (make-string len arg))
     (goto-char location)))
 
-(defun eod-increment-number-at-point (arg)
+(defun eod-increment-number-at-point-helper (inc)
   (interactive "p")
   (let ((num
          (number-at-point))
@@ -612,11 +618,38 @@ line."
          (car (bounds-of-thing-at-point 'word)))
         (end
          (cdr (bounds-of-thing-at-point 'word))))
-    (when (numberp num)
+    (when num
       (delete-and-extract-region start end)
-      (insert (format "%d" (+ num arg))))))
+      (insert (format "%d" (+ num inc))))))
+
+(defun eod-increment-number-at-point (arg)
+  (interactive "p")
+  (let* ((ev last-command-event)
+         (echo-keystrokes nil)
+         (base (event-basic-type ev))
+         (step
+          (pcase base
+            (?+ arg)
+            (?- (- arg))
+            (t arg))))
+    (eod-increment-number-at-point-helper step)
+    (message "Use +,- for further adjustment")
+    (set-transient-map
+     (let ((map (make-sparse-keymap)))
+       (dolist (mods '(() (control)))
+         (dolist (key '(?- ?+))
+           (define-key map (vector (append mods (list key)))
+             `(lambda ()
+                (interactive)
+                (eod-increment-number-at-point ,(abs arg))))))
+       map))))
+
+(defun eod-decrement-number-at-point (arg)
+  (interactive "p")
+  (eod-increment-number-at-point (- arg)))
 
 (global-set-key (kbd "C-c C-+") 'eod-increment-number-at-point)
+(global-set-key (kbd "C-c C--") 'eod-decrement-number-at-point)
 
 (defun eod-increment-inner-number (arg)
   (interactive "p")
@@ -629,6 +662,7 @@ line."
          (1+ (search-backward-regexp "[^0-9]+"))
          (search-forward-regexp "[0-9]+")))))))
 
+;;; This function is dumb....HAHAHAHA!!!!
 (defun n-choose-k (arg1 arg2)
   "Calculate n choose k. ARG1 must be greater than or equal to ARG2."
   (if (and (numberp arg1) (numberp arg2)
@@ -646,8 +680,17 @@ line."
             (format "%s" (describe-key-briefly (kbd "C-c d"))))
            (not
             (member major-mode
-                    '(lisp-interaction-mode 'emacs-lisp-mode))))
+                    '(lisp-interaction-mode emacs-lisp-mode))))
     (local-set-key (kbd "C-c d") 'delete-region)))
+
+(defun concat-strings-separator (strings &optional separator)
+  "Requisite documentation"
+  (if (or (listp strings) (sequencep strings))
+      (mapconcat
+       'identity
+       strings
+       (if separator separator " "))
+    (error "You did not provide a list or sequence as the first argument.")))
 
 (provide 'init-defuns)
 ;; init-defuns.el ends here

@@ -29,6 +29,7 @@
   (add-hook 'haskell-mode-hook 'company-mode)
   (add-hook 'haskell-mode-hook #'hindent-mode)
   (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+  (add-hook 'haskell-mode-hook (lambda () (setq-local company-idle-delay 1)))
   (bind-keys :map haskell-mode-map
              ("C-c C-c" . haskell-compile)
              ("C-c C-l" . haskell-process-load-or-reload)
@@ -86,7 +87,7 @@
   (add-to-list 'company-backends 'company-cabal))
 
 (defadvice comment-dwim
-    (after haskell-fix-indentation-empty-line)
+    (after haskell-fix-indentation-empty-line activate)
   "Fix the comment so that it starts at the beginning of the line
 when the region is not active and the current line is empty."
   (when (and
@@ -117,17 +118,16 @@ user can tell)."
   (open-line 1)
   (insert "import "))
 
-(defun haskell-wrap-with-paren-pair-and-fix-indent (&optional arg)
-  "Wrap the number 'ARG' of words/sexps
-thing at point with some give delimiter."
-  (interactive "P")
+(defun haskell-wrap-with-paren-pair-and-fix-indent ()
+  (interactive)
   (sp-wrap-with-pair "(")
   (haskell-indentation-indent-backwards))
 
 (defun eod-haskell-mode-insert-undefined-at-point ()
   "Insert undefined at point."
   (interactive)
-  (insert "undefined"))
+  (when (eq major-mode 'haskell-mode)
+    (insert "undefined")))
 
 (defun haskell-sp-splice-sexp (&optional arg)
   "Requisite documentation ARG!"
@@ -154,6 +154,50 @@ thing at point with some give delimiter."
         (buffer-file-name)
         " "
         arguments)))))
+
+(define-key haskell-mode-map (kbd "<f12>") 'haskell-simple-run)
+
+(defun eod-haskell-split-bracket ()
+  (-when-let (ok (sp-get-enclosing-sexp))
+    (if (and (equal "[" (sp-get ok :op))
+             (equal "]" (sp-get ok :cl))
+             (not (eq (sp-get ok :len-in) 0))
+             (eq major-mode 'haskell-mode))
+        (sp-get ok :beg)
+      nil)))
+
+;;; I work on this later.
+(defadvice sp-split-sexp (around haskell-insert-plus-on-split activate)
+  (-if-let (bounds (eod-haskell-split-bracket))
+      (let ((nsexps (- (length (sp-get-list-items)) 2)))
+        ad-do-it
+        (if (eq (car (ad-get-arg 0)) 4)
+            (message "Work on this later.")
+          ;; (progn
+          ;;   (save-excursion
+          ;;     (goto-char bounds)
+          ;;     (setq i 1)
+          ;;     (while (<= i nsexps)
+          ;;       (sp-forward-sexp)
+          ;;       (if (save-excursion
+          ;;             (re-search-forward "," nil t))
+          ;;           (replace-match " ++" nil nil)
+          ;;         (insert " ++"))
+          ;;       (setq i (1+ i)))))
+          (save-excursion
+            (delete-horizontal-space)
+            (insert " ++ "))))
+    ad-do-it))
+
+;; (ad-deactivate 'sp-split-sexp)
+
+(defadvice sp-join-sexp (before haskell-insert-fix activate)
+  (when (and (eq major-mode 'haskell-mode)
+             (save-excursion (search-forward "[" nil t)))
+    (save-excursion
+      (when (search-backward "]" nil t)
+        (re-search-forward "++" nil t)
+        (replace-match "" nil nil)))))
 
 (defun  haskell-auto-insert-module-template ()
   "Insert  a module template for the newly created buffer."

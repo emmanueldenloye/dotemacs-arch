@@ -3,7 +3,8 @@
   :pin melpa-stable
   :diminish company-mode
   :config
-  (setq company-idle-delay 0.3)
+  (setq company-idle-delay 0.3
+        company-selection-wrap-around t)
   (company-mode 1))
 
 (add-hook 'after-init-hook 'global-company-mode)

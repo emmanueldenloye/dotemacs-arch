@@ -189,7 +189,6 @@ point reaches the beginning or end of the buffer, stop there."
 (diminish 'eldoc-mode)
 (diminish 'company-mode)
 (diminish 'elisp-slime-nav-mode)
-(diminish 'undo-tree-mode)
 (diminish 'flycheck-mode)
 (diminish 'beacon-mode)
 (diminish 'global-whitespace-mode)
@@ -268,11 +267,21 @@ new window."
 
 (key-chord-define-global ",+" 'er/expand-region)
 
-;;; I love Emacs! Every desire can be fulfilled. It is invigorating!!!!
 (defadvice push-button (around push-button activate)
   (when (eq major-mode 'help-mode)
     ad-do-it
     (recenter-top-bottom)))
+
+(global-set-key (kbd "C-c <tab>") 'company-complete)
+
+
+;; (defun eod-flyspell-correct-word-before-point ()
+;;   (interactive))
+
+;; (if window-system
+;;     (enable-theme 'sanityinc-solarized-dark)
+;;   (enable-theme 'default))
+
 
 (provide 'init-misc)
 ;; init-misc.el ends here
