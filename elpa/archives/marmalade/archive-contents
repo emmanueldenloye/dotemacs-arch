@@ -1894,7 +1894,7 @@
 	       (1 1)))
 	     "Mote minor mode" single])
  (monroe .
-	 [(0 2 0)
+	 [(0 3 1)
 	  nil "Yet another client for nREPL" single])
  (monokai-theme .
 		[(0 0 12)
@@ -3765,7 +3765,7 @@
 	       [(0 2 2)
 		nil "Aspell extra dictionary for Drupal" tar])
  (drupal-mode .
-	      [(0 7 0)
+	      [(0 7 1)
 	       ((php-mode
 		 (1 5 0)))
 	       "Advanced minor mode for Drupal development" tar])

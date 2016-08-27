@@ -17,6 +17,8 @@
               ("C-c C-l" . helm-minibuffer-history))
   :config (bind-keys :map helm-map
                      ("<tab>" . helm-execute-persistent-action)
+                     ("C-t" . transpose-chars)
+                     ("C-c C-t" . helm-toggle-resplit-window)
                      ("C-i" . helm-execute-persistent-action)
                      ("C-z" . helm-select-action)
                      ("C-c h" . helm-command-prefix-key))

@@ -7,6 +7,7 @@
   (bind-key "C-c b o" 'org-iswitchb)
   :config
   (setq org-src-fontify-natively t)
+  (setq org-todo-keywords '((sequence "TODO" "MAYBE" "DONE")))
   (add-hook 'org-mode-hook 'smartparens-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'org-mode-hook 'auto-fill-mode))

@@ -16,8 +16,16 @@
     (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
     (add-to-list 'exec-path my-cabal-path))
   (setq ghc-ghc-options '("-idir1" "-idir2"))
-  (add-hook 'haskell-mode-hook (lambda ()
-                                 (setq )))
+  (setq haskell-complete-module-preferred
+        '("Control.Monad"
+          "Control.Monad.ST"
+          "Data.List"
+          "Data.Map"
+          "Data.Maybe"
+          "Data.Ord"
+          "Numeric.LinearAlgebra"
+          "Numeric.LinearAlgebra.Devel"
+          "Data.Function"))
   (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
   (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
   (add-hook 'haskell-mode-hook 'subword-mode)
@@ -46,7 +54,7 @@
              ("C-c ?" . helm-ghc-errors)
              ("C-c C-u" . eod-haskell-mode-insert-undefined-at-point)
              ("M-s" . haskell-sp-splice-sexp)
-             ("M-(" . haskell-wrap-with-paren-pair-and-fix-indent)
+             ("C-c M-(" . haskell-wrap-with-paren-pair-and-fix-indent)
              ("C-c M-t" . ghc-insert-template-or-signature)
              ("M-t" . transpose-words)
              ("C-c n i" . eod-haskell-navigate-imports)
@@ -140,22 +148,26 @@ user can tell)."
   (interactive)
   (insert " -- | "))
 
-(defun haskell-simple-run ()
+(defun haskell-simple-compile-or-run (arg)
   "Run the current haskell file using \"runhaskell\"."
-  (interactive)
-  (let ((arguments
-         (format
-          "%s"
-          (read-from-minibuffer "Enter arguments (if any): "))))
+  (interactive "p")
+  (let ((file (buffer-file-name)))
     (when (eq major-mode 'haskell-mode)
-      (async-shell-command
-       (concat
-        "runhaskell "
-        (buffer-file-name)
-        " "
-        arguments)))))
+      (if (eq 4 arg)
+          (let ((arguments
+                 (format
+                  "%s"
+                  (read-from-minibuffer "Enter arguments (if any): "))))
+            (async-shell-command
+             (concat
+              "runhaskell "
+              file
+              " "
+              arguments)))
+        (async-shell-command
+         (concat "ghc " file))))))
 
-(define-key haskell-mode-map (kbd "<f12>") 'haskell-simple-run)
+(define-key haskell-mode-map (kbd "<f12>") 'haskell-simple-compile-or-run)
 
 (defun eod-haskell-split-bracket ()
   (-when-let (ok (sp-get-enclosing-sexp))
@@ -163,7 +175,7 @@ user can tell)."
              (equal "]" (sp-get ok :cl))
              (not (eq (sp-get ok :len-in) 0))
              (eq major-mode 'haskell-mode))
-        (sp-get ok :beg)
+        (cons (sp-get ok :beg) (sp-get ok :end))
       nil)))
 
 ;;; I work on this later.
@@ -192,12 +204,14 @@ user can tell)."
 ;; (ad-deactivate 'sp-split-sexp)
 
 (defadvice sp-join-sexp (before haskell-insert-fix activate)
-  (when (and (eq major-mode 'haskell-mode)
-             (save-excursion (search-forward "[" nil t)))
-    (save-excursion
-      (when (search-backward "]" nil t)
-        (re-search-forward "++" nil t)
-        (replace-match "" nil nil)))))
+  (let ((searchbound (save-excursion (search-forward "[" nil t))))
+    (when (and (eq major-mode 'haskell-mode)
+               searchbound)
+      (save-excursion
+        (when (search-backward "]" nil t)
+          (re-search-forward "++" searchbound t)
+          (replace-match "" nil nil)
+          (just-one-space))))))
 
 (defun  haskell-auto-insert-module-template ()
   "Insert  a module template for the newly created buffer."
@@ -229,6 +243,24 @@ user can tell)."
 (add-hook 'interactive-haskell-mode-hook 'subword-mode)
 (add-hook 'interactive-haskell-mode-hook 'turn-on-smartparens-mode)
 (add-hook 'interactive-haskell-mode-hook 'company-mode)
+
+;; (defun haskell-process-all-types ()
+;;   "List all types in a grep buffer."
+;;   (interactive)
+;;   (let ((session (haskell-session)))
+;;     (switch-to-buffer-other-window
+;;      (get-buffer-create (format "*%s:all-types*"
+;;                                 (haskell-session-name (haskell-session)))))
+;;     (setq haskell-session session)
+;;     (cd (haskell-session-current-dir session))
+;;     (let ((inhibit-read-only t))
+;;       (erase-buffer)
+;;       (let ((haskell-process-log nil))
+;;         (insert (haskell-process-queue-sync-request (haskell-process) ":all-types")))
+;;       (unless (eq major-mode 'compilation-mode)
+;;         (compilation-mode)
+;;         (setq compilation-error-regexp-alist
+;;               haskell-compilation-error-regexp-alist)))))
 
 (provide 'init-haskell)
 ;;; init-haskell.el ends here

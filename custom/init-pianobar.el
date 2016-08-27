@@ -17,5 +17,23 @@
     " || Song : "
     pianobar-current-song)))
 
+(defun pianobar-search-current-song ()
+  (interactive)
+  (let ((search-engine
+         (format "%s"
+                 (read-from-minibuffer
+                  "Enter search engine (default - Duckduckgo): "))))
+    (with-temp-buffer
+      (insert
+       (concat
+        pianobar-current-artist
+        " - "
+        pianobar-current-song))
+      (mark-whole-buffer)
+      (cond
+       ((equal search-engine "google") (eod-google))
+       ((equal search-engine "youtube") (eod-youtube))
+       (t (eod-duckduckgo))))))
+
 (provide 'init-pianobar)
 ;;; init-pianobar.el ends here

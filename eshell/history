@@ -1,128 +1,128 @@
-packer -Ss gpc
-pacman -Ss pascal
-packer -Ss pascal
-which gpc
-which gmp
-pacman -Ss gmp
-pacman -Ss gambas3-gb-gmp
-sudo pacman -S gambas3-gb-gmp
-which make
-pacman -Ss pascal
-packer -Ss pascal
-pacman -Ss help2man
-sudo pacman -S help2man
-pacman -Ss texinfo
-bison --version
-autoconf --version
-locate texinfo
-info texinfo
-cd Downloads
-ls | grep gpc
-tar xvjf gpc-20050217-minimal.tar.bz2
-ls | grep gpc
-ls
-ls | grep -e '^p'
-ls p
-cd p
-cd ..
-ls | grep p 
-ls | grep -e '^p.*'
-ls | grep -e 'p'
-ls | grep -e '^p$'
-ls | grep -e 'p$'
-ls | grep -e 'p$' | head -n 1
-ls | grep gpc
-tar xvjf gpc-20050217-minimal.tar.bz2.sig
-rm -f gpc-20050217-minimal.tar.bz2.sig
-tar xvjf gpc-20050217.tar.bz2
-cd p
-ls
-ls | grep ARCH
-pacman -Ss pascal
-pacman -Ss gcp
-pacman -Ss gpc
-packer -Ss gpc
-cd ..
-ls
-cd /
-ls
-cd 
-cd Downloads
-ls
-ls | grep gz
-ls |  grep gpc
-mv `ls |  grep gpc | head -n 1` /
-ls |  grep gpc | head -n 1
-mv gpc-20070904-slc-6.5-64bit.tar.gz /
-sudo mv gpc-20070904-slc-6.5-64bit.tar.gz /
-cd /
-ls
-sudo tar -zxvf gpc-20070904-slc-6.5-64bit.tar.gz 
-which gcp
-which gpc
-cd ~/Downloads/
-ls
-ls |  grep gpc 
-rm -rf gpc-20050217.tar.bz2
-ls
-ls | grep sche
-gpc sched.pas
-echo $gaphome
-echo $GAPHOME
-locate gap
-where gap
-which gap
-gap --help
-gap --version
-locate gap
-locate GAP
-ls /usr/
-ls /usr/src/
-ls /usr/share/
-ls /usr/share/ | grep gap
-ls /usr/include
-ls /usr/include  | grep gap
-ls /
-sudo rm -f /gpc-20070904-slc-6.5-64bit.tar.gz 
-ls /
-ls
-ls | grep homo
-rm -f 'homology-1.4.6(1).tgz'
-ls | grep homo
-cd ~/.emacs.d
-ls
-ls my-git-packages
-git clone https://bitbucket.org/gvol/gap-mode
-git clone 'https://bitbucket.org/gvol/gap-mode'
-git clone 'https://bitbucket.org/gvol/gap-mode/'
+cabal install hasktags 
+echo "Welcome to the Emacs shell"
+echo "Welcome to the Emacs shell"
+echo "Where in the world is Carmen Sandiego?"
+mv TAGS TAGS_backup
+find . -name "*.hs" -print | xargs etags -a
+find . -name "*.hs" -print | xargs -0 etags -a
+find . -name "*.hs" -print | xargs -0 etags -a
+rm -f TAGS
+mv TAGS_backup TAGS
 exit
-welcome to the mecsa 
-ls
-(message "told about god for the first time")
-echo $AM_V_CXX
-echo $CXXCOMPILE
-cd linbox
-ls
--rwxr-xr-x  1 emmanuel 5.6K Jun  9 17:23 autogen.sh
-./autogen.sh
-sudo ./autogen.sh
-sudo make install
-which linbox
-locate linbox
-ls
-locate gmp
 cd
-df -sh
-df -hs
-df --hs
-df 
-df -h
-archey
-archey3
-(message "Undo branch point!")
-echo a month of not eating and drinking 
-echo "a month of not eating and drinking" 
-exit
-cd Dropbox/
-dropbox-cli filestatus 
-exit
+cd Downloads
+ls | grep gz
+zathura pearl.ps.gz
+rm pearl.ps.gz
+ls | grep gz
+cd ~/Dropbox/haskell/Homologywork/freedman-writeup/src/
+cd ~/Dropbox/haskell/homologyWork/freedman-writeup/src/
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+..
+cabal build
+stack help
+stack --help
+stack install
+stack solver
+cabal install
+cabal install
+pwd
+(message "Emmanuel Oluwadurotimi Denloye-Ito")
+user-full-name
+cd src
+ls
+ls | grep -e 'hs'
+ls | grep -e 'hs$'
+ls | grep -e '\.hs$'
+cabal configure
+cd ..
+cabal configure
+cabal install
+cd
+pacman -Ss keylogger
+pacman -Ss logger
+pacman -Ss recorder
+pacman -Ss key
+pacman -Ss keymon
+pacman -Ss key-mon
+packer -Ss key-mon
+pacman -Ss screenkey
+cd Dropbox/haskell/homologyWork/freedman-writeup/srcdir
+cd Dropbox/haskell/homologyWork/freedman-writeup/srcr
+cd Dropbox/haskell/homologyWork/freedman-writeup/src
+that makes a lot of sense
+echo that makes a lot of sense
+echo weird
+echo "don't you dare"
+echo weird
+ echo however
+echo that marxists do
+cd
+cd ..
+..
+cd
+ls
+cd Dropbox/haskell/homologyWork/freedman-writeup/src
+ls
+ls | grep -e 'hs$'
+ls | grep -e '[A-Z].*\.hs$'
+ls | grep -e '^[A-Z].*\.hs$'
+ls -l
+ls -la
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1 
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+time ./testSineSimplicial 2 3 1
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 1
+time ./testSineSimplicial 2 3 2
+ghc -O2 testSineSimplicial.hs
+time ./testSineSimplicial 2 3 2

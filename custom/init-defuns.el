@@ -178,6 +178,15 @@ With a prefix arg, INSERT it into the buffer."
       (kill-buffer bufname)
       (open-as-root filename))))
 
+
+(defun eod-send-file-name-to-minibuffer ()
+  (interactive)
+  (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+
+(define-key
+  minibuffer-local-map
+  (kbd "C-c f") 'eod-send-file-name-to-minibuffer)
+
 (defun eod-copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
@@ -200,15 +209,32 @@ With a prefix arg, INSERT it into the buffer."
 
 (global-set-key (kbd "C-c y") 'x-clipboard-yank)
 
-(defun eod-join-next-line ()
+(defun eod-join-next-line (arg)
   "Join the next line with the current one."
+  (interactive "p")
+  (if (region-active-p)
+      (let* ((pl (line-number-at-pos (point)))
+             (ml (line-number-at-pos (mark)))
+             (difflines (abs (- ml pl))))
+        (save-excursion
+          (dotimes (i difflines)
+            (if (> (point) (mark))
+                (join-line nil)
+              (join-line 1)))))
+    (dotimes (i (abs arg))
+      (if (>= arg 0)
+          (join-line 1)
+        (join-line nil)))))
+
+(defun eod-test-net ()
   (interactive)
-  (join-line 1))
+  (async-shell-command
+   "ping -c 3 8.8.8.8"))
 
 (defun eod-dropbox-status-message ()
   "Get the current dropbox status."
   (interactive)
-  (if (equal 1 (shell-command "dropbox-cli running"))
+  (if (eq 1 (shell-command "dropbox-cli running"))
       (message "Dropbox is running.")
     (message "Dropbox is not running.")))
 
@@ -294,7 +320,7 @@ interactive command to search through them"
  "https://www.google.com/?gws_rd=ssl#q=" "Google: ")
 (prelude-install-search-engine
  "youtube"
- "http://wwww.youtube.com/results?search_query=" "Search YouTube: ")
+ "https://www.youtube.com/results?search_query=" "Search YouTube: ")
 (prelude-install-search-engine
  "github"
  "https://github.com/search?q=" "Search GitHub: ")
@@ -306,6 +332,8 @@ interactive command to search through them"
  "https://scholar.google.com/scholar?q=" "Search Google Scholar: ")
 
 (global-set-key (kbd "C-c / g s") 'eod-scholar)
+
+(global-set-key (kbd "C-c / y") 'eod-youtube)
 
 (global-set-key (kbd "C-c / g g") 'eod-google)
 
@@ -445,7 +473,8 @@ about what flexible matching means in this context."
 ;;; This is not the cleanest implementation, but it works so whatever.
 (defun eod-comment-or-uncomment-line (arg)
   "Comment or uncomment the next ARG lines. If ARG is negative,
-comment or uncomment the previous ARG lines."
+comment or uncomment the previous ARG lines. This command does
+not do anything on empty lines."
   (interactive "p")
   (let (start end)
     (save-excursion
@@ -600,27 +629,30 @@ line."
         (forward-line (* -1 arg))
         (forward-char col)))))
 
-(defun eod-replace-string-with-same-char ()
-  (interactive)
-  (let ((len (length (thing-at-point 'word)))
-        (location (point))
-        (char (read-string "GIVE ME DAT CHAR: "))
-        (bds (bounds-of-thing-at-point 'word)))
-    (delete-region (car bds) (cdr bds))
-    (insert (make-string len arg))
-    (goto-char location)))
+;; (defun eod-replace-string-with-same-char ()
+;;   (interactive)
+;;   (let ((len (length (thing-at-point 'word)))
+;;         (location (point))
+;;         (char (read-string "GIVE ME DAT CHAR: "))
+;;         (bds (bounds-of-thing-at-point 'word)))
+;;     (delete-region (car bds) (cdr bds))
+;;     (insert (make-string len arg))
+;;     (goto-char location)))
 
 (defun eod-increment-number-at-point-helper (inc)
   (interactive "p")
-  (let ((num
-         (number-at-point))
-        (start
-         (car (bounds-of-thing-at-point 'word)))
-        (end
-         (cdr (bounds-of-thing-at-point 'word))))
+  (let* ((num
+          (number-at-point))
+         (start
+          (car (bounds-of-thing-at-point 'word)))
+         (m (make-marker))
+         (end
+          (cdr (bounds-of-thing-at-point 'word))))
     (when num
+      (set-marker m start)
       (delete-and-extract-region start end)
-      (insert (format "%d" (+ num inc))))))
+      (insert (format "%d" (+ num inc)))
+      (goto-char m))))
 
 (defun eod-increment-number-at-point (arg)
   (interactive "p")
@@ -631,7 +663,9 @@ line."
           (pcase base
             (?+ arg)
             (?- (- arg))
+            ;; (?0 (if orig (lambda (x) orig))) figure this out later
             (t arg))))
+    ;; (unless orig (setq orig (number-at-point)))
     (eod-increment-number-at-point-helper step)
     (message "Use +,- for further adjustment")
     (set-transient-map
@@ -646,7 +680,7 @@ line."
 
 (defun eod-decrement-number-at-point (arg)
   (interactive "p")
-  (eod-increment-number-at-point (- arg)))
+  (eod-increment-number-at-point arg))
 
 (global-set-key (kbd "C-c C-+") 'eod-increment-number-at-point)
 (global-set-key (kbd "C-c C--") 'eod-decrement-number-at-point)
@@ -691,6 +725,10 @@ line."
        strings
        (if separator separator " "))
     (error "You did not provide a list or sequence as the first argument.")))
+
+(defun message-length-kill-ring ()
+  (interactive)
+  (message "The length of the kill ring is %s" (length kill-ring)))
 
 (provide 'init-defuns)
 ;; init-defuns.el ends here

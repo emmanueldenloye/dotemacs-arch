@@ -122,6 +122,13 @@ This is a format string, don't forget the `%s'."
   :type 'string
   :group 'helm-net)
 
+(defcustom helm-search-suggest-action-duckduckgo-url
+  "https://duckduckgo.com/?q=%s&t=ffsb&ia=web"
+  "The duckduckgo search url.
+This is format string, don't forget the `%s'."
+  :type 'string
+  :group 'helm-net)
+
 (defcustom helm-search-suggest-action-google-news-url
   "http://www.google.com/search?safe=off&prmd=nvlifd&source=lnms&tbs=nws:1&q=%s"
   "The Google News search url.
@@ -143,6 +150,10 @@ This is a format string, don't forget the `%s'."
                 (helm-search-suggest-perform-additional-action
                  helm-search-suggest-action-imdb-url
                  candidate)))
+    ("Duckduckgo" . (lambda (candidate)
+                      (helm-search-suggest-perform-additional-action
+                       helm-search-suggest-action-duckduckgo-url
+                       candidate)))
     ("Google Maps" . (lambda (candidate)
                        (helm-search-suggest-perform-additional-action
                         helm-search-suggest-action-google-maps-url
@@ -337,7 +348,7 @@ Can be \"-new-tab\" (default) or \"-new-window\"."
           (when (or (string-match "</table>\\(\n<div.*?</div>\\)?\n<p>" result)
                     ;; otherwise just find the first paragraph
                     (string-match "<p>" result))
-            ;; remove cruft and do a simple formatting 
+            ;; remove cruft and do a simple formatting
             (replace-regexp-in-string
              "Cite error: .*" ""
              (replace-regexp-in-string

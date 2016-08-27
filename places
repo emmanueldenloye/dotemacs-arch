@@ -1,9 +1,22 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/emmanuel/.emacs.d/recentf" . 10899)
+(("/home/emmanuel/.emacs.d/recentf" . 11588)
+ ("/home/emmanuel/.emacs.d/elpa/multiple-cursors-20150710.456/multiple-cursors.el" . 8165)
+ ("/home/emmanuel/.emacs.d/elpa/multiple-cursors-20150710.456/"
+  (dired-filename . "/home/emmanuel/.emacs.d/elpa/multiple-cursors-20150710.456/multiple-cursors.el"))
  ("/home/emmanuel/.emacs.d/eshell/alias" . 195)
- ("/home/emmanuel/.emacs.d/custom.el" . 3805)
+ ("/home/emmanuel/.emacs.d/custom/init-defuns.el" . 5383)
+ ("/usr/share/emacs/24.5/etc/PROBLEMS" . 31)
+ ("/usr/share/emacs/24.5/lisp/textmodes/ispell.el.gz" . 110927)
+ ("/home/emmanuel/.emacs.d/elpa/helm-20150913.1159/helm-net.el" . 16698)
+ ("/usr/share/emacs/24.5/lisp/net/browse-url.el.gz" . 33065)
+ ("/home/emmanuel/.emacs.d/elpa/helm-core-20150908.916/helm-source.el" . 4914)
+ ("/usr/share/emacs/24.5/lisp/erc/erc-track.el.gz" . 38256)
+ ("/home/emmanuel/.emacs.d/custom.el" . 904)
+ ("/home/emmanuel/.emacs.d/elpa/shm-20150526.124/shm-manipulation.el" . 2495)
+ ("/home/emmanuel/.emacs.d/elpa/ghc-5.6.0.0/ghc-rewrite.el" . 1783)
+ ("/home/emmanuel/.emacs.d/elpa/ghc-5.6.0.0/ghc-process.el" . 6052)
+ ("/home/emmanuel/.emacs.d/custom/init-misc.el" . 4561)
  ("/home/emmanuel/.emacs.d/init.el" . 1595)
- ("/home/emmanuel/.emacs.d/custom/init-misc.el" . 5424)
  ("/home/emmanuel/.emacs.d/custom/"
   (dired-filename . "/home/emmanuel/.emacs.d/custom/init-undo-tree.el"))
  ("/home/emmanuel/.emacs.d/custom/init-undo-tree.el" . 159)
@@ -11,7 +24,6 @@
  ("/home/emmanuel/.emacs.d/elpa/evil-1.2.12/evil-autoloads.el" . 1312)
  ("/usr/share/emacs/24.5/lisp/textmodes/flyspell.el.gz" . 16581)
  ("/home/emmanuel/.emacs.d/custom/init-flyspell.el" . 396)
- ("/home/emmanuel/.emacs.d/custom/init-defuns.el" . 21886)
  ("/home/emmanuel/.emacs.d/custom/init-ercn.el" . 133)
  ("/home/emmanuel/.emacs.d/xkcd/1685.json" . 336)
  ("/home/emmanuel/"

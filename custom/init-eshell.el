@@ -4,7 +4,12 @@
   :config
   (add-hook
    'eshell-mode-hook
-   'smartparens-mode)
+   'electric-pair-mode) ;; smartparens isn't necessary here.
+  (setq eshell-prompt-function
+        (lambda ()
+          (concat
+           (abbreviate-file-name (eshell/pwd))
+           (if (= (user-uid) 0) " # " " $ "))))
   (add-hook
    'eshell-mode-hook
    (lambda ()

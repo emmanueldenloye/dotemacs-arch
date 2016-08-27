@@ -3,15 +3,22 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        clean-aindent--bsunindent
         eval-last-sexp
         eval-sexp-and-replace
+        haskell-indentation-newline-and-indent
         haskell-mode-contextual-space
         kill-sexp
         paredit-backward
+        paredit-backward-kill-word
         paredit-delete-region
+        paredit-doublequote
         paredit-forward-kill-word
+        paredit-forward-slurp-sexp
         paredit-forward-up
         paredit-kill
+        paredit-open-round
+        paredit-raise-sexp
         paredit-wrap-round
         repeat
         smarter-move-beginning-of-line
@@ -20,7 +27,10 @@
 
 (setq mc/cmds-to-run-once
       '(
+        eod-join-next-line
         helm-M-x
         kill-region
+        paredit-backward-up
         paredit-forward-delete
+        repeat-complex-command
         ))

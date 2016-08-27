@@ -12,7 +12,7 @@
  (front-context-string . "\n\n(add-hook 'inf")
  (rear-context-string . "skell-mode +1)))")
  (position . 6280))
-("custom.el"
+("custom file"
  (filename . "~/.emacs.d/custom.el")
  (front-context-string . "(custom-set-vari")
  (rear-context-string . "ary:\n;;; Code:\n\n")
@@ -47,7 +47,7 @@
  (front-context-string . "\nset showtabline")
  (rear-context-string . "t guioptions=CNs")
  (position . 31))
-(".emacs.d/custom"
+("custom directory"
  (filename . "~/.emacs.d/custom/")
  (front-context-string . "setup-programmin")
  (rear-context-string . "5K Aug 20 01:41 ")

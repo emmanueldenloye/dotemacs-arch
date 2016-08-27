@@ -135,7 +135,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;; the blinking cursor is nothing but an annoyance
 (blink-cursor-mode -1)
 
-(setq-default cursor-type 'bar)
+(setq-default cursor-type 'box)
+(setq curchg-default-cursor-color "Green")
+(setq curchg-input-method-cursor-color "Pink")
 
 (setq scroll-margin 0
       scroll-conservatively 100000
@@ -148,13 +150,19 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;; put fortune in scratch buffer
 (setq initial-scratch-message
-      (format
-       ";; %s\n\n"
-       (replace-regexp-in-string
-        "\n" "\n;; " ; comment each line
-        (replace-regexp-in-string
-         "\n$" "" ; remove trailing linebreak
-         (shell-command-to-string "fortune")))))
+      (with-temp-buffer
+        (insert
+         (concat
+          (format
+           ";; %s\n\n"
+           (replace-regexp-in-string
+            "\n" "\n;; "                ; comment each line
+            (replace-regexp-in-string
+             "\n$" ""                   ; remove trailing linebreak
+             (shell-command-to-string "fortune"))))
+          "(delete-frame)"))
+        (delete-trailing-whitespace (point-min) (point-max))
+        (buffer-string)))
 
 (use-package whitespace
   :config
@@ -245,9 +253,9 @@ new window."
                                   nil))
                               (buffer-list))))))
         (sb (lambda (b) (switch-to-buffer
-                    (completing-read "Go to Haskell file: " b))))
+                         (completing-read "Go to Haskell file: " b))))
         (sw (lambda (b) (switch-to-buffer-other-window
-                    (completing-read "Go to Haskell file: " b)))))
+                         (completing-read "Go to Haskell file: " b)))))
     (cond
      ((not (eq arg nil)) (funcall sw choices))
      (t (funcall sb choices)))))
@@ -272,7 +280,18 @@ new window."
     ad-do-it
     (recenter-top-bottom)))
 
+(defadvice elisp-slime-nav-describe-elisp-thing-at-point
+    (after switch-to-help-buffer activate)
+  (other-window 1))                     ;This is crass and filled with sass
+
 (global-set-key (kbd "C-c <tab>") 'company-complete)
+
+;;; I hate not being able to the see window's contents without
+;;; manually fixing things.
+(defadvice view-echo-area-messages
+    (after adjust-view activate)
+  (recenter))
+
 
 
 ;; (defun eod-flyspell-correct-word-before-point ()
