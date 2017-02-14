@@ -32,8 +32,6 @@
 
 (setq recenter-positions '(top middle bottom))
 
-(beacon-mode 1)
-
 (use-package expand-region
   :ensure t
   :bind
@@ -66,31 +64,9 @@
 
 (setq backup-by-copying-when-mismatch t)
 
+(setq save-interprogram-paste-before-kill t)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; courtesy of http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
-(defun smarter-move-beginning-of-line (arg)
-  "Move point back to indentation of beginning of line.
-
-Move point to the first non-whitespace character on this line.
-If point is already there, move to the beginning of the line.
-Effectively toggle between the first non-whitespace character and
-the beginning of the line.
-
-If ARG is not nil or 1, move forward ARG - 1 lines first. If
-point reaches the beginning or end of the buffer, stop there."
-  (interactive "^p")
-  (setq arg (or arg 1))
-
-  ;; Move lines first
-  (when (/= arg 1)
-    (let ((line-move-visual nil))
-      (forward-line (1- arg))))
-
-  (let ((orig-point (point)))
-    (back-to-indentation)
-    (when (= orig-point (point))
-      (move-beginning-of-line 1))))
 
 ;; remap C-a to `smarter-move-beginning-of-line`
 (global-set-key [remap move-beginning-of-line]
@@ -99,7 +75,8 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package misc
   :bind (("C-c z" . zap-up-to-char)
          ("C-c w f" . forward-to-word)
-         ("C-c w b" . backward-to-word)))
+         ("C-c w b" . backward-to-word)
+         ("C-c M-@" . copy-from-above-command)))
 
 (use-package duplicate-thing
   :ensure t)
@@ -108,8 +85,6 @@ point reaches the beginning or end of the buffer, stop there."
   (defvar savehist-additional-variables)
   (defvar savehist-autosave-interval))
 
-;;; Do not display an initial "startup" message
-(setq initial-scratch-message "")
 (setq inhibit-startup-screen t)
 
 (setq savehist-additional-variables '(search ring regexp-search-ring) ; also save your regexp search queries
@@ -136,8 +111,8 @@ point reaches the beginning or end of the buffer, stop there."
 (blink-cursor-mode -1)
 
 (setq-default cursor-type 'box)
-(setq curchg-default-cursor-color "Green")
-(setq curchg-input-method-cursor-color "Pink")
+(setq curchg-default-cursor-color "Pink"
+      curchg-input-method-cursor-color "Green")
 
 (setq scroll-margin 0
       scroll-conservatively 100000
@@ -148,21 +123,25 @@ point reaches the beginning or end of the buffer, stop there."
 
 (setq large-file-warning-threshold 100000000) ;; size in bytes
 
-;;; put fortune in scratch buffer
 (setq initial-scratch-message
       (with-temp-buffer
-        (insert
-         (concat
-          (format
-           ";; %s\n\n"
-           (replace-regexp-in-string
-            "\n" "\n;; "                ; comment each line
-            (replace-regexp-in-string
-             "\n$" ""                   ; remove trailing linebreak
-             (shell-command-to-string "fortune"))))
-          "(delete-frame)"))
-        (delete-trailing-whitespace (point-min) (point-max))
+        (insert-file-contents "~/Pictures/pepe.txt")
         (buffer-string)))
+
+;;; put fortune in scratch buffer
+;; (setq initial-scratch-message
+;;       (with-temp-buffer
+;;         (insert
+;;          (concat
+;;           (format
+;;            ";; %s\n\n"
+;;            (replace-regexp-in-string
+;;             "\n" "\n;; "                ; comment each line
+;;             (replace-regexp-in-string
+;;              "\n$" ""                   ; remove trailing linebreak
+;;              (shell-command-to-string "fortune"))))))
+;;         (delete-trailing-whitespace (point-min) (point-max))
+;;         (buffer-string)))
 
 (use-package whitespace
   :config
@@ -198,7 +177,6 @@ point reaches the beginning or end of the buffer, stop there."
 (diminish 'company-mode)
 (diminish 'elisp-slime-nav-mode)
 (diminish 'flycheck-mode)
-(diminish 'beacon-mode)
 (diminish 'global-whitespace-mode)
 
 (add-to-list 'auto-mode-alist (cons "\\.hs\\'" 'haskell-mode))
@@ -220,60 +198,22 @@ point reaches the beginning or end of the buffer, stop there."
 ;;     `(eval-after-load ,feature
 ;;        '(progn ,@body))))
 
-;;; This is very important to get right!
 (use-package tetris
   :config
-  (define-key tetris-mode-map (kbd "c") 'tetris-rotate-prev)
-  (define-key tetris-mode-map (kbd "t") 'tetris-rotate-next)
-  (define-key tetris-mode-map (kbd "n") 'tetris-move-right)
-  (define-key tetris-mode-map (kbd "h") 'tetris-move-left)
+  ;These new bindings will take some time to get used to. It is
+  ;tough, put rotating pieces will get easier over time.
+  (define-key tetris-mode-map (kbd "h") 'tetris-rotate-prev)
+  (define-key tetris-mode-map (kbd "u") 'tetris-rotate-next)
+  (define-key tetris-mode-map (kbd "t") 'tetris-move-right)
+  (define-key tetris-mode-map (kbd "e") 'tetris-move-left)
   (define-key tetris-mode-map (kbd "s") 'tetris-start-game))
-
-(defun haskell-buffer-list (arg)
-  "Return a list of Haskell buffers and open the selected buffer.
-If this function is called with the `universal-argument'
-prepended to its invocation, the retrieved buffer is opened in a
-new window."
-  (interactive "P")
-  (let ((choices
-         (mapcar (lambda (b)
-                   (file-name-nondirectory
-                    (buffer-file-name b)))
-                 (let ((filter
-                        (lambda (b)
-                          (with-current-buffer b
-                            (derived-mode-p 'haskell-mode)))))
-                   (delq nil (mapcar
-                              (lambda (b)
-                                (if (and (funcall filter b)
-                                         (not
-                                          (string-match
-                                           "tmp" (buffer-name b))))
-                                    b
-                                  nil))
-                              (buffer-list))))))
-        (sb (lambda (b) (switch-to-buffer
-                         (completing-read "Go to Haskell file: " b))))
-        (sw (lambda (b) (switch-to-buffer-other-window
-                         (completing-read "Go to Haskell file: " b)))))
-    (cond
-     ((not (eq arg nil)) (funcall sw choices))
-     (t (funcall sb choices)))))
 
 (global-set-key (kbd "C-c b h") 'haskell-buffer-list)
 
 (display-time-mode 1)
 
-(setq browse-kill-ring-recenter t)      ;This makes the browse-kill-ring buffer less annoying to read.
-
 (add-hook 'messages-buffer-mode-hook
           (lambda () (turn-off-fci-mode)))  ;I don't want to see that annoying line.
-
-(add-hook 'occur-mode-hook (lambda () (next-error-follow-minor-mode)))
-
-(add-hook 'prog-mode-hook 'eod-delete-region)
-
-(key-chord-define-global ",+" 'er/expand-region)
 
 (defadvice push-button (around push-button activate)
   (when (eq major-mode 'help-mode)
@@ -282,25 +222,29 @@ new window."
 
 (defadvice elisp-slime-nav-describe-elisp-thing-at-point
     (after switch-to-help-buffer activate)
-  (other-window 1))                     ;This is crass and filled with sass
+  (other-window 1))
 
 (global-set-key (kbd "C-c <tab>") 'company-complete)
 
-;;; I hate not being able to the see window's contents without
-;;; manually fixing things.
 (defadvice view-echo-area-messages
     (after adjust-view activate)
-  (recenter))
+  (save-selected-window
+    (other-window 1)
+    (recenter)))
 
+(define-key help-map (kbd "C-k") 'describe-key)
 
+;; (global-set-key (kbd "C-x C-b") 'ibuffer-other-window)
 
-;; (defun eod-flyspell-correct-word-before-point ()
-;;   (interactive))
+(add-to-list 'custom-theme-load-path "/home/emmanuel/.emacs.d/elpa/creamsody-theme-0.3.6/")
 
-;; (if window-system
-;;     (enable-theme 'sanityinc-solarized-dark)
-;;   (enable-theme 'default))
+;; (creamsody-modeline) ;I want a nice modeline!
 
+(setq find-function-C-source-directory "~/emacsSource/emacs-25.1/src")
+
+(setq-default indent-tabs-mode nil)
+
+(add-hook 'after-save-hook #'byte-compile-when-byte-compiled-file-exists)
 
 (provide 'init-misc)
 ;; init-misc.el ends here

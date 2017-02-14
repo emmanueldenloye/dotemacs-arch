@@ -8,6 +8,15 @@
 
 (setq pianobar-password "nRLfP26eva")   ; I don't care.
 
+;;;###autoload
+(defun eod-pianobar-play-or-pause ()
+  (interactive)
+  (if (comint-check-proc pianobar-buffer)
+      (pianobar-play-or-pause)
+    (message "Pianobar is not currently running. Start pianobar with (M-x pianobar-mode)")))
+
+(global-set-key (kbd "M-<f12>") 'eod-pianobar-play-or-pause)
+
 (defun pianobar-message-current-song ()
   (interactive)
   (message
@@ -37,3 +46,4 @@
 
 (provide 'init-pianobar)
 ;;; init-pianobar.el ends here
+;;; I don't know why I say anything... like I think I am actually important look at this fucking

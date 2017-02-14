@@ -16,7 +16,7 @@
 (use-package highlight-symbol
   :ensure t
   :config
-  (highlight-symbol-nav-mode)
+  ;; (highlight-symbol-nav-mode)
   (setq highlight-symbol-idle-delay 0.5
         highlight-symbol-on-navigation-p t))
 

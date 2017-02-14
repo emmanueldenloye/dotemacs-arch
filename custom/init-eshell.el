@@ -1,4 +1,5 @@
 (use-package eshell
+  :defer t
   :bind
   (("C-. m" . eshell))
   :config
@@ -17,16 +18,17 @@
 
   (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on))
 (use-package em-alias
+  :defer t
   :config
-  (require 'cl)
   ;; In eshell, you can run the commands in M-x
   ;; Here are the aliases to the commands.
   ;; $* emacs accepts all arguments.
-  (eshell/alias "o" "")
-  (eshell/alias "o" "find-file-other-window $*")
-  (eshell/alias "vi" "find-file-other-window $*")
-  (eshell/alias "vim" "find-file-other-window $*")
-  (eshell/alias "emacs" "find-file-other-window $*")
+  (eshell-read-aliases-list)
+  ;; (eshell/alias "o" "")
+  ;; (eshell/alias "o" "find-file-other-window $*")
+  ;; (eshell/alias "vi" "find-file-other-window $*")
+  ;; (eshell/alias "vim" "find-file-other-window $*")
+  ;; (eshell/alias "emacs" "find-file-other-window $*")
 
   ;; change  listing sitches based on OS
   (when (not (eq  system-type 'windows-nt))

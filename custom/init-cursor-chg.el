@@ -1,4 +1,5 @@
 (use-package cursor-chg
+  :defer t
   :ensure t
   :config
   (toggle-cursor-type-when-idle 1)

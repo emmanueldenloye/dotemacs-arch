@@ -11,17 +11,19 @@
    "emmanuel_erc")
   (setq
    erc-autojoin-channels-alist
-   '(("freenode.net" "#haskell")
-     ("freenode.net" "#emacs")
-     ("freenode.net" "#numerical-haskell")
+   '(("freenode.net" "#haskell"
+      "#emacs"
+      "#numerical-haskell"
+      "#haskell-beginners")
      ;; ("freenode.net" "#okchat")
-     ("freenode.net" "#haskell-beginners")
      ;; ("freenode.net" "#qutebrowser")
      ;; ("irc.oftc.net" "#pentadactyl")
      ))
   (defun eod/erc-mode-defaults ()
     (smartparens-mode))
   :config
+
+  ;; (setq erc-autoaway-idle-method 'irc)
   (eval-after-load 'erc
     '(progn
        (eod/erc-mode-defaults)

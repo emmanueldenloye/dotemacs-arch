@@ -31,7 +31,12 @@
   :defer t
   :config
   (add-hook 'dired-mode-hook (lambda () (dired-omit-mode)))
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))) ; provide extra commands dired
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
+  (add-to-list 'dired-guess-shell-alist-user
+             '("\\.pdf"
+               (cond ((= 0 (call-process "which" nil nil nil "zathura")) "zathura")
+                     ((= 0 (call-process "which" nil nil nil "evince")) "evince")
+                     (t "xpdf"))))) ; provide extra commands dired
 
 (use-package dired+
   :defer t)
@@ -41,13 +46,28 @@
 
 (setq
  wdired-allow-to-change-premissions t 	; allow to edit permission bits
- widred-allow-to-redirect-links		; allow to edit symlinks
+ wdired-allow-to-redirect-links t		; allow to edit symlinks
  )
 
 
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
 (global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
+
+(defun dired-run-shell-command-with-all-marked-files (program)
+   ;This could be written so to choose a default program depending on
+   ;the file type
+  (interactive "sProgram: ")
+  (if-let ((marked-files (dired-get-marked-files)))
+      (async-shell-command
+       (concat program " "
+               (mapconcat (lambda (file) (concat "\'" (f-filename file) "\'") ) marked-files " ")))
+    (error "Please mark some files.")))
+
+;;; Create Trash Directory
+(setq
+ trash-directory "/home/emmanuel/Trash"
+ delete-by-moving-to-trash t)
 
 (provide 'init-dired)
 ;; init-dired.el ends here

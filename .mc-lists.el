@@ -3,34 +3,84 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        backward-kill-sexp
+        backward-sexp
+        c-electric-semi&comma
         clean-aindent--bsunindent
+        delete-horizontal-space
+        eod-haskell-mode-insert-undefined-at-point
         eval-last-sexp
         eval-sexp-and-replace
+        forward-sexp
+        haskell-indentation-common-electric-command
         haskell-indentation-newline-and-indent
         haskell-mode-contextual-space
+        helm-M-x
         kill-sexp
+        mark-sexp
+        mark-word
+        org-delete-char
+        org-self-insert-command
         paredit-backward
         paredit-backward-kill-word
         paredit-delete-region
         paredit-doublequote
+        paredit-forward
+        paredit-forward-down
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
         paredit-forward-up
         paredit-kill
+        paredit-newline
         paredit-open-round
         paredit-raise-sexp
         paredit-wrap-round
+        rectangle-number-lines
         repeat
+        sh-assignment
+        shm/:
+        shm/backward-node
+        shm/comma
+        shm/del
+        shm/double-quote
+        shm/forward-node
+        shm/hash
+        shm/hyphen
+        shm/insert-undefined
+        shm/mark-node
+        shm/open-bracket
+        shm/open-paren
+        shm/raise
+        shm/space
+        shm/splice
+        shm/wrap-parens
         smarter-move-beginning-of-line
+        sp-backward-sexp
+        sp-backward-up-sexp
+        sp-down-sexp
+        sp-forward-sexp
         sp-forward-slurp-sexp
+        sp-remove-active-pair-overlay
+        sp-rewrap-sexp
+        sp-splice-sexp
+        sp-up-sexp
+        tab-to-tab-stop
+        transpose-sexps
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        end-of-buffer
+        eod-insert-dollar
         eod-join-next-line
-        helm-M-x
+        haskell-process-load-file
+        helm-mini
+        insert-parentheses
+        isearch-backward-regexp
         kill-region
+        kmacro-end-and-call-macro
         paredit-backward-up
         paredit-forward-delete
         repeat-complex-command
+        sp-splice-sexp-killing-around
         ))

@@ -835,7 +835,7 @@ Visible marks store candidate. Some actions uses marked candidates.
 \\[helm-follow-action-backward]\t\tRun persistent action and goto previous line.
 \\[helm-refresh]\t\tRecalculate and redisplay candidates.
 \\[helm-toggle-suspend-update]\t\tSuspend/reenable update.
- 
+
 ** Global Commands
 
 \\<global-map>\\[helm-resume] revives last `helm' session.
@@ -4483,7 +4483,7 @@ e.g:
                    'global '(foo foa fob bar baz))))
 
 A shortcut can be used to simplify:
-          
+
      (helm-build-in-buffer-source \"test\"
        :data '(foo foa fob bar baz))
 

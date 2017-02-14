@@ -5,8 +5,8 @@
 (global-set-key (kbd "M-/") 'hippie-expand) ; replace dabbrev-expand
 (setq
  hippie-expand-try-functions-list
- '(try-expand-flexible-abbrev
-   try-expand-dabbrev ;; Try to  expand word "dynamically", searching the entire buffer.
+ '(try-expand-dabbrev ;; Try to  expand word "dynamically", searching the entire buffer.
+   try-expand-flexible-abbrev ;; Flexible matching.
    try-expand-line ;; Try to complete the current line to an entire line in the buffer.
    try-expand-dabbrev-all-buffers ;; Try to expand word "dynamically", searching all other buffers.
    try-expand-dabbrev-from-kill ;; Try to expand word "dynamically", searching the kill ring.

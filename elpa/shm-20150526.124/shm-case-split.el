@@ -153,7 +153,7 @@ Where the _ and undefineds are evaporating slots."
 White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
   (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" string)))
 
-(defun haskell-process-get-type (expr)
+(defun shm-haskell-process-get-type (expr)
   "Get the type of the given expression or name."
   (let ((reply
          (haskell-process-queue-sync-request (haskell-process)
@@ -173,7 +173,7 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
       s)))
 
 
-(defun haskell-process-get-data-type (name)
+(defun shm-haskell-process-get-data-type (name)
   "Get the data type definition of the given name."
   (let ((reply
          (haskell-process-queue-sync-request (haskell-process)
@@ -196,13 +196,13 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
       (indent-to (+ column 2))
       (shm-case-split-insert-alts
        (shm-case-split-alts-from-data-decl
-        (haskell-process-get-data-type name))))))
+        (shm-haskell-process-get-data-type name))))))
 
 (defun shm/case-split-shm-node ()
   "Do a case split based on the current node expression type."
   (interactive)
   (let* ((expr (shm-current-node-string))
-	 (expr-type (haskell-process-get-type expr))
+	 (expr-type (shm-haskell-process-get-type expr))
 	 (clean-expr (shm-cleanup-type-string-for-case expr-type)))
     (if expr-type
 	(progn
@@ -224,6 +224,6 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
   (save-excursion
     (shm-case-split-insert-pattern
      (shm-case-split-alts-from-data-decl
-      (haskell-process-get-data-type name)))))
+      (shm-haskell-process-get-data-type name)))))
 
 (provide 'shm-case-split)

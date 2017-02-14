@@ -3,19 +3,9 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
-(define-abbrev-table 'bibtex-mode-abbrev-table '())
-
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
-
-(define-abbrev-table 'browse-kill-ring-edit-mode-abbrev-table '())
-
-(define-abbrev-table 'browse-kill-ring-mode-abbrev-table '())
-
-(define-abbrev-table 'calendar-mode-abbrev-table '())
-
-(define-abbrev-table 'change-log-mode-abbrev-table '())
 
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
@@ -23,58 +13,21 @@
 
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
-(define-abbrev-table 'diff-mode-abbrev-table '())
-
-(define-abbrev-table 'dig-mode-abbrev-table '())
-
-(define-abbrev-table 'display-time-world-mode-abbrev-table '())
-
-(define-abbrev-table 'edebug-eval-mode-abbrev-table '())
-
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
-(define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
+(define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
-
-(define-abbrev-table 'erc-list-menu-mode-abbrev-table '())
-
-(define-abbrev-table 'erc-mode-abbrev-table '())
-
-(define-abbrev-table 'eshell-mode-abbrev-table '())
-
-(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
-(define-abbrev-table 'global-abbrev-table
-  '(
-    ("eod" "Emmanuel Oluwadurotimi Denloye-Ito" nil 7)
-   ))
-
-(define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
-
-(define-abbrev-table 'gnus-article-mode-abbrev-table '())
-
-(define-abbrev-table 'gnus-browse-mode-abbrev-table '())
-
-(define-abbrev-table 'gnus-category-mode-abbrev-table '())
-
-(define-abbrev-table 'gnus-group-mode-abbrev-table '())
-
-(define-abbrev-table 'gnus-score-mode-abbrev-table '())
-
-(define-abbrev-table 'gnus-sticky-article-mode-abbrev-table '())
-
-(define-abbrev-table 'grep-mode-abbrev-table '())
+(define-abbrev-table 'global-abbrev-table '())
 
 (define-abbrev-table 'haskell-cabal-mode-abbrev-table '())
 
 (define-abbrev-table 'haskell-compilation-mode-abbrev-table '())
-
-(define-abbrev-table 'haskell-debug-mode-abbrev-table '())
 
 (define-abbrev-table 'haskell-error-mode-abbrev-table '())
 
@@ -82,10 +35,23 @@
 
 (define-abbrev-table 'haskell-mode-abbrev-table
   '(
-    ("wh" "where" nil 4)
+    ("dou" "Double" nil 0)
+    ("fal" "False" nil 0)
+    ("flt" "Float" nil 0)
+    ("im" "import" nil 0)
+    ("int" "Int" nil 0)
+    ("inte" "Integer" nil 0)
+    ("io" "IO ()" nil 0)
+    ("just" "Just" nil 0)
+    ("maybe" "Maybe" nil 0)
+    ("noth" "Nothing" nil 0)
+    ("str" "String" nil 0)
+    ("tr" "True" nil 0)
    ))
 
 (define-abbrev-table 'haskell-presentation-mode-abbrev-table '())
+
+(define-abbrev-table 'haskell-yesod-parse-routes-mode-abbrev-table '())
 
 (define-abbrev-table 'helm-grep-mode-abbrev-table '())
 
@@ -93,49 +59,13 @@
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
-(define-abbrev-table 'ibuffer-mode-abbrev-table '())
-
 (define-abbrev-table 'image-dired-display-image-mode-abbrev-table '())
 
 (define-abbrev-table 'image-dired-thumbnail-mode-abbrev-table '())
 
-(define-abbrev-table 'inferior-haskell-mode-abbrev-table '())
-
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'literate-haskell-mode-abbrev-table '())
-
-(define-abbrev-table 'log-edit-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-cherry-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-diff-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-log-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-log-select-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-popup-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-popup-sequence-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-process-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-reflog-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-refs-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-revision-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-stash-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-stashes-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-status-mode-abbrev-table '())
-
-(define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
@@ -143,60 +73,27 @@
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
-(define-abbrev-table 'org-export-stack-mode-abbrev-table '())
-
-(define-abbrev-table 'org-mode-abbrev-table '())
-
 (define-abbrev-table 'outline-mode-abbrev-table '())
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
-
-(define-abbrev-table 'pianobar-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
-(define-abbrev-table 'reb-lisp-mode-abbrev-table '())
-
-(define-abbrev-table 'reb-mode-abbrev-table '())
-
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
-
-(define-abbrev-table 'sh-mode-abbrev-table '())
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
 (define-abbrev-table 'shm-edit-string-mode-abbrev-table '())
 
-(define-abbrev-table 'smime-mode-abbrev-table '())
-
-(define-abbrev-table 'snippet-mode-abbrev-table '())
-
 (define-abbrev-table 'special-mode-abbrev-table '())
 
-(define-abbrev-table 'speedbar-mode-abbrev-table '())
-
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
-
-(define-abbrev-table 'term-mode-abbrev-table '())
-
-(define-abbrev-table 'tetris-mode-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
 
-(define-abbrev-table 'vc-bzr-log-view-mode-abbrev-table '())
+(define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
-(define-abbrev-table 'vc-dir-mode-abbrev-table '())
-
-(define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
-
-(define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
-
-(define-abbrev-table 'vc-hg-log-view-mode-abbrev-table '())
-
-(define-abbrev-table 'vc-mtn-log-view-mode-abbrev-table '())
-
-(define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())

@@ -31,4 +31,9 @@
                    ',fallback)
           (call-interactively ',fallback))))))
 
+;;; There probably is a better way to approach this. But this should
+;;; work for now.
+(defmacro shm-cond-wrapper (alist)
+  `(cond ,@ (symbol-value alist)))
+
 (provide 'shm-macros)

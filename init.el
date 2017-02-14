@@ -4,6 +4,7 @@
 
 (let ((file-name-handler-alist nil))
   (setq gc-cons-threshold 100000000)
+  (setq ad-redefinition-action 'accept)
   (require 'package)
   (setq package-archives
         '(("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -16,11 +17,8 @@
   ;; add your modules path
   (add-to-list 'load-path "~/.emacs.d/custom/")
 
-  (eval-when-compile
-    (require 'cl))
-
-  (eval-when-compile
-    (require 'use-package))
+  (require 'cl)
+  (require 'use-package)
   (require 'diminish)
   (require 'bind-key)
 
@@ -33,17 +31,22 @@
 ;;; Also load the custom.el file.
 ;;; If there are any errors, print a message to the back trace buffer.
   (let ((debug-on-error t)
-        (custom-directory (concat user-emacs-directory "custom/")))
+        (custom-directory (concat user-emacs-directory "custom/"))
+        (custom-other-libs (concat user-emacs-directory "otherlibs/")))
+
+    (cl-loop for file in (directory-files custom-directory t)
+             unless (or (file-directory-p file) (string= (file-name-extension file) "elc"))
+             do (require (intern (file-name-base file)) file))
+
+    (cl-loop for file in (directory-files custom-other-libs t)
+             unless (or (file-directory-p file) (string= (file-name-extension file) "elc"))
+             do (require (intern (file-name-base file)) file))
 
     (setq custom-file
           (concat user-emacs-directory "custom.el"))
 
     (when (file-exists-p custom-file)
-      (load custom-file))
-
-    (cl-loop for file in (directory-files custom-directory t)
-             unless (file-directory-p file)
-             do (require (intern (file-name-base file)) file)))
+      (load custom-file)))
 
   (global-font-lock-mode)
   (put 'set-goal-column 'disabled nil)
@@ -54,3 +57,6 @@
   (diminish 'yas-minor-mode)
   (diminish 'flyspell-mode)
   (setq gc-cons-threshold 800000))
+
+(put 'erc-remove-text-properties-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)

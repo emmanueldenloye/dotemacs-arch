@@ -11,9 +11,11 @@
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielem-mode-hook 'turn-on-eldoc-mode))
 
+;;;###autoload
 (defun eod-eval-region-or-buffer (beg end)
+  "Evaluate the current active region, otherwise evaluate the current buffer."
   (interactive "r")
-  (if (region-active-p)
+  (if (use-region-p)
       (progn
         (eval-region beg end)
         (message "Evaluated region."))
@@ -22,7 +24,8 @@
       (message "Evaluated buffer."))))
 
 (with-eval-after-load
-    (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eod-eval-region-or-buffer))
+    (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eod-eval-region-or-buffer)
+  (define-key lisp-interaction-mode-map (kbd "C-c C-c") 'eod-eval-region-or-buffer))
 
 (provide 'init-emacs-lisp)
 ;; init-emacs-lisp.el ends here

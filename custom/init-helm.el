@@ -1,27 +1,52 @@
 (use-package helm
   :ensure t
   :init
+  (dolist (boring-file-extension '(".dyn_hi" ".dyn_o" ".tags"))
+    (add-to-list 'completion-ignored-extensions boring-file-extension))
   (when (executable-find "curl")
-    (setq helm-google-suggest-use-curl-p t))
+    ;; (setq helm-google-suggest-use-curl-p t)
+    (setq helm-net-prefer-curl t))
   (when (executable-find "ack-grep")
     (setq helm-grep-default-command
           "ack grep -Hn --no-group --no-color %e %p %f"
           helm-grep-default-recurse-command
           "ack grep -H --no-group --no-color %e %p %f"))
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files))
-  :bind (:map helm-map
-              ("C-'" . ace-jump-helm-line-execute-action)
-              ("C-\"" . ace-jump-helm-line))
+  :bind (("C-x c" . nil)
+         ("C-c h" . helm-command-prefix)
+         ("C-x b" . helm-mini)
+         ("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-c h o" . helm-occur)
+         ("C-h SPC" . helm-all-mark-rings)
+         ("C-c h x" . helm-register)
+         ("C-c h C-c f" . helm-multi-files)
+         ("C-c h f" . helm-recentf)
+         ("C-c h g" . helm-google-suggest)
+         ("C-c h M-:" . helm-eval-expression-with-eldoc)
+         ("C-c h C-b" . helm-bibtex))
   :bind (:map minibuffer-local-map
               ("C-c C-l" . helm-minibuffer-history))
-  :config (bind-keys :map helm-map
-                     ("<tab>" . helm-execute-persistent-action)
-                     ("C-t" . transpose-chars)
-                     ("C-c C-t" . helm-toggle-resplit-window)
-                     ("C-i" . helm-execute-persistent-action)
-                     ("C-z" . helm-select-action)
-                     ("C-c h" . helm-command-prefix-key))
+  :bind (:map isearch-mode-map
+              ("M-s"))
+  :bind (:map shell-mode-map
+              ("C-c C-l" . helm-comint-input-ring))
+  :bind (:map helm-map
+              ("C-'" . ace-jump-helm-line-execute-action)
+              ("C-\"" . ace-jump-helm-line)
+              ("<tab>" . helm-execute-persistent-action)
+              ("C-t" . transpose-chars)
+              ("C-c C-p" . previous-history-element)
+              ("C-c C-p" . next-history-element)
+              ("C-c C-t" . helm-toggle-resplit-window)
+              ("C-i" . helm-execute-persistent-action)
+              ("C-z" . helm-select-action))
+  :config
+  ;; (defun helm-occur-or-multi-occur (arg)
+  ;; (interactive "p")
+  ;; (call-interactively
+  ;;  (cond ((eq arg 4)
+  ;;         #'helm-multi-occur)
+  ;;    (t #'helm-occur))))
   (add-hook
    'eshell-mode-hook
    #'(lambda ()
@@ -52,31 +77,27 @@
    helm-mode-fuzzy-match t
    helm-input-idle-delay 0.02
    helm-candidate-number-limit 100
-   helm-autoresize-max-height 30
-   helm-autoresize-min-height 30
-   helm-display-header-line nil
+   helm-autoresize-max-height 40
+   helm-autoresize-min-height 10
+   helm-display-header-line t
    helm-locate-fuzzy-match t)
   (set-face-attribute 'helm-source-header nil :height 0.1)
   (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
-  (add-to-list
-   'helm-boring-file-regexp-list
-   '("\\.dyn_hi$" "\\.dyn_o$" "\\.hi$" "\\.o$" "\\.tags$" "^\\.ghci"))
   (use-package helm-config)
+  (use-package helm-swoop
+    :ensure t
+    :init
+    (setq helm-c-source-swoop-match-functions
+          '(helm-mm-exact-match helm-mm-match))
+
+    (setq helm-c-source-swoop-search-functions
+          '(helm-mm-exact-search
+            helm-mm-search
+            helm-candidates-in-buffer-search-default-fn)))
   (use-package helm-descbinds
     :config
     (helm-descbinds-mode))
   (use-package helm-unicode))
-
-(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
-(global-unset-key (kbd "C-x c"))
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-(global-set-key (kbd "C-c h x") 'helm-register)
-(global-set-key (kbd "C-c h g") 'helm-google-suggest)
-(global-set-key (kbd "C-c h M-:") 'helm-eval-expression-with-eldoc)
-(global-set-key (kbd "C-c h C-b") 'helm-bibtex)
 
 (provide 'init-helm)
 ;;; init-helm.el ends here
