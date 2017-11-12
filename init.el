@@ -6,6 +6,10 @@
   (setq gc-cons-threshold 100000000)
   (setq ad-redefinition-action 'accept)
   (require 'package)
+  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                      (not (gnutls-available-p))))
+         (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
+    (add-to-list 'package-archives (cons "melpa" url) t))
   (setq package-archives
         '(("melpa-stable" . "https://stable.melpa.org/packages/")
           ("org" . "http://orgmode.org/elpa/")
@@ -56,7 +60,10 @@
   (diminish 'helm-mode)
   (diminish 'yas-minor-mode)
   (diminish 'flyspell-mode)
-  (setq gc-cons-threshold 800000))
+  (setq gc-cons-threshold 800000)
+  (semantic-mode -1))
 
 (put 'erc-remove-text-properties-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
+
+;; init.el ends here

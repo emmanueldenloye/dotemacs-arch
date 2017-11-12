@@ -87,7 +87,11 @@ node."
          (current (cdr current-pair)))
     (if (= (point) (shm-node-end current))
         (let ((next-pair (shm-node-next current-pair)))
-          (goto-char (shm-node-start (cdr next-pair))))
+          (if next-pair
+              (goto-char (shm-node-start (cdr next-pair)))
+            (if (fboundp 'smartparens-mode)
+              (sp-forward-sexp 1)
+              (error "shm/forward-node: nothing to do here"))))
       (progn (goto-char (shm-node-end current))
              (setq shm-last-point (point))))))
 

@@ -1,12 +1,3 @@
-;; (use-package yas-jit
-;;   :ensure t
-;;   :init (setq yas/root-directory
-;;               '(yas-installed-snippets-dir
-;;                 "/home/emmanuel/.emacs.d/elpa/haskell-snippets-20150612.1239/snippets"
-;;                 "/home/emmanuel/.emacs.d/elpa/elpy-1.14.0/snippets/"))
-;;   :config
-;;   (yas/jit-load))
-
 (use-package yasnippet
   :defer t
   :ensure t

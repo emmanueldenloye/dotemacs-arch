@@ -27,9 +27,7 @@
 (defun initial-mode-turn-on-electric-mode ()
   (electric-pair-local-mode))
 
-(dolist (hook '(initial-mode-recenter
-                initial-mode-check-if-terminal
-                initial-mode-turn-on-electric-mode))
+(dolist (hook '(initial-mode-recenter))
   (add-hook 'initial-mode-hook hook))
 
 (setq initial-major-mode 'initial-mode)

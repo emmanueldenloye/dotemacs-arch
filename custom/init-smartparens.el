@@ -3,15 +3,17 @@
   :config
   (use-package smartparens-config
     :config
-    (setq sp-base-key-bindings 'paredit)
-    (add-hook 'lisp-interaction-mode-hook 'turn-on-smartparens-mode)
-    (setq sp-autoskip-closing-pair 'always)
-    (setq sp-hybrid-kill-entire-symbol nil)
+    (setq sp-base-key-bindings 'paredit
+          sp-autoskip-closing-pair 'always
+          sp-hybrid-kill-entire-symbol nil)
+    (add-to-list 'sp-navigate-consider-stringlike-sexp 'haskell-mode)
     (sp-use-paredit-bindings))
-  :bind (:map smartparens-mode-map
-         ("C-c w r" . sp-rewrap-sexp)
-         ("C-c w u" . sp-unwrap-sexp)
-         ("M-J" . sp-join-sexp)))
+  :bind
+  (:map smartparens-mode-map
+        ("M-R" . sp-rewrap-sexp)
+        ("M-J" . sp-join-sexp)
+        ("M-N" . sp-next-sexp)
+        ("M-P" . sp-previous-sexp)))
 ;; (diminish 'smartparens-mode)
 
 (provide 'init-smartparens)

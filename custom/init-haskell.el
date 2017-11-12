@@ -2,11 +2,18 @@
 ;;; Commentary:
 ;;; Code:
 (require 'cl)
+
 (use-package haskell-interactive-mode
   :init
-  (add-hook 'haskell-interactive-mode-hook 'turn-on-smartparens-mode)
-  (add-hook 'haskell-interactive-mode-hook 'subword-mode)
-  (add-hook 'haskell-interactive-mode-hook 'rainbow-delimiters-mode))
+  (dolist (hook '(turn-on-smartparens-mode
+                  subword-mode
+                  rainbow-delimiters-mode
+                  (lambda () (electric-pair-local-mode -1))))
+    (add-hook 'haskell-interactive-mode-hook hook)))
+  ;; (add-hook 'haskell-interactive-mode-hook 'turn-on-smartparens-mode)
+  ;; (add-hook 'haskell-interactive-mode-hook 'subword-mode)
+  ;; (add-hook 'haskell-interactive-mode-hook (lambda () (electric-pair-local-mode -1)))
+  ;; (add-hook 'haskell-interactive-mode-hook 'rainbow-delimiters-mode))
 (use-package haskell-mode
   :ensure t
   :init
@@ -17,11 +24,14 @@
   (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
     (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
     (add-to-list 'exec-path my-cabal-path))
+  (setq exec-path
+        (cons "/usr/bin" (remove "/usr/bin" exec-path)))
   ;; To get eta working.
   (let ((my-eta-path (expand-file-name "~/.local/bin")))
     (setenv "PATH" (concat my-eta-path path-separator (getenv "PATH")))
     (add-to-list 'exec-path my-eta-path))
   (setq ghc-ghc-options '("-idir1" "-idir2"))
+  (add-hook 'ghc-core-mode-hook (lambda () (structured-haskell-mode -1)))
   (define-abbrev haskell-mode-abbrev-table "im" "import")
   (define-abbrev haskell-mode-abbrev-table "int" "Int")
   (define-abbrev haskell-mode-abbrev-table "inte" "Integer")
@@ -36,7 +46,7 @@
   (define-abbrev haskell-mode-abbrev-table "io" "IO ()")
   ;; (add-to-list 'align-rules-list
   ;;              '(haskell-types
-  ;;                (regexp . "\\(\\s-+\\)\\(::\\|::\\)\\s-+")
+  ;;                (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
   ;;                (modes quote (haskell-mode literate-haskell-mode))))
   ;; (add-to-list 'align-rules-list
   ;;              '(haskell-assignment
@@ -50,8 +60,10 @@
   ;;              '(haskell-left-arrows
   ;;                (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
   ;;                (modes quote (haskell-mode literate-haskell-mode))))
-  (eval-after-load "which-func"
-    '(add-to-list 'which-func-modes 'haskell-mode))
+
+  ;; (use-package which-function
+  ;;   :config
+  ;;   (add-to-list 'which-func-modes 'haskell-mode))
   (setq haskell-complete-module-preferred
         '("Control.Monad"
           "Control.Monad.ST"
@@ -99,7 +111,6 @@
              ("C-c M-t" . transpose-words)
              ("C-c n i" . eod-haskell-navigate-imports)
              ("C-c n g" . haskell-navigate-imports)
-             ("C-M-d" . sp-down-sexp)
              ("C-c v c" . haskell-cabal-visit-file))
   (bind-keys :map haskell-interactive-mode-map
              ("C-c C-l" . helm-haskell-interactive-mode-history)
@@ -113,6 +124,13 @@
              ("C-c C-c" . haskell-process-cabal-build)
              ("C-c c" . haskell-process-cabal)
              ("C-c C-o" . haskell-compile))
+  (add-to-list 'load-path "~/.cabal/share/x86_64-linux-ghc-7.10.3/HaRe-0.8.2.3/elisp")
+  (use-package hare
+    :init
+    (setq ghc-hare-command "~/.local/bin/ghc-hare")
+    :config
+    (autoload 'hare-init "hare" nil t)
+    (add-hook 'haskell-mode-hook (lambda () (hare-init))))
   ;; (use-package hare
   ;;   :init
   ;;   ;; (add-to-list 'load-path "~/.cabal/share/HaRe-0.8.2.3/elisp")
@@ -121,6 +139,10 @@
   ;;   :config ;; (add-hook 'haskell-mode-hook (lambda () (hare-init)))
   ;;   )
   )
+
+
+(add-hook 'haskell-mode-hook (lambda ()
+                     (define-key haskell-mode-map (kbd "C-M-d") 'sp-down-sexp)))
 
 (use-package haskell-process)
 
@@ -155,6 +177,17 @@
 ;;       (back-to-indentation)
 ;;       (delete-region (line-beginning-position) (point)))))
 
+;; (defun haskell-process-send-decl ()
+;;   "Send the current declaration to current haskell process"
+;;   (save-excursion
+;;     (gotochar (1+ (point)))
+;;     (let* ((proc (haskell-process))
+;;            (start (or (haskell-ds-backward-decl) (point-min)))
+;;            (end (or (haskell-forward-decl (point-max))))
+;;            (raw-decl (buffer-substring start end)))
+;;       (with-current-buffer (process-buffer proc)
+;;         (haskell-process proc (inferior-haskell-process-wrap-decl raw-decl))))))
+
 (defun haskell-mode-turn-on-shm-case-split ()
   (when (fboundp 'structured-haskell-mode)
     (require 'shm-case-split)
@@ -188,7 +221,7 @@ user can tell)."
   (interactive)
   (save-excursion
     (mark-defun)
-    (next-line)
+    (forward-line 1)
     (hindent-reformat-region)))
 
 (defun eod-haskell-navigate-imports ()
@@ -231,6 +264,41 @@ user can tell)."
   "Insert the documentation syntax."
   (interactive)
   (insert " -- | "))
+
+(defun shm/wrap-backticks (&optional current)
+  "Wrap the node in backticks."
+  (interactive)
+  (cond
+   ((region-active-p)
+    (shm-wrap-delimiters "`" "`"))
+   (t (let ((line (line-number-at-pos))
+            (node (or current (shm-current-node))))
+        (save-excursion
+          (goto-char (shm-node-start node))
+          (insert "`")
+          (goto-char (shm-node-end node))
+          (when (/= line (line-number-at-pos))
+            (indent-rigidly (shm-node-start node)
+                            (shm-node-end node)
+                            1))
+          (insert "`"))
+        (forward-char 1)))))
+
+(defun eod-shm/wrap-backticks (arg)
+  (interactive "p")
+  (if (or (use-region-p) (= arg 4))
+      (shm/wrap-backticks)
+    (insert "`")))
+
+(define-key shm-map (kbd "`") 'eod-shm/wrap-backticks)
+
+(defun haskell-error-buffer-count ()
+  (let ((count 0))
+    (save-excursion
+      (goto-char (point-min))
+      (while (search-forward-regexp "error:$" nil t)
+        (setq count (1+ count))))
+    (message "The number of errors encountered: %s" count)))
 
 (defun haskell-simple-compile-or-run (arg)
   "Run the current haskell file using \"runhaskell\"."
@@ -372,26 +440,28 @@ user can tell)."
         (goto-char (point-min))
         (while (search-forward-regexp "\\bundefined\\b" nil t)
           (progn
-            (delete-region (point) (save-excursion (backward-word 1) (point)))
+            (delete-region (save-excursion (backward-word 1) (point)) (point))
             (shm/insert-undefined)
             (forward-word)))))))
 
 (defadvice shm-reformat-decl (after reinsert-undefined activate)
   (shm-reinsert-undefined-slots-after-fill))
 
-(defadvice shm/backward-node (around in-comment activate)
+(defadvice shm/backward-node (around in-comment-or-string activate)
   (if (or (shm-in-comment) (shm-in-string))
       (sp-backward-sexp)                ;this can be replaced with
                                         ;(backward-sexp) if you don't
                                         ;have smartparens-mode
     ad-do-it))
 
-(defadvice shm/forward-node (around in-comment activate)
+(defadvice shm/forward-node (around in-comment-or-string activate)
   (if (or (shm-in-comment) (shm-in-string))
       (sp-forward-sexp)                 ;this can be replaced with
                                         ;(forward-sexp) if you don't
                                         ;have smartparens-mode
     ad-do-it))
+
+
 
 (defadvice hindent-reformat-decl-or-fill (after reinsert-undefined activate)
   (shm-reinsert-undefined-slots-after-fill))
@@ -616,7 +686,7 @@ data JSValue
               ((eq x 'Ident) (shm-transpose-data-constructors-helper bounds m1 m2 m3 m4))
               ((eq x 'FieldDecl)
                (progn
-                 (if (= (point (shm-node-start (cdr (shm-current-node-pair)))))
+                 (if (= (point) (shm-node-start (cdr (shm-current-node-pair))))
                      (shm-set-node-overlay)
                    (progn (shm/backward-node) (shm-set-node-overlay)))
                  (shm-transpose-data-constructors-helper bounds m1 m2 m3 m4)))
@@ -764,6 +834,7 @@ data JSValue
 (define-key haskell-mode-map (kbd "M-g k") 'shm-push-current-data-constructor-up)
 (define-key haskell-mode-map (kbd "M-g j") 'shm-push-current-data-constructor-down)
 
+
 (defun shm/goto-topmost-parent ()
   "Go to the topmost parent of the current node."
   (let ((loc (point)))
@@ -773,22 +844,27 @@ data JSValue
       (setq loc (point)))))
 
 (defun shm-add-deriving-clause ()
-  "Add a deriving clause to the data type declaration. If successful,
+  "Add a deriving clause to the data/newtype type declaration. If successful,
 the point should be at the beginning of an evaporating undefined."
   (interactive)
   (shm/goto-topmost-parent)
+  (unless (bolp)
+      (goto-char (line-beginning-position))
+   (shm/goto-topmost-parent)) ;; this is for newtype declarations.
   (let ((current (shm-current-node))
         (line (line-number-at-pos)))
     (cond ((eq (elt current 1) 'DataDecl)
            (if-let
                ((location (save-excursion
-                            (search-forward "deriving " (save-excursion
-                                                          (end-of-defun) (point))))))
+                            (search-forward "deriving "
+                                            (save-excursion (end-of-defun) (point)) t))))
                (progn
                  (goto-char location)
                  (if (looking-at "(") (forward-char)))
                (progn
                  (shm/forward-node)
+                 (comment-forward 1) ;; comments don't get skipped over by shm/forward-node
+                 (backward-char)
               ;; The logic contained within the "if statement" assumes
               ;; that the data declaration at point can be parsed by
               ;; structured-haskell-mode. Specifically, it checks if
@@ -879,9 +955,42 @@ the point should be at the beginning of an evaporating undefined."
              (save-excursion (goto-char (region-end)) (insert "\"")))
     ad-do-it))
 
+(defadvice shm/open-paren (around check-for-at-symbol activate)
+  (if (looking-back "@"
+                    (save-excursion
+                          (haskell-ds-backward-decl)
+                          (point)))
+      (progn
+        (save-excursion
+          (insert "()"))
+        (forward-char))
+    ad-do-it))
+
+(defadvice shm/open-bracket (around check-for-at-symbol activate)
+  (if (looking-back "@"
+                    (save-excursion
+                          (haskell-ds-backward-decl)
+                          (point)))
+      (progn
+        (save-excursion
+          (insert "[]"))
+        (forward-char))
+    ad-do-it))
+
+(defadvice shm/open-brace (around check-for-at-symbol activate)
+  (if (looking-back "@"
+                    (save-excursion
+                          (haskell-ds-backward-decl)
+                          (point)))
+      (progn
+        (save-excursion
+          (insert "{}"))
+        (forward-char))
+    ad-do-it))
+
 ;;; Undo-tree-undo on text with the evaporating text property really
 ;;; gets on my nerves sometimes. This makes undo-tree-undo function
-;;; behave rationally in the scenario.
+;;; behave rationally in this scenario.
 (defadvice undo-tree-undo (after check-if-word-after-is-undefined activate)
   (when (and (string= (thing-at-point 'word t) "undefined")
              (eq major-mode 'haskell-mode))
@@ -914,44 +1023,44 @@ the point should be at the beginning of an evaporating undefined."
   (deactivate-mark))
 
 (defun helm-haskell-interactive-mode-history ()
-  "Preconfigured helm for haskell-interactive-mode history."
-  (interactive)
-  (let* ((end (point))
-        (beg (marker-position haskell-interactive-mode-prompt-start))
-        (input (buffer-substring beg end))
-        flag-empty
-        (session-history haskell-interactive-mode-history))
-    (when (eq beg end)
-      (insert " ")
-      (setq flag-empty t)
-      (setq end (point)))
-    (unwind-protect
-        (with-helm-show-completion beg end
-          (helm :sources (helm-make-source "Haskell Interactive Mode History"
-                             'helm-haskell-interactive-mode-history-source)
-                :buffer "*helm haskell-interactive-mode history*"
-                :resume 'noresume
-                :input input))
-      (when (and flag-empty
-                 (looking-back " " (1- (point))))
-        (delete-char -1)))))
+   "Preconfigured helm for haskell-interactive-mode history."
+   (interactive)
+   (let* ((end (point))
+          (beg (marker-position haskell-interactive-mode-prompt-start))
+          (input (buffer-substring beg end))
+          flag-empty
+          (session-history haskell-interactive-mode-history))
+     (when (eq beg end)
+       (insert " ")
+       (setq flag-empty t)
+       (setq end (point)))
+     (unwind-protect
+         (with-helm-show-completion beg end
+           (helm :sources (helm-make-source "Haskell Interactive Mode History"
+                              'helm-haskell-interactive-mode-history-source)
+                 :buffer "*helm haskell-interactive-mode history*"
+                 :resume 'noresume
+                 :input input))
+       (when (and flag-empty
+                  (looking-back " " (1- (point))))
+         (delete-char -1)))))
 
 (defclass helm-haskell-interactive-mode-history-source (helm-source-in-buffer)
-  ((init :initform (lambda ()
-                     (with-current-buffer (helm-candidate-buffer 'global)
-                       (mapc (lambda (item) (insert (concat item "\n")))
-                             (with-current-buffer
-                                 helm-current-buffer
-                               haskell-interactive-mode-history)))))
-   (nomark :initform t)
-   (keymap :initform helm-haskell-interactive-mode-history-map)
-   (filtered-candidate-transformer :initform (lambda (candidates sources)
-                                               (reverse candidates)))
-   (candidate-number-limit :initform 9999)
-   (action :initform (lambda (candidate)
-                       (haskell-interactive-mode-kill-input)
-                       (insert candidate))))
-  "Helm class to define source for Haskell Interactive Mode History.")
+   ((init :initform (lambda ()
+                      (with-current-buffer (helm-candidate-buffer 'global)
+                        (mapc (lambda (item) (insert (concat item "\n")))
+                              (with-current-buffer
+                                  helm-current-buffer
+                                haskell-interactive-mode-history)))))
+    (nomark :initform t)
+    (keymap :initform helm-haskell-interactive-mode-history-map)
+    (filtered-candidate-transformer :initform (lambda (candidates sources)
+                                                (reverse candidates)))
+    (candidate-number-limit :initform 9999)
+    (action :initform (lambda (candidate)
+                        (haskell-interactive-mode-kill-input)
+                        (insert candidate))))
+   "Helm class to define source for Haskell Interactive Mode History.")
 
 (defun haskell-interactive-mode-kill-input ()
   "Kill all text at prompt."
@@ -960,12 +1069,360 @@ the point should be at the beginning of an evaporating undefined."
    (point-max)))
 
 (defvar helm-haskell-interactive-mode-history-map
-  (let ((map (make-sparse-keymap)))
-    (set-keymap-parent map helm-map)
-    (define-key map (kbd "M-p") 'helm-next-line)
-    (define-key map (kbd "M-n") 'helm-previous-line)
-    map)
-  "Keymap for `helm-haskell-interactive-mode-history'.")
+   (let ((map (make-sparse-keymap)))
+     (set-keymap-parent map helm-map)
+     (define-key map (kbd "M-p") 'helm-next-line)
+     (define-key map (kbd "M-n") 'helm-previous-line)
+     map)
+   "Keymap for `helm-haskell-interactive-mode-history'.")
+
+(defun eod-shm/export ()
+  "Export the identifier at point."
+  (interactive)
+  (let ((name (shm-node-string (shm-actual-node))))
+    (save-excursion
+      (goto-char (point-min))
+      (search-forward-regexp "^module")
+      (search-forward-regexp " where")
+      (let ((orig (point)))
+        (if (search-backward-regexp "(.*)")
+            (progn
+              (let ((add-comma (sexp-at-point)))
+                (forward-sexp 1)
+                (backward-char 1)
+                (if add-comma
+                    (insert ", "))
+                (insert name)))
+          (progn
+            (backward-word 1)
+            (insert (concat name " "))))))))
+
+(defun haskell-interactive-mode-flush-output ()
+  "Delete all output from interpreter since last input.
+Does not delete the prompt. This command doesn't handle
+multi-line commands."
+  (interactive)
+  (let ((session (haskell-interactive-session)))
+    (with-current-buffer (haskell-session-interactive-buffer session)
+      (let ((inhibit-read-only t)
+            (pmark
+             (save-excursion
+               (haskell-interactive-mode-prompt-previous)
+               (forward-line 1) (point)))
+            (prompt (save-excursion
+                      (search-backward-regexp (haskell-interactive-prompt-regex) nil t))))
+        (let ((orig (point)))
+          (goto-char pmark)
+          (delete-region pmark prompt)
+          (insert "*** output flushed ***\n")
+          (forward-line -1)
+          (put-text-property (point-at-bol) (point-at-eol) 'read-only t)
+          (goto-char orig))))))
+
+(define-key
+  haskell-interactive-mode-map
+  (kbd "C-c M-k")
+  'haskell-interactive-mode-flush-output)
+
+(defun helm-shm-faces ()
+  (interactive)
+  (helm
+   :sources
+   (helm-build-sync-source "SHM current/quarantine face alist"
+     :candidates
+     '(("Light Theme #eee8d5 #fffacd" . ("#eee8d5" "#fffacd"))
+       ("Dark Theme #373737 #443333" . ("#373737" "#443333")))
+     :fuzzy-match t
+     :action
+     'shm-set-face
+     :persistent-action
+     'shm-set-face)
+   :buffer "*helm SHM current/quarantine face alist*"
+   :full-frame nil
+   :candidate-number-limit 100))
+
+(defun shm-set-face (faces)
+  (cl-destructuring-bind (current quarantine) faces
+         (when (and (eq major-mode 'haskell-mode) structured-haskell-mode)
+           (set-face-background 'shm-current-face current)
+           (set-face-background 'shm-quarantine-face quarantine))))
+
+(set-face-background 'shm-current-face "#eee8d5")
+(set-face-background 'shm-quarantine-face "lemonchiffon")
+
+(defun shm/case-split-completing-read (&optional expr-string)
+  (interactive)
+  "Using whichever `completing-read' function is available, this
+will gather all the data types currently within the current
+buffer (and also those given in your imports) that is loaded into
+an interactive haskell session and present them in a list (the
+manner in which is specified by `completing-read'). Upon
+selection of a data type, the corresponding case statement for
+that type will be inserted into the buffer. EXPR-STRING will be
+used as the variable to match on in the case statement when it is
+non-nil."
+  (let* ((err "Can't work with this type.")
+         (execute
+          (condition-case nil
+              (shm/case-split
+               (completing-read
+                "Choose a type: "
+                (shm-haskell-interactive-get-types))
+               expr-string)
+            (error err))))
+    (when execute
+      (delete-region (point-at-bol) (point-at-eol))
+      (delete-char 1)
+      execute)))
+
+(defun shm-haskell-interactive-get-types ()
+  "When an interactive-haskell session is currently loaded,
+gather all the data types necessarily loaded in the current
+session."
+  (if (haskell-process)
+      (progn
+        (require 'rx)
+        (require 'dash)
+        (let* ((imports
+                (save-excursion
+                  (goto-char (point-min))
+                  (let (collect)
+                    (while (re-search-forward
+                            "^import \\(qualified\\)*\\s-+" nil t)
+                      (setq collect
+                            (cons
+                             (buffer-substring-no-properties
+                              (point)
+                              (skip-chars-forward
+                               (rx (or alphanumeric (any ".")))
+                               (point-at-eol)))
+                             collect)))
+                    collect))))
+          (-filter
+           (lambda (str) (not (string= "" str)))
+           (split-string
+            (mapconcat
+             'identity
+             (-filter
+              (lambda (str) (not (string= "" str)))
+              (mapcar
+               (lambda (import)
+                 (let ((reply
+                        (haskell-process-queue-sync-request
+                         (haskell-process)
+                         (concat ":browse " import))))
+                   (with-temp-buffer
+                     (insert reply)
+                     (keep-lines "^data" (point-min) (point-max))
+                     (goto-char (point-min))
+                     (haskell-mode)
+                     (structured-haskell-mode -1)
+                     (while (/= (point) (point-max))
+                       (delete-char 5)
+                       (forward-sexp 1)
+                       (delete-region (point) (point-at-eol))
+                       (forward-line 1))
+                     (fundamental-mode)
+                     (eod-region-remove-properties (point-min) (point-max))
+                     (buffer-string))))
+               (cons ""                   ;the empty string is necessary
+                                        ;so that the current module is
+                                        ;searched
+                     (if (member "Prelude" imports)
+                         imports
+                       (cons "Prelude" imports)))))
+             "")
+            "\n"))))
+    (error
+     "You do not have an interactive haskell session
+    loaded. Load an interactive haskell process by executing
+    M-x `haskell-session' or by pressing C-c
+    C-z (or M-x `haskell-interactive-switch') .")))
+
+;; (set-face-background 'shm-current-face "#373737")
+;; (set-face-background 'shm-quarantine-face "#443333")
+
+(defun blank-line-p ()
+  (and (bolp) (eolp)))
+
+(defun clear-to-one-blank-line ()
+  (when (save-excursion (forward-line) (blank-line-p))
+    (delete-blank-lines)))
+
+(defun haskell-clear-to-one-line-between-functions ()
+  "The purpose of this function should be obvious from its name."
+  (interactive)
+  (when (and (fboundp 'haskell-decl-scan-mode) haskell-decl-scan-mode)
+    (save-excursion
+      (goto-char (point-min))
+      (while (search-forward-regexp "^import" nil t)) ;go past all the imports
+      (forward-line)
+      (while (< (point) (point-max))
+        (clear-to-one-blank-line)
+        (goto-char
+         (get-desired-point 'min '(end-of-defun forward-paragraph)))
+        (unless (blank-line-p)      ;This is honestly a bit of a hack!
+          (when (save-excursion (forward-line) (blank-line-p))
+            (forward-line))))
+      (message "Finished clearing blank lines!"))))
+
+(defun haskell-highlight-symbol-prev-or-prev-error ()
+  (interactive)
+  (unless (ghc-goto-prev-error)
+    (highlight-symbol-prev)))
+
+(define-key haskell-mode-map (kbd "M-p") 'haskell-highlight-symbol-prev-or-prev-error)
+
+(defun haskell-highlight-symbol-next-or-next-error ()
+  (interactive)
+  (unless (ghc-goto-next-error)
+    (highlight-symbol-next)))
+
+(define-key haskell-mode-map (kbd "M-n") 'haskell-highlight-symbol-next-or-next-error)
+
+(defun eod-haskell-process-load-file (arg)
+  "Something hopefully not poorly written. Besa mi culo maldito pendejo."
+  (interactive "p")
+  (haskell-process-load-file)
+  (cond ((= arg 4)
+         (haskell-interactive-switch))
+        (t ())))
+
+(with-eval-after-load 'interactive-haskell-mode
+  (define-key
+    interactive-haskell-mode-map (kbd "C-c C-l") 'eod-haskell-process-load-file))
+
+(defun shm/forward-node-shift-selection ()
+  (interactive)
+  (if (member last-command
+              '(shm/forward-node-shift-selection
+                shm/backward-node-shift-selection))
+      (shm/forward-node)
+    (push-mark (point) nil t)
+    (shm/forward-node)))
+
+(defun shm/backward-node-shift-selection ()
+  (interactive)
+  (if (member last-command
+              '(shm/forward-node-shift-selection
+                shm/backward-node-shift-selection))
+      (shm/backward-node)
+    (push-mark (point) nil t)
+    (shm/backward-node)))
+
+(define-key shm-map (kbd "C-M-S-f") 'shm/forward-node-shift-selection)
+
+(define-key shm-map (kbd "C-M-S-b") 'shm/backward-node-shift-selection)
+
+;; (set-face-background 'shm-current-face "#373737")
+;; (set-face-background 'shm-quarantine-face "#443333")
+
+
+;; the beginning of another great function this function should be
+;; advice for beginning of defun this would in effect go the actual
+;; definition of the function instead of the beginning of its type
+;; signature (should it exist
+
+;; (search-forward "::" (point-at-eol) t nil)
+
+(defun shm-switch-then-else ()
+  "Assumes that point is on then or else keyword. This also
+  assumes that the \"then\" and \"else\" keywords are on
+  different lines and start at the same column."
+  (interactive)
+  (if (and (eq major-mode 'haskell-mode)
+           structured-haskell-mode
+           (eq (elt (shm-current-node) 1) 'If))
+      (cond
+       ((string= (word-at-point) "then")
+        (progn
+          (forward-word 1)
+          (backward-word 1)
+          (let* ((col (current-column))
+                 (else-point
+                  (car
+                   (shm-collect-matches
+                    "else"
+                    'forward
+                    (shm-node-end (shm-current-node))
+                    col
+                    ))))
+            (transpose-regions
+             (+ 5 (point))
+             (save-excursion
+               (forward-char 5)
+               (if (string= (word-at-point) "undefined")
+                   (progn (forward-word) (point))
+                 (shm-determine-if-branch-end)))
+             (+ else-point 5)
+             (save-excursion
+               (goto-char (+ else-point 5))
+               (if (string= (word-at-point) "undefined")
+                   (progn (forward-word) (point))
+                 (shm-determine-if-branch-end)))))
+          (structured-haskell-mode -1)
+          (structured-haskell-mode 1)))
+       ((string= (word-at-point) "else")
+        (progn
+          (forward-word 1)
+          (backward-word 1)
+          (let* ((col (current-column))
+                 (then-point
+                  (car
+                   (shm-collect-matches
+                    "then"
+                    'backward
+                    (shm-node-start (shm-current-node))
+                    col))))
+            (transpose-regions
+             (+ 5 (point))
+             (save-excursion
+               (forward-char 5)
+               (if (string= (word-at-point) "undefined")
+                   (progn (forward-word) (point))
+                 (shm-determine-if-branch-end)))
+             (+ then-point 5)
+             (save-excursion
+               (goto-char (+ then-point 5))
+               (if (string= (word-at-point) "undefined")
+                   (progn (forward-word) (point))
+                 (shm-determine-if-branch-end)))))
+          (structured-haskell-mode -1)
+          (structured-haskell-mode 1)))
+       (t (error "I can't make the switch mate")))
+    (message "Either haskell-mode/structured-haskell-mode is not
+    enabled, or you are not in an if then else branch.")))
+
+(defun shm-determine-if-branch-end (&optional current-node)
+  "This function assumes that the point is on a word or symbol
+within the then or else branch of an if expression."
+  (setq current-node (or current-node (shm-current-node)))
+  (shm-history-record (point) (shm-current-node-pair))
+  (let ((istart (shm-node-start current-node)))
+    (shm/close-paren)
+    (when (/= istart (shm-node-start (shm-current-node)))
+      (shm/goto-last-point))
+    (shm-node-end (shm-current-node))))
+
+(defun shm-collect-matches (regexp reverse-search bound col)
+  "This is just a helper function to find the then or else keyword
+on another line at the same column. This is necessary when
+working with nested if statements."
+  (setq searchfunc
+        (case reverse-search
+          ('forward 're-search-forward)
+          ('backward 're-search-backward)
+          (_ 're-search-forward)))
+  (save-excursion
+    (let (collect)
+      (while (funcall searchfunc regexp bound t)
+        (if (= col
+               (save-excursion
+                 (goto-char
+                  (match-beginning 0))
+                 (current-column)))
+            (push (match-beginning 0) collect)))
+      collect)))
 
 (provide 'init-haskell)
 ;;; init-haskell.el ends here

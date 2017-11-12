@@ -59,13 +59,13 @@
 
 		     (define-key evil-normal-state-map (kbd "SPC g a" ) 'git-gutter+-stage-hunks)
 		     (define-key evil-normal-state-map (kbd "SPC g r") 'git-gutter+-revert-hunks)
-		     
+
 		     (define-key evil-visual-state-map (kbd "SPC g a" ) 'git-gutter+-stage-hunks)
 		     (define-key evil-visual-state-map (kbd "SPC g r") 'git-gutter+-revert-hunks)
 
 		     (evil-ex-define-cmd "Gw" (bind
 					       (git-gutter+-stage-whole-buffer))))
-	      
+
 	      (define-key evil-visual-state-map (kbd "SPC x") 'execute-extended-command)
 	      (define-key evil-normal-state-map (kbd "SPC x") 'execute-extended-command)
 	      (define-key evil-normal-state-map (kbd "SPC i" ) 'imenu)
@@ -131,7 +131,7 @@
 			      (define-key evil-normal-state-map binding 'projectile-grep))))
 		     (after "helm-projectile-autoloads"
 			    (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)))
-	      
+
 	      (after "avy-autoloads"
 		     (define-key evil-operator-state-map (kbd "z") 'avy-goto-char-2)
 		     (define-key evil-normal-state-map (kbd "s") 'avy-goto-char-2)
@@ -239,6 +239,6 @@
 		     (defadvice evil-quit (around advice-for-evil-quit activate)
 		       (message "Thou shall not quit!")))
 
-	      
+
 (provide 'init-bindings)
 ;;; init-bindings.el ends here

@@ -33,7 +33,8 @@
         (insert "}"))
       (forward-char))))
 
-(dolist (hook '(java-add-class-declaration))
+(dolist (hook '(java-add-class-declaration
+                smartparens-mode))
   (add-hook 'java-mode-hook hook))
 
 (provide 'init-java)

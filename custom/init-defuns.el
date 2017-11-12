@@ -1,4 +1,3 @@
-;;;###autoload
 (defun rename-this-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to
 NEW-NAME."
@@ -15,7 +14,6 @@ NEW-NAME."
         (rename-buffer new-name)
         (set-visited-file-name new-name)))))
 
-;;;###autoload
 (defun delete-this-file ()
   "Delete the current file, and kill the buffer."
   (interactive)
@@ -28,14 +26,13 @@ NEW-NAME."
     (delete-file (buffer-file-name))
     (kill-buffer (current-buffer))))
 
-;;;###autoload
 (defun my-goto-scratch-buffer ()
   "Create a new scratch buffer."
   (interactive)
   (switch-to-buffer
    (get-buffer-create
     "*scratch*"))
-  (emacs-lisp-mode)
+  (initial-mode)
   (insert
    (format
     ";; %s\n\n"
@@ -45,34 +42,34 @@ NEW-NAME."
       "\n$" "" ; remove trailing linebreak
       (shell-command-to-string "fortune"))))))
 
-;;;###autoload
 (defun my-insert-last-kbd-macro ()
   "Insert the last keyboard macro into current buffer."
   (interactive)
   (name-last-kbd-macro 'my-last-macro)
   (insert-kbd-macro 'my-last-macro))
 
-;;;###autoload
 (defun add-auto-mode (mode &rest patterns)
   "Add entries to `auto-mode-alist' to use `MODE' for all given
 file `PATTERNS'."
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
-;;;###autoload
 (defun switch-to-previous-buffer ()
   "Switch to previous buffer."
   (interactive)
   (switch-to-buffer
    (other-buffer (current-buffer) 1)))
 
-;;;###autoload
-(defun switch-to-previous-buffer-other-window ()
-  (interactive)
-  (switch-to-buffer-other-window
-   (other-buffer (current-buffer) 1)))
+(defun switch-to-previous-buffer-other-window (stay-at-current-window)
+  (interactive "p")
+  (if (= stay-at-current-window 4)
+      (save-selected-window
+        (switch-to-buffer-other-window
+         (other-buffer (current-buffer) 1)))
+    (progn
+      (switch-to-buffer-other-window
+       (other-buffer (current-buffer) 1)))))
 
-;;;###autoload
 (defun eod-insert-buffer-directory ()
   "Insert the directory of the current bufer (FILENAME)"
   (interactive)
@@ -103,7 +100,6 @@ file `PATTERNS'."
 ;;    "chromium"
 ;;    "--app-id=bikioccmkafdpakkkcpdbppfkghcmihk"))
 
-;;;###autoload
 (defun eod-show-buffer-directory ()
   "Show the directory of the current buffer (FILENAME) in the
 minibuffer area."
@@ -115,23 +111,26 @@ minibuffer area."
            (not (eq major-mode 'dired-mode)))
       (message (file-name-directory filename)))))
 
-(defun eod-get-buffer-filename ()
+(defun get-buffer-filename (&optional with-directory)
   "Place the buffer's filename at the top of the kill ring."
   (let ((filename (buffer-file-name)))
     (when (and
            (not (file-directory-p filename))
            (file-exists-p filename)
            (not (eq major-mode 'dired-mode)))
-      (kill-new filename))))
+      (kill-new
+       (funcall
+        (if with-directory
+            'identity
+          'file-name-nondirectory)
+        filename)))))
 
-;;;###autoload
 (defun dont-kill-emacs ()
   (interactive)
   (error (substitute-command-keys "To exit emacs: \\[kill-emacs]")))
 
 (global-set-key (kbd "C-x C-c") 'dont-kill-emacs)
 
-;;;###autoload
 (defun mplayer ()
   "An interface to mplayer."
   (interactive)
@@ -141,7 +140,6 @@ minibuffer area."
                            (read-file-name "Filename: ")))
                          "& ")))
 
-;;;###autoload
 (defun unpop-to-mark-command ()
   "Unpop off mark ring. Does nothing if  ring is empty."
   (interactive)
@@ -156,7 +154,6 @@ minibuffer area."
 
 (global-set-key (kbd "C-S-SPC") 'unpop-to-mark-command)
 
-;;;###autoload
 (defun date (&optional insert)
   "Display the current date and time.
 With a prefix arg, INSERT it into the buffer."
@@ -166,25 +163,21 @@ With a prefix arg, INSERT it into the buffer."
             "%a, %d, %b, %Y, %T, %Z"
             (current-time))))
 
-;;;###autoload
 (defun reload-init-file ()
   "Reload init.el file"
   (interactive)
   (load user-init-file)
   (message "Reloaded init.el OK."))
 
-;;;###autoload
 (defun open-init-file ()
   (interactive)
   (find-file user-init-file))
 
-;;;###autoload
 (defun open-as-root (filename)
   "Open FILENAME as root."
   (interactive "f")
   (find-file (concat "/sudo:root@localhost:" filename)))
 
-;;;###autoload
 (defun open-buffer-as-root ()
   (interactive)
   (-if-let* ((filename (buffer-file-name)))
@@ -193,7 +186,6 @@ With a prefix arg, INSERT it into the buffer."
         (open-as-root filename))
     (message "Current buffer: %s is not a file." (buffer-name))))
 
-;;;###autoload
 (defun eod-send-file-name-to-minibuffer ()
   (interactive)
   (insert
@@ -208,7 +200,6 @@ With a prefix arg, INSERT it into the buffer."
   minibuffer-local-map
   (kbd "C-c C-f") 'eod-send-file-name-to-minibuffer)
 
-;;;###autoload
 (defun eod-copy-file-name-to-clipboard (&optional arg)
   "Copy the current buffer file name to the clipboard.
 When invoked with an argument, strip the directory off the of the
@@ -225,7 +216,6 @@ filename."
       (message
        "Copied buffer file name '%s' to the clipboard. " filename))))
 
-;;;###autoload
 (defun eval-sexp-and-replace (value)
   "Evaluate the sexp at point and replace it with its value "
   (interactive (list (eval-last-sexp nil)))
@@ -237,7 +227,6 @@ filename."
 
 (global-set-key (kbd "C-c y") 'clipboard-yank)
 
-;;;###autoload
 (defun eod-join-next-line (arg)
   "Join the next line with the current one."
   (interactive "p")
@@ -248,20 +237,18 @@ filename."
         (save-excursion
           (dotimes (i difflines)
             (if (> (point) (mark))
-                (join-line nil)
-              (join-line 1)))))
+                (delete-indentation nil)
+              (delete-indentation 1)))))
     (dotimes (i (abs arg))
       (if (>= arg 0)
-          (join-line 1)
-        (join-line nil)))))
+          (delete-indentation 1)
+        (delete-indentation nil)))))
 
-;;;###autoload
 (defun eod-test-net ()
   (interactive)
   (async-shell-command
    "ping -c 3 8.8.8.8"))
 
-;;;###autoload
 (defun eod-dropbox-status-message ()
   "Get the current dropbox status."
   (interactive)
@@ -269,7 +256,6 @@ filename."
       (message "Dropbox is running.")
     (message "Dropbox is not running.")))
 
-;;;###autoload
 (defun eod-dropbbox-print-puburl-file ()
   "Print the public url of the current file."
   (interactive)
@@ -281,7 +267,6 @@ filename."
       "dropbox-cli puburl "
       (buffer-file-name)))))
 
-;;;###autoload
 (defun eod-dropbbox-print-filestatus ()
   "Print the status of the current file."
   (interactive)
@@ -293,19 +278,16 @@ filename."
       "dropbox-cli filestatus "
       (buffer-file-name)))))
 
-;;;###autoload
 (defun eod-dropbox-print-maindir ()
   "Print the status of the Dropbox folder and its contents."
   (interactive)
   (async-shell-command "dropbox-cli filestatus ~/Dropbox/*"))
 
-;;;###autoload
 (defun eod-dropbox-status ()
   "Get the current dropbox sync status."
   (interactive)
   (async-shell-command "dropbox-cli status"))
 
-;;;###autoload
 (defun eod-dropbox-print-directory-status ()
   "Print the status of the file's current directory.
 This still needs some work."
@@ -319,7 +301,6 @@ This still needs some work."
                  "*"))
       (message "Check if the current directory is a sub directory of \"~/Dropbox\""))))
 
-;;;###autoload
 (defun eod-sudo-edit (&optional arg)
   (interactive "p")
   (if (or arg (not buffer-file-name))
@@ -332,7 +313,6 @@ This still needs some work."
       "/sudo:root@localhost:"
       buffer-file-name))))
 
-;;;###autoload
 (defun prelude-search (query-url prompt)
   "Open the search URL constructed with the QUERY-URL.
 PROMPT sets the `read-string prompt."
@@ -414,7 +394,6 @@ interactive command to search through them"
 ;;                          (read-string "Search Google Scholar: "))))))
 
 ;; toggle vertical/window split
-;;;###autoload
 (defun toggle-window-split ()
   (interactive)
   (if (= (count-windows) 2)
@@ -446,7 +425,6 @@ interactive command to search through them"
 (global-set-key (kbd "C-c C-)") 'toggle-window-split)
 (global-set-key (kbd "C-c )") 'toggle-window-split)
 
-;;;###autoload
 (defun prelude-colorize-compilation-buffer ()
   "Colorize a compilation buffer."
   (interactive)
@@ -456,7 +434,6 @@ interactive command to search through them"
     (let ((inhibit-read-only t))
       (ansi-color-apply-on-region (point-min) (point-max)))))
 
-;;;###autoload
 (defun try-expand-flexible-abbrev (old)
   "Try to complete word using flexible matching.
 
@@ -487,7 +464,6 @@ is found, nil otherwise."
            (setq he-expand-list (cdr he-expand-list))
            t)))
 
-;;;###autoload
 (defun he-flexible-abbrev-collect (str)
   "Find and collect all words that flex-matchs STR.
 See docstring for `try-expand-flexible-abbrev' for information
@@ -502,7 +478,6 @@ about what flexible matching means in this context."
         (setq collection (cons (thing-at-point 'word) collection)))
       collection)))
 
-;;;###autoload
 (defun he-flexible-abbrev-create-regexp (str)
   "Generate regexp for flexible matching of STR.
 See docstring for `try-expand-flexible-abbrev' for information
@@ -512,7 +487,6 @@ about what flexible matching means in this context."
           "\\w*" "\\b"))
 
 ;; This is not the cleanest implementation, perhaps, but it works so whatever. What can ya do?
-;;;###autoload
 (defun eod-comment-or-uncomment-line (arg)
   "Comment or uncomment the next ARG lines. If ARG is negative,
 comment or uncomment the previous ARG lines. This command does
@@ -540,20 +514,44 @@ not do anything on empty lines."
 
 (global-set-key (kbd "C-c C-;") 'eod-comment-or-uncomment-line)
 
-;;;###autoload
+(defun eod-comment-line (arg)
+  (interactive "p")
+  (if (use-region-p)
+      (comment-line arg)
+    (let* ((echo-keystrokes nil))
+      (comment-line arg)
+      (message "\"next\" line: (;, C-;)")
+      (set-transient-map
+       (let ((map (make-sparse-keymap)))
+         (dolist (mods '(() (control)))
+           (dolist (keys '(59))
+             (define-key map (vector (append mods (list keys)))
+               `(lambda ()
+                  (interactive)
+                  (eod-comment-line ,arg)))))
+         map)))))
+
+(global-set-key (kbd "C-x C-;") 'eod-comment-line)
+
 (defun eod-insert-dollar ()
-  "Insert a dollar into the buffer as expected, unless the
-current major mode is org-mode or latex-mode."
   (interactive)
-  (if (member major-mode '(org-mode latex-mode))
-      (progn (insert "$$")
-             (backward-char))
+  (if (and mark-ring (use-region-p))
+      (call-interactively 'eod-insert-dollar-helper)
+    (if (not (member major-mode '(latex-mode org-mode)))
+        (insert "$")
+      (insert "$$")
+      (backward-char))))
+
+(defun eod-insert-dollar-helper (beg end)
+  (interactive "r")
+  (goto-char end)
+  (insert "$")
+  (save-excursion
+    (goto-char beg)
     (insert "$")))
 
-;; (global-set-key (kbd "$") 'self-insert-command)
 (key-chord-define-global ",." 'eod-insert-dollar)
 
-;;;###autoload
 (defun avy-move-region ()
   "Select two lines and move the text between them here."
   (interactive)
@@ -570,6 +568,71 @@ current major mode is org-mode or latex-mode."
           (line-end-position)))
        pad))))
 
+(defun avy-delete-region ()
+  (interactive)
+  (avy-with avy-delete-region
+    (let ((beg (avy--line))
+          (end (avy--line)))
+      (delete-region
+       beg
+       (save-excursion
+         (goto-char end)
+         (1+ (point-at-eol)))))))
+
+(defun avy-delete-line ()
+  (interactive)
+  (avy-with avy-delete-line
+    (let ((beg (avy--line)))
+      (delete-region
+       beg
+       (save-excursion
+         (goto-char beg)
+         (point-at-eol))))))
+
+(defun avy-kill-region ()
+  (interactive)
+  (avy-with avy-kill-region
+    (let ((beg (avy--line))
+          (end (avy--line)))
+      (kill-region
+       beg
+       (save-excursion
+         (goto-char end)
+         (point-at-eol))))))
+
+(defun avy-kill-line ()
+  (interactive)
+  (avy-with avy-kill-line
+    (let ((beg (avy--line)))
+      (kill-region
+       beg
+       (save-excursion
+         (goto-char beg)
+         (point-at-eol))))))
+
+(defun non-overlapping-regions (a0 a1 b0 b1)
+  (and (< a0 a1) (< b0 b1) (or (< a1 b0) (< b0 a1))))
+
+(defun avy-transpose-regions ()
+  (interactive)
+  (avy-with avy-transpose-regions
+    (let ((beg1 (let ((avy-all-windows nil))
+                  (call-interactively #'avy-goto-char)))
+          (end1 (let ((avy-all-windows nil))
+                  (1+ (call-interactively #'avy-goto-char))))
+          (beg2 (let ((avy-all-windows nil))
+                  (call-interactively #'avy-goto-char)))
+          (end2 (let ((avy-all-windows nil))
+                  (1+ (call-interactively #'avy-goto-char)))))
+      (and (non-overlapping-regions beg1 end1 beg2 end2)
+           (save-excursion
+             (transpose-regions beg1 end1 beg2 end2))))))
+
+(global-set-key (kbd "C-c a d") 'avy-delete-line)
+(global-set-key (kbd "C-c a D") 'avy-delete-region)
+(global-set-key (kbd "C-c a k") 'avy-kill-line)
+(global-set-key (kbd "C-c a K") 'avy-kill-region)
+
 ;; (defun zap-up-to-char (arg char)
 ;;   "Zap up to a character."
 ;;   (interactive "p\ncZap to char: ")
@@ -577,7 +640,6 @@ current major mode is org-mode or latex-mode."
 ;;     (zap-to-char arg char)
 ;;     (insert char)))
 
-;;;###autoload
 (defun zap-to-char-save (arg char)
   "Zap up to a character, but save instead of kill."
   (interactive "p\ncZap to char: ")
@@ -585,7 +647,6 @@ current major mode is org-mode or latex-mode."
     (zap-to-char arg char)
     (yank)))
 
-;;;###autoload
 (defun shk-yas/helm-prompt (prompt choices &optional display-fn)
   "Use helm to select a snippet. Put this into
 `yas-prompt-functions.'"
@@ -613,7 +674,6 @@ current major mode is org-mode or latex-mode."
     nil))
 
 ;;; kill all comment in buffer -- Courtesy of Magnar
-;;;###autoload
 (defun comment-kill-all ()
   (interactive)
   (save-excursion
@@ -626,7 +686,6 @@ current major mode is org-mode or latex-mode."
 (global-set-key (kbd "C-c z") 'zap-up-to-char)
 
 ;;; Courtesy of Mickey Peterson's blog.
-;;;###autoload
 (defun push-mark-no-activate ()
   "Pushes `point' to `mark-ring' and does not activate the
   region. Equivalent to \\[set-mark-command] when
@@ -637,15 +696,14 @@ current major mode is org-mode or latex-mode."
 
 (global-set-key (kbd "C-c SPC") 'push-mark-no-activate)
 
-;;;###autoload
-(defun eod-region-remove-properties ()
+(defun eod-region-remove-properties (start end)
   "Remove the current region's properties and reinsert the
 \"cleaned\" string."
-  (interactive)
+  (interactive "r")
   (let ((text
          (delete-and-extract-region
-          (region-beginning)
-          (region-end))))
+          start
+          end)))
     (save-excursion
       (insert
        (with-temp-buffer
@@ -654,7 +712,6 @@ current major mode is org-mode or latex-mode."
           (point-min)
           (point-max)))))))
 
-;;;###autoload
 (defun eod-fill-or-unfill ()
   "Like `fill-paragraph', but unfill if used twice."
   (interactive)
@@ -667,35 +724,73 @@ current major mode is org-mode or latex-mode."
 
 (global-set-key [remap fill-paragraph] #'eod-fill-or-unfill)
 
-;;;###autoload
+(defun eod-string-remove-suffix (suffix str)
+  (reduce
+   (lambda (c res)
+     (if (member c (string-to-list suffix))
+         res
+       (concat (string c) res)))
+          (string-to-list str) :initial-value () :from-end t))
+
 (defun eod-duplicate-line (arg)
   "Duplicate the current line ARG times. If ARG is negative,
 then replicate the current line ARG times above the current
 line."
   (interactive "p")
+  (setq arg (or arg 1))
   (let ((text (string-remove-suffix
                "\n"
-               (thing-at-point 'line t)))
-        (col (current-column))
-                                        ;This is needed because newline acts strangely in modes with
-                                        ;auto-fill-mode turned on. TLDR: Newline fucks shit up.
-        (auto-fill-on auto-fill-function))
-    (unwind-protect
-        (when (/= arg 0)
+               (thing-at-point 'line)))
+        ;This is needed because newline acts strangely in modes with
+        ;auto-fill-mode turned on.
+        (auto-fill-on auto-fill-function)
+        (col (current-column)))
+    (if (> arg 0)
+        (unwind-protect
+            (progn
+              (when auto-fill-on
+               (auto-fill-mode -1))
+             (end-of-line)
+             (dotimes (i (abs arg))
+               (newline)
+               (insert text))
+             (forward-line 0)
+             (forward-char col))
           (when auto-fill-on
-            (auto-fill-mode -1))
-          (save-excursion
-            (end-of-line)
-            (dotimes (i (abs arg))
-              (newline)
-              (insert text))
-            (when (< arg 0)
-              (forward-line (* -1 arg))
-              (forward-char col))))
-      (when auto-fill-on
-        (auto-fill-mode 1)))))
+            (auto-fill-mode 1))))))
 
-;;;###autoload
+(defun eod-delete-line (arg)
+  (interactive "p")
+  (let ((bds (bounds-of-thing-at-point 'line))
+        (col (current-column)))
+    (when (> arg 0)
+      (delete-region (car bds) (cdr bds))
+      (backward-char)
+      (forward-line 0)
+      (forward-char col))))
+
+(defun eod-duplicate-or-delete-line (command arg)
+  (interactive "p")
+  (let* ((echo-keystrokes nil))
+    (pcase command
+      ('duplicate (eod-duplicate-line arg))
+      ('delete (eod-delete-line arg)))
+    (message "duplicate line again (d), delete line (D)")
+    (set-transient-map
+     (let ((map (make-sparse-keymap)))
+       (dolist (mods '(()))
+         (dolist (keys '(100))
+           (define-key map (vector (append mods (list keys)))
+             `(lambda ()
+                (interactive)
+                (eod-duplicate-or-delete-line 'duplicate ,arg))))
+         (dolist (keys '(68))
+           (define-key map (vector (append mods (list keys)))
+             `(lambda ()
+                (interactive)
+                (eod-duplicate-or-delete-line 'delete ,arg)))))
+       map))))
+
 (defun eod-replace-word-with-same-char (char)
   (interactive (list (read-char "GibsMeDat: ")))
   (let ((len (length (thing-at-point 'word)))
@@ -706,20 +801,62 @@ line."
     (goto-char location)))
 
 ;;; This can handle the negative sign, but the point still moves. I
-;;; understand why it does, but it really annoys me anyway.
-;;;###autoload
+;;; understand why it does, but it really annoys me anyway. I have forgotten why...
+
+(defun find-number-in-window ()
+  (interactive)
+  (let ((opoint (point))
+        (fpoint (save-excursion
+                  (forward-until-int-digit)))
+        (res (my-extract-integer-at-point)))
+    (if (= fpoint opoint)
+        res
+      (save-excursion
+        (goto-char fpoint)
+        res))))
+
+(defun forward-until-int-digit ()
+  "This only goes until the end of the window."
+  (interactive)
+  (let ((opoint (point))
+        (wend (window-end)))
+    (while (and
+            (<= (point) wend)
+            (not (looking-at "\-?[0-9]" )))
+      (forward-char))
+    (if (= (point) wend)
+        (goto-char opoint)
+      (point))))
+
 (defun my-extract-integer-at-point ()
-  (let ((beg (save-excursion
-               (while (looking-back "[0-9]")
-                 (backward-char))
-               (if (looking-back "-") (1- (point)) (point))))
-        (end (save-excursion
-               (when (looking-at "-")
-                 (forward-char))
-               (while (looking-at "[0-9]")
-                 (forward-char))
-               (point))))
-    (when (not (= beg end))
+  (let* ((limit (save-excursion
+                  (backward-word 1)
+                  (point)))
+         (opoint (point))
+         (beg (save-excursion
+                (while (looking-back "[0-9]" limit)
+                  (backward-char))
+                (if (and (string=
+                          "-"
+                          (buffer-substring-no-properties
+                           (1- (point))
+                           (point)))
+                         (not (= opoint (point))))
+                    (1- (point))
+                  (point))))
+         (end (save-excursion
+                (when (looking-at "-")
+                  (forward-char))
+                (while (looking-at "[0-9]")
+                  (forward-char))
+                (point))))
+    (if (= beg end)
+        (when (looking-at "[0-9]")
+          (list (point)
+                beg
+                (1+ beg)
+                (string-to-number
+                 (s-trim (buffer-substring-no-properties beg (1+ end))))))
       (let ((str (buffer-substring-no-properties beg end)))
         (list
          (point)
@@ -727,7 +864,6 @@ line."
          (string-to-number
           (s-trim str)))))))
 
-;;;###autoload
 (defun all-valid-chars-for-integer (string)
   "When valid return parsed integer otherwise return nil."
   (let ((str (string-to-list string))
@@ -738,12 +874,9 @@ line."
                                         (member (car str) nums)))
       (string-to-number string))))
 
-;; (all-valid-chars-for-integer "-5067")
-
-;;;###autoload
 (defun eod-increment-number-at-point-helper (arg)
   (interactive "p")
-  (let* ((ok (my-extract-integer-at-point))
+  (let* ((ok (find-number-in-window))
          (orig (nth 0 ok))
          (beg (nth 1 ok))
          (end (nth 2 ok))
@@ -783,11 +916,9 @@ line."
                   (insert to-insert)
                   (backward-char (- (point) orig))))
                (t (error "Something went wrong"))))
-          (widen))) ;this is not quite what I want. This function
-                    ;should return nil when there is an error.
+          (widen)))
       t)))
 
-;;;###autoload
 (defun eod-increment-number-at-point (arg)
   (interactive "p")
   (let* ((ev last-command-event)
@@ -812,7 +943,6 @@ line."
                   (eod-increment-number-at-point ,(abs arg))))))
          map)))))
 
-;;;###autoload
 (defun eod-decrement-number-at-point (arg)
   (interactive "p")
   (eod-increment-number-at-point arg))
@@ -820,7 +950,6 @@ line."
 (global-set-key (kbd "C-c C-+") 'eod-increment-number-at-point)
 (global-set-key (kbd "C-c C--") 'eod-decrement-number-at-point)
 
-;;;###autoload
 (defun eod-increment-inner-number (arg)
   (interactive "p")
   (insert
@@ -832,18 +961,21 @@ line."
          (1+ (search-backward-regexp "[^0-9]+"))
          (search-forward-regexp "[0-9]+")))))))
 
-;;; This function is dumb!
-;;;###autoload
-(defun n-choose-k (arg1 arg2)
-  "Calculate n choose k. ARG1 must be greater than or equal to ARG2."
-  (if (and (numberp arg1) (numberp arg2)
-           (<= arg2 arg1) (>= arg2 0))
-      (let ((numerator (apply '* (number-sequence (+ 1 (- arg1 arg2)) arg1)))
-            (denominator (apply '* (number-sequence 1 arg2))))
-        (/ numerator denominator))
-    (message "What have you done?")))
+;;; This function is dumb! or maybe the author is?
+(defun n-choose-k (arg0 arg1)
+  "Just shell this out to ghc for numerical accuracy."
+  (when (and (> arg1 0) (>= (- arg0 arg1) 0))
+    (s-trim
+     (shell-command-to-string
+      (concat "ghc -e \"div(product[1.."
+              (int-to-string arg0)
+              "]) ((*) (product[1.."
+              (int-to-string
+               (- arg0 arg1))
+              "]) (product[1.."
+              (int-to-string
+               arg1) "]))\"")))))
 
-;;;###autoload
 (defun eod-delete-region ()
   (unless (with-temp-buffer
             (describe-buffer-bindings (get-buffer-create "*Bindings-Kill-This*") (kbd "C-c"))
@@ -867,17 +999,6 @@ line."
 
 ;; (remove-hook 'prog-mode-hook 'eod-delete-region)
 
-;;;###autoload
-(defun concat-strings-separator (strings &optional separator)
-  "Requisite documentation"
-  (if (or (listp strings) (sequencep strings))
-      (mapconcat
-       'identity
-       strings
-       (if separator separator " "))
-    (error "You did not provide a list or sequence as the first argument.")))
-
-;;;###autoload
 (defun eod-suspend-frame ()
   (interactive)
   (unless (display-graphic-p)
@@ -889,7 +1010,6 @@ line."
 (defconst eod-important-buffer-names '("*scratch*" "*Messages*")
   "Names of buffers that should not be killed.")
 
-;;;###autoload
 (defun eod-do-not-kill-important-buffers ()
   "Inhibit killing of important buffers.
 
@@ -900,13 +1020,11 @@ Add this to `kill-buffer-query-functions'."
     (bury-buffer)
     nil))
 
-;;;###autoload
 (defun eod-clear-kill-ring ()
   "This does the obvious thing."
   (interactive)
   (setq kill-ring nil))
 
-;;;###autoload
 (defun eod-multi-pop-to-mark (orig-fun &rest args)
   "Call ORIG-FUN until the cursor moves.
 Try the repeated popping up to 10 times."
@@ -917,7 +1035,6 @@ Try the repeated popping up to 10 times."
 
 (advice-add 'pop-to-mark-command :around #'eod-multi-pop-to-mark)
 
-;;;###autoload
 (defun eod-ibuffer-other-window (arg)
   "It is annoying accidentally pressing C-x C-b when I really
 want helm-mini, so this function will access
@@ -928,24 +1045,41 @@ want helm-mini, so this function will access
       (ibuffer-other-window)
     (helm-mini)))
 
+(defun eod-mark-line (arg &optional actual-beginning)
+  (interactive "p")
+  (setq arg (or arg 1))
+  (if (> arg 0)
+      (progn
+        (goto-char (if actual-beginning
+                       (line-beginning-position)
+                     (back-to-indentation)
+                     (point)))
+        (push-mark (line-end-position arg) nil t))
+    (progn
+      (goto-char (line-end-position))
+      (push-mark (if actual-beginning
+                     (line-beginning-position arg)
+                   (forward-line arg)
+                   (back-to-indentation)
+                   (point))
+                 nil t))))
+
 (global-set-key (kbd "C-x C-b") 'eod-ibuffer-other-window)
 
-;;;###autoload
-(defun eod-delete-blank-lines (arg)
-  (interactive "p")
-  (cond ((= arg 4) (save-excursion (flush-lines "^$" (region-beginning) (region-end))))
-        (t (delete-blank-lines))))
+(defadvice delete-blank-lines (around delete-all-blanks-when-at-top activate)
+  (let ((orig-line (line-number-at-pos (point))))
+   ad-do-it
+   (when  (and (= orig-line 1) (and (eolp) (bolp)))
+     (ad-deactivate 'delete-blank-lines)
+     (delete-blank-lines)
+     (ad-activate 'delete-blank-lines))))
 
-(global-set-key (kbd "C-x C-o") 'eod-delete-blank-lines)
-
-;;;###autoload
 (defun eod-refresh-font-lock-buffer ()
   "For when font lock starts to misbehave."
   (interactive)
   (save-restriction
     (font-lock-ensure (point-min) (point-max))))
 
-;;;###autoload
 (defun eod-byte-recompile-current-file ()
   (interactive)
   (let* ((filename (buffer-file-name))
@@ -955,7 +1089,6 @@ want helm-mini, so this function will access
           (message "Success")
         (message "Something went wrong")))))
 
-;;;###autoload
 (defun get-buffer-major-mode (&optional buffer)
   (let ((buf (or buffer (current-buffer))))
     (when (bufferp buf)
@@ -963,22 +1096,20 @@ want helm-mini, so this function will access
           (buffer-name buffer)
         major-mode))))
 
-;;;###autoload
 (defun eod-byte-recompile-open-init-files ()
   (interactive)
   (mapc (lambda (buffer)
-            (byte-recompile-file (buffer-file-name buffer)))
-          (-filter (lambda (buffer)
-                     (let ((name (buffer-name buffer)))
-                       (and (or (and (file-in-directory-p
-                                      name
-                                      (concat user-emacs-directory "custom/"))
-                                     (not (file-directory-p name)))
-                             (member name '("init.el" "custom.el")))
-                            (eq (get-buffer-major-mode buffer) 'emacs-lisp-mode))))
-                   (buffer-list))))
+          (byte-recompile-file (buffer-file-name buffer)))
+        (-filter (lambda (buffer)
+                   (let ((name (buffer-name buffer)))
+                     (and (or (and (file-in-directory-p
+                                    name
+                                    (concat user-emacs-directory "custom/"))
+                                   (not (file-directory-p name)))
+                              (member name '("init.el" "custom.el")))
+                          (eq (get-buffer-major-mode buffer) 'emacs-lisp-mode))))
+                 (buffer-list))))
 
-;;;###autoload
 (defun eod-byte-recompile-init-files (&optional error-buffer-name)
   "Byte-compile all of the init files.
 If there is an error record that information in the buffer. If
@@ -1006,7 +1137,6 @@ write this out later)."
                               (concat (concat user-emacs-directory "custom/") f))
                             (directory-files (concat user-emacs-directory "custom/")))))))
 
-;;;###autoload
 (defun replace-regexp-whole-buffer (match newtext)
   "This will replace every instance of MATCH with NEWTEXT.
 Be careful however! This function will invoke `widen' and work on
@@ -1024,13 +1154,11 @@ the entire buffer."
         (replace-match newtext)))))
 
  ;; Set transparency of emacs
- ;;;###autoload
 (defun transparency (value)
    "Sets the transparency of the frame window. 0=transparent/100=opaque"
    (interactive "nTransparency Value 0 - 100 opaque:")
    (set-frame-parameter (selected-frame) 'alpha value))
 
-;;;###autoload
 (defun increase-transparency (arg)
   "Increases the transparency of the current frame window."
   (interactive)
@@ -1039,7 +1167,6 @@ the entire buffer."
      (selected-frame)
      (list (cons (car cur) (+ arg (cdr cur)))))))
 
-;;;###autoload
 (defun decrease-transparency (arg)
   "Decreases the transparency of the current frame window."
   (interactive)
@@ -1050,7 +1177,6 @@ the entire buffer."
     haskell-mode
     emacs-lisp-mode))
 
-;;;###autoload
 (defun ask-to-delete-trailing-whitespace ()
   "Ask to delete trailing white space when file is opened."
   (let ((decision
@@ -1071,18 +1197,16 @@ the entire buffer."
 
 (add-hook 'find-file-hook #'ask-to-delete-trailing-whitespace)
 
-;;;###autoload
-(defun compose (&rest funs)
-  "Return function composed of FUNS."
-  (lexical-let ((lex-funs  funs))
-    (lambda (&rest args)
-      (reduce 'funcall (butlast lex-funs)
-              :from-end t
-              :initial-value (apply (car (last lex-funs)) args)))))
+;; (defun compose (&rest funs)
+;;   "Return function composed of FUNS."
+;;   (lexical-let ((lex-funs  funs))
+;;     (lambda (&rest args)
+;;       (reduce 'funcall (butlast lex-funs)
+;;               :from-end t
+;;               :initial-value (apply (car (last lex-funs)) args)))))
 
 ;;; I should make this a proper helm source. With the bell and
 ;;; whistles baby.
-;;;###autoload
 (defun haskell-buffer-list (arg)
   "Return a list of Haskell buffers and open the selected buffer.
 If this function is called with the `universal-argument'
@@ -1116,7 +1240,6 @@ new window."
 
 
 ;; courtesy of http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
-;;;###autoload
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
@@ -1139,13 +1262,18 @@ point reaches the beginning or end of the buffer, stop there."
     (back-to-indentation)
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
-;;;###autoload
+
 (defun byte-compile-when-byte-compiled-file-exists () ;This long ass name!
   (-when-let ((file-name (buffer-file-name)))
     (when (and (file-exists-p (concat file-name "c"))
                (string= (file-name-extension (concat file-name "c" )) "elc"))
       (byte-recompile-file file-name)
       (message "Byte-recompiled %s" file-name))))
+
+(defun delete-blank-lines-in-region (beg end)
+  (interactive "r")
+  (flush-lines "^$" beg end))
+
 ;; ;; I may use this.
 ;; ;;; This automatically re-indents pasted text in certain major modes.
 ;; (dolist (command '(yank yank-pop))
@@ -1159,6 +1287,450 @@ point reaches the beginning or end of the buffer, stop there."
 ;;                                                      latex-mode plain-tex-mode))
 ;;                 (let ((mark-even-if-inactive transient-mark-mode))
 ;;                   (indent-region (region-beginning) (region-end) nil))))))
+
+(defun dired-convert-marked-jpg-files-png ()
+  (interactive)
+  (when (equal major-mode 'dired-mode)
+      (mapcar  (lambda (file) (shell-command (change-jpg-to-png-and-format file)))
+            (dired-get-marked-files))
+   (revert-buffer)))
+
+(defun change-jpg-to-png-and-format (file)
+  (let ((file-base (file-name-base file))
+        (file-dir (file-name-directory file)))
+    (concat "convert " file " " file-dir file-base ".png")))
+
+(defun kill-and-buffer-then-dired-jump ()
+  (interactive)
+  (-if-let ((file (buffer-file-name))
+            (dir (file-name-directory file)))
+      (progn
+        (kill-buffer file)
+        (dired dir))
+    (kill-buffer file)))
+
+(defun send-directory-to-kill-ring ()
+  (interactive)
+  (-if-let (file (buffer-file-name))
+      (let ((dir (file-name-directory file)))
+        (kill-new dir)
+        (message "Added %s to the top of the kill ring." dir))
+    (message "Not currently visiting a file on disk.")))
+
+;; (defun send-buffer-file-name-to-kill-ring ()
+;;   (interactive)
+;;   (-if-let (file (file-name-nondirectory
+;;                   (buffer-file-name)))
+;;       (progn
+;;         (kill-new file)
+;;         (message "Added %s to the top of the kill ring." file))
+;;     (message "Not currently visiting a file on disk.")))
+
+(defun uniquify-region-lines (beg end)
+  "Remove duplicate adjacent lines in region."
+  (interactive "r")
+  (save-excursion
+    (goto-char beg)
+    (while (re-search-forward "^\\(.*\n\\)\\1+" end t)
+      (replace-match "\\1"))))
+
+(defun uniquify-buffer-lines ()
+  "Remove duplicate adjacent lines in the current buffer."
+  (interactive)
+  (uniquify-region-lines (point-min) (point-max)))
+
+;;; Utility function. I'm not sure why I wrote this.
+(defun find-number-of-sexps-in-region (beg end)
+  (interactive "r")
+  (let ((start beg) (result 0))
+    (save-excursion
+      (goto-char start)
+      (while (< start end)
+        (forward-sexp)
+        (setq result (+ result 1))
+        (setq start (point))))
+    result)) ;This is  not a perfect function. There are some cases
+             ;that I have not yet dealt with.
+
+;;; Utility function.
+(defun get-desired-point (func flist)
+  "Given some function FUNC, and a list of procedures FLIST, each
+of which moves the point, collect each destination (points)
+determined by every member of FLIST. Finally, return the value
+determined by applying FUNC to the list of destinations.
+
+e.g. (get-desired-point 'min '(forward-paragraph end-of-defun))
+This should return the closest destination by either going
+forward a paragraph or going to the end of a function."
+  (if (listp flist)
+      (apply func
+             (mapcar
+              (lambda (f)
+                (save-excursion
+                  (funcall f) (point)))
+              flist))
+    (error "Please provide a list of functions!")))
+
+(defun eod-restart-xmonad ()
+  (interactive)
+  (async-shell-command
+   "xmonad --recompile && xmonad --restart"))
+
+(defun align-values (start end)
+  "Vertically aligns region based on lengths of the first value of each line."
+  (interactive "r")
+  (align-regexp start end
+                "\\S-+\\(\\s-+\\)"
+                1 nil nil))
+
+(defun open-line-below ()
+  (interactive)
+  (end-of-line)
+  (newline)
+  (indent-for-tab-command))
+
+(defun open-line-above ()
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (forward-line -1)
+  (indent-for-tab-command))
+
+(defun eod-windmove ()
+  (interactive)
+  (let* ((echo-keystrokes nil)
+         (ev last-command-event)
+         (base (event-basic-type ev))
+         (direction
+          (pcase base
+            (?h 'left)
+            (?t 'down)
+            (?n 'right)
+            (?c 'up)))
+         (windmove-wrap-around t))
+    (eod-windmove-helper direction)
+    (message "Use h(left), t(down), n(right),c (up) to move to another window.")
+    (set-transient-map
+     (let ((map (make-sparse-keymap)))
+       (dolist (mods '(()))
+         (dolist (keys '(?h ?t ?n ?c))
+           (define-key map (vector (append mods (list keys)))
+             `(lambda ()
+                (interactive)
+                (eod-windmove)))))
+       map))))
+
+(defun eod-windmove-helper (direction)
+  (pcase direction
+    ('left (windmove-left))
+    ('down (windmove-down))
+    ('right (windmove-right))
+    ('up (windmove-up))))
+
+(key-chord-define-global "&h" 'eod-windmove)
+(key-chord-define-global "&t" 'eod-windmove)
+(key-chord-define-global "&n" 'eod-windmove)
+(key-chord-define-global "&c" 'eod-windmove)
+
+(global-set-key (kbd "M-c") 'capitalize-dwim)
+(global-set-key (kbd "M-l") 'downcase-dwim)
+(global-set-key (kbd "M-u") 'upcase-dwim)
+
+(defun eod-insert-tilde (arg)
+    (interactive "p")
+    (if (> arg 0)
+        (dotimes (i arg)
+             (insert "~"))
+      (self-insert-command arg)))
+
+(defun reset-mode-hooks (mode-hook ahook &rest hooks)
+  (setq hooks (cons ahook (or hooks (list))))
+  (let ((old (symbol-value mode-hook))
+        (strlist (list)))
+    (dolist (hook (nreverse hooks))
+      (if (not (member hook (symbol-value mode-hook)))
+          (add-hook mode-hook hook)
+        (remove-hook mode-hook hook)
+        (add-hook mode-hook hook)
+        (setq strlist (cons (format "%s" hook) strlist))))
+    (-if-let ((diff (-difference (symbol-value mode-hook) old)))
+        (message "These hooks have %s been reset" diff)
+      (message "No hooks were reset. Some may have been added."))))
+
+(defun does-previous-sentence-end-on-previous-line ()
+  (if (/= (line-number-at-pos) 1)
+      (let ((beg-cur-sentence (car (bounds-of-thing-at-point 'sentence)))
+            (end-prev-sentence
+             (save-excursion
+               (backward-sentence 2)
+               (cdr (bounds-of-thing-at-point 'sentence)))))
+        (pcase (eod-compare
+                (line-number-at-pos
+                 end-prev-sentence)
+                (line-number-at-pos beg-cur-sentence))
+          ('lesser-than t)
+          (_ nil)))))
+
+(defun eod-compare (x y)
+  (cond ((> x y) 'greater-than)
+        ((< x y) 'lesser-than)
+        (t 'equal-to)))
+
+(defun insert-double-quotes (&optional arg)
+  (interactive "p")
+  (setq arg (or arg 1))
+  (insert-pair arg ?\" ?\"))
+
+(defun insert-single-quotes (&optional arg)
+  (interactive "p")
+  (setq arg (or arg 1))
+  (insert-pair arg ?\' ?\'))
+
+(defun mark-entire-word (arg)
+  (interactive "p")
+  (let ((bs (bounds-of-thing-at-point 'word)))
+    (cond
+     ((> arg 0)
+      (goto-char (car bs))
+      (mark-word arg))
+     ((< arg 0)
+      (goto-char (cdr bs))
+      (mark-word arg))
+     (t ()))))
+
+(defun for-doublequote-normal-doublequote-people (arg)
+  "For those \"normal\" people."
+  (interactive)
+  (key-chord-mode (* -1 arg))
+  (menu-bar-mode arg)
+  (tool-bar-mode arg)
+  (scroll-bar-mode arg))
+
+(defun for-doublequote-normal-doublequote-people-on ()
+  (interactive)
+  (for-doublequote-normal-doublequote-people 1))
+
+(defun for-doublequote-normal-doublequote-people-off ()
+  (interactive)
+  (for-doublequote-normal-doublequote-people -1))
+
+(defmacro with-markers (markers &rest body)
+  (declare (indent defun))
+  `(let ,(cl-loop for m in markers
+                  collect (list (car m) `(copy-marker ,(cadr m))))
+     ,@body
+     (cl-loop for m in (list ,@(cl-loop for m in markers
+                                        collect (car m)))
+              do (set-marker m nil))))
+
+(defun org-change-todo-in-region (beg end todo-keyword)
+  "Set TODO-KEYWORD for each entry in the region."
+  (interactive (list
+                (save-excursion
+                  (goto-char (region-beginning))
+                  (point-at-bol))
+                (save-excursion
+                  (goto-char (region-end))
+                  (point-at-eol))
+                (completing-read "Keyword: " org-todo-keywords-1)))
+  (unless (derived-mode-p 'org-mode)
+    (error "Not Org-mode."))
+  (when (fboundp 'deactivate-mark)
+    (deactivate-mark))
+  (let ((org-inhibit-logging t))
+    (with-markers
+      ((end end))
+      (save-excursion
+        (goto-char beg)
+        (while (re-search-forward org-heading-regexp end :noerror)
+          (org-todo todo-keyword))))))
+
+;;; Haskell Influence
+(defun eod-tails (list-arg)
+  (let (collect)
+    (while (not (null list-arg))
+      (setq collect (cons list-arg collect))
+      (setq list-arg (cdr list-arg)))
+    (reverse collect)))
+
+;;; Haskell Influence
+(defun eod-inits (list-arg)
+  (let (collect)
+    (while (not (null list-arg))
+      (setq collect (cons list-arg collect))
+      (setq list-arg (reverse
+                      (cdr (reverse list-arg)))))
+    (reverse collect)))
+
+(defun switch-case-region (beg end)
+  (interactive "r")
+  (save-excursion
+    (goto-char beg)
+    (let ((case-fold-search nil))
+      (while (< (point) end)
+        (cond
+         ((looking-at "[a-z]")
+          (upcase-region (point) (1+ (point))))
+         ((looking-at "[A-Z]")
+          (downcase-region (point) (1+ (point))))
+         (t ()))
+        (forward-char)))))
+
+(defun shuffle-list (list)
+  (let (collect)
+    (while (not (null list))
+      (let* ((n (random (length list)))
+             (val (nth n list)))
+        (setq list
+              (append (if (fboundp '-take)
+                          (-take n list)
+                        (my-take n list))
+                      (if (fboundp '-drop)
+                          (-drop (1+ n) list)
+                        (my-drop (1+ n) list)))
+              collect (cons val collect))))
+    collect))
+
+(defun my-take (n list)
+  (cond
+   ((<= n 0) nil)
+   (t (cons
+       (car list)
+       (my-take (1- n) (cdr list))))))
+
+(defun my-drop (n list)
+  (cond
+   ((<= n 0) list)
+   (t (my-drop (1- n) (cdr list)))))
+
+;;; this is unnecessary
+;; (defun font-lock-fontify-line (arg &optional loudly)
+;;   "Fontify the text over ARG lines.
+;; If LOUDLY is non-nil, print status messages while fontifying
+;; This works by calling `font-lock-fontify-region-function'."
+;;   (interactive "P")
+;;   (save-excursion
+;;     (let* (beg end (arg 1))
+;;       (if (cond ((>= arg 1)
+;;                  (setq beg (line-beginning-position)
+;;                        end (line-end-position arg)))
+;;                 ((< arg 0)
+;;                  (setq beg (line-beginning-position arg)
+;;                        end (line-end-position 1)))
+;;                 (t nil))
+;;           (funcall font-lock-fontify-region-function beg end loudly)))))
+
+;; (define-key facemenu-keymap (kbd "M-l") 'nil)  ;; was font-lock-fontify-line
+
+(defun quick-compile-tex-to-pdf (file)
+  (interactive "f")
+  (let ((latex-command "pdflatex ")
+        (bibtex-command "bibtex ")
+        (file-no-ext (file-name-sans-extension file)))
+    (async-shell-command
+     (mapconcat 'identity
+                (list
+                 (concat latex-command file-no-ext)
+                 (concat bibtex-command file-no-ext)
+                 (concat latex-command file-no-ext)
+                 (concat latex-command file-no-ext))
+                " && "))))
+
+(defun regions-equal-no-properties (region1 region2)
+  (cl-destructuring-bind (_b1 _r1  _b2 _r2) (append region1 region2)
+    (string=
+     (apply 'buffer-substring-no-properties region1)
+     (apply 'buffer-substring-no-properties region2))))
+
+(defun eod-insert-parentheses (&optional arg)
+  (interactive "p")
+  (setq arg (or arg 1))
+  (insert-parentheses arg))
+
+(define-key global-map
+  [remap insert-parentheses]
+  'eod-insert-parentheses)
+
+(defun concat-with-separator (as &rest sequences)
+  (mapconcat 'identity sequences as))
+
+(defun kill-all-dired-buffers ()
+  (interactive)
+  (mapc 'kill-buffer
+   (delq 'nil
+         (mapcar (lambda (b)
+                   (if (equal (get-buffer-major-mode b) 'dired-mode) b))
+                 (buffer-list)))))
+
+(global-set-key
+ (kbd
+  "C-x M-;")
+ 'comment-or-uncomment-region)
+
+(defun eod-start-process (name)
+  (interactive "sProcess: ")
+  (start-process
+   name
+   (concat "*" name "*")
+   name))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; TO WORK ON LATER ;;
+;;;;;;;;;;;;;;;;;;;;;;
+;; (defvar languages-for-simple-runs
+;;   '(java-mode haskell-mode python-mode c++-mode))
+
+;; (defun simple-run-program (file)
+;;   (case)
+;;   )
+
+(defun insert-latex-string (&optional start)
+  "It inserts LaTeX into the buffer at the point. If START is
+non-nil and an integer, then go to that point and insert the
+LaTeX at there."
+  (interactive)
+  (if (and start (integerp start))
+      (save-excursion
+        (goto-char start)
+        (insert "LaTeX"))
+    (insert "LaTeX")))
+
+;; Work on this at a later time
+;; (defun eod-winner-undo ()
+;;   (interactive)
+;;   (let* ((echo-keystrokes nil)
+;;          (ev last-command-event)
+;;          (base (event-basic-type ev))
+;;          (my-left (vector 'left))
+;;          (my-right (vector 'right))
+;;          (direction
+;;           (pcase base
+;;             (my-left 'left)
+;;             (my-right 'right))))
+;;     (eod-winner-mode-undo-helper direction)
+;;     (message "Use <left>(undo), <right>(redo) to move through
+;;     window configuration history.")
+;;     (set-transient-map
+;;      (let ((map (make-sparse-keymap)))
+;;        (dolist (mods '(()))
+;;          (dolist (keys '(my-left my-right))
+;;            (define-key map (vector (append mods (list keys)))
+;;              `(lambda ()
+;;                 (interactive)
+;;                 (eod-winner-undo)))))
+;;        map))))
+
+;; (global-set-key (kbd "C-c <left>") 'eod-winner-undo)
+
+;; (defun eod-winner-mode-undo-helper (direction)
+;;   (case direction
+;;     (left (winner-undo))
+;;     (right (winner-redo))
+;;     (_ '())))
+
+(defun eod-on (f g a b)
+  (when (and (functionp f) (functionp g) (= (type-of a) (type-of b)))
+    (f (g a) (g b))))
 
 (provide 'init-defuns)
 ;; init-defuns.el ends here

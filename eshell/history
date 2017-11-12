@@ -1,896 +1,128 @@
-cd inline-java/
-stack --nix --stack-yaml stack-HEAD.yaml build
-curl https://nixos.org/nix/install | sh
+pass init "65A5BABE77EE6EFC7EC0F296B07330A70A54C261"
+pass insert Games/CleverestIdiot
+pass rm Games/CleverestIdiot.gpg
+pass rm Games/CleverestIdiot
+cd .emacs.d
+ls
+cd my-git-packages
+ls
+..
+ls
+cd elpa
+ls
+git clone https://github.com/jabranham/helm-pass
+ls
+ls | grep pass
+cd helm-pass
+ls
 cd
-wget http://www.gutenberg.org/cache/epub/345/pg345.txt
-mv pg345.txt /tmp/
-cd /tmp
-cd
-ls
-cd inline-java
-cd ..
-cd inline-java
-stack --nix --stack-yaml stack-HEAD.yaml build
-exit
-cd
-blkid
-exit
-ls
-echo $pkgdir
-echo $PKGDIR
-python ./setup.py install
-sudo python ./setup.py install
-df -h
-du -hs /*
-cd ..
-rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 
-ls | grep ufw
-cd
-sudo ufw enable
-sudo ufw status verbose
-sudo ufw status 
-cd tagged-0.8.5/
-cabal install
-cabal install
-ghc-pkg describe bifunctors
-cabal build
-cabal install
-ghc-pkg describe tagged
-cd ..
-rm -rf tagged-0.8.5/
-df -h
-sudo pacman -Sc
-df -h
-cd
-pacman -Ss chromium
-packer -Ss chromium
-packer -Ss chrome
-pacman -Ss chrome
-sudo systemctl restart crashplan.service
-pacman -Ss npm
-man npm
-npm install -g elm
-ls -l /usr/lib | grep libtinfo
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libtinfo.so
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libncursesw.so.6.0
-sudo ln -s /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-pwd
-git clone --recurive https://github.com/typelead/eta
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-cd ..
-rm -rf eta/
-ls
-df -h
-stack path --local-bin
-cd inline-java
-ls
-stack build
-cd ..
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-stack --help
-ghc --version
-stack setup
-stack clean
-stack setup
-stack path --local-bin
-stack path local-bin
-stack path --local-bin-path
-echo $PATh
-echo $PATH
-cd
-pacman -Ss apache derby
-pacman -Ss apachederby
-cd Downloads/
-ls | grep jar
-ls | grep apache
-ls
-ls | grep derby
-cabal update
-cabal list yampa
-eta --help
-epm --help
-epm list yampa
-epm list vector
-cd
-pacman -Ss xdotool
-cd
-cabal list xmonad
-cabal update
-cabal list xmonad
-cabal unpack xmonad-eval
-cd xmonad-eval-0.1/
-ls
-cd XMonad/
-ls
-cd Actions/
-ls
-o Eval.hs
-emacs Eval.hs
-(find-file-other-window "Eval.hs")
-vi Eval.hs
-(stringp ("Eval.hs"))
-(stringp '("Eval.hs"))
-xb
-o Eval.hs
-o Eval.hs
-o Eval.hs
-vi Eval.hs
-vi Eval.hs
-sudo pacman -Scc
-df -h
-cd Downloads
-plexrun
-stack --nix --stack-yaml stack-HEAD.yaml build
-exit
-cd
-blkid
-exit
-ls
-echo $pkgdir
-echo $PKGDIR
-python ./setup.py install
-sudo python ./setup.py install
-df -h
-du -hs /*
-cd ..
-rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 
-ls | grep ufw
-cd
-sudo ufw enable
-sudo ufw status verbose
-sudo ufw status 
-cd tagged-0.8.5/
-cabal install
-cabal install
-ghc-pkg describe bifunctors
-cabal build
-cabal install
-ghc-pkg describe tagged
-cd ..
-rm -rf tagged-0.8.5/
-df -h
-sudo pacman -Sc
-df -h
-cd
-pacman -Ss chromium
-packer -Ss chromium
-packer -Ss chrome
-pacman -Ss chrome
-sudo systemctl restart crashplan.service
-pacman -Ss npm
-man npm
-npm install -g elm
-ls -l /usr/lib | grep libtinfo
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libtinfo.so
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libncursesw.so.6.0
-sudo ln -s /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-pwd
-git clone --recurive https://github.com/typelead/eta
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-cd ..
-rm -rf eta/
-ls
-df -h
-stack path --local-bin
-cd inline-java
-ls
-stack build
-cd ..
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-stack --help
-ghc --version
-stack setup
-stack clean
-stack setup
-stack path --local-bin
-stack path local-bin
-stack path --local-bin-path
-echo $PATh
-echo $PATH
-cd
-pacman -Ss apache derby
-pacman -Ss apachederby
-cd Downloads/
-ls | grep jar
-ls | grep apache
-ls
-ls | grep derby
-cabal update
-cabal list yampa
-eta --help
-epm --help
-epm list yampa
-epm list vector
-cd
-pacman -Ss xdotool
-cd
-cabal list xmonad
-cabal update
-cabal list xmonad
-cabal unpack xmonad-eval
-cd xmonad-eval-0.1/
-ls
-cd XMonad/
-ls
-cd Actions/
-ls
-o Eval.hs
-emacs Eval.hs
-(find-file-other-window "Eval.hs")
-vi Eval.hs
-(stringp ("Eval.hs"))
-(stringp '("Eval.hs"))
-xb
-o Eval.hs
-o Eval.hs
-o Eval.hs
-vi Eval.hs
-vi Eval.hs
-sudo pacman -Scc
-df -h
-cd Downloads
-plexrun
-sudo pacman -Scc
-df -hs
-df -h
-cd chrisdone-emacs/
-ls
-o init.el
-cd
-hindent --help
-sudo pip list 'reinforcement-learning'
-sudo pip search 'reinforcement-learning'
-cabal list reinforcement
-cabal update
-stack --nix --stack-yaml stack-HEAD.yaml build
-exit
-cd
-blkid
-exit
-ls
-echo $pkgdir
-echo $PKGDIR
-python ./setup.py install
-sudo python ./setup.py install
-df -h
-du -hs /*
-cd ..
-rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 
-ls | grep ufw
-cd
-sudo ufw enable
-sudo ufw status verbose
-sudo ufw status 
-cd tagged-0.8.5/
-cabal install
-cabal install
-ghc-pkg describe bifunctors
-cabal build
-cabal install
-ghc-pkg describe tagged
-cd ..
-rm -rf tagged-0.8.5/
-df -h
-sudo pacman -Sc
-df -h
-cd
-pacman -Ss chromium
-packer -Ss chromium
-packer -Ss chrome
-pacman -Ss chrome
-sudo systemctl restart crashplan.service
-pacman -Ss npm
-man npm
-npm install -g elm
-ls -l /usr/lib | grep libtinfo
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libtinfo.so
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libncursesw.so.6.0
-sudo ln -s /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-pwd
-git clone --recurive https://github.com/typelead/eta
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-cd ..
-rm -rf eta/
-ls
-df -h
-stack path --local-bin
-cd inline-java
-ls
-stack build
-cd ..
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-stack --help
-ghc --version
-stack setup
-stack clean
-stack setup
-stack path --local-bin
-stack path local-bin
-stack path --local-bin-path
-echo $PATh
-echo $PATH
-cd
-pacman -Ss apache derby
-pacman -Ss apachederby
-cd Downloads/
-ls | grep jar
-ls | grep apache
-ls
-ls | grep derby
-cabal update
-cabal list yampa
-eta --help
-epm --help
-epm list yampa
-epm list vector
-cd
-pacman -Ss xdotool
-cd
-cabal list xmonad
-cabal update
-cabal list xmonad
-cabal unpack xmonad-eval
-cd xmonad-eval-0.1/
-ls
-cd XMonad/
-ls
-cd Actions/
-ls
-o Eval.hs
-emacs Eval.hs
-(find-file-other-window "Eval.hs")
-vi Eval.hs
-(stringp ("Eval.hs"))
-(stringp '("Eval.hs"))
-xb
-o Eval.hs
-o Eval.hs
-o Eval.hs
-vi Eval.hs
-vi Eval.hs
-sudo pacman -Scc
-df -h
-cd Downloads
-plexrun
-sudo pacman -Scc
-df -hs
-df -h
-cd chrisdone-emacs/
-ls
-o init.el
-cd
-hindent --help
-sudo pip list 'reinforcement-learning'
-sudo pip search 'reinforcement-learning'
-cabal list reinforcement
-cabal update
-stack --nix --stack-yaml stack-HEAD.yaml build
-exit
-cd
-blkid
-exit
-ls
-echo $pkgdir
-echo $PKGDIR
-python ./setup.py install
-sudo python ./setup.py install
-df -h
-du -hs /*
-cd ..
-rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 
-ls | grep ufw
-cd
-sudo ufw enable
-sudo ufw status verbose
-sudo ufw status 
-cd tagged-0.8.5/
-cabal install
-cabal install
-ghc-pkg describe bifunctors
-cabal build
-cabal install
-ghc-pkg describe tagged
-cd ..
-rm -rf tagged-0.8.5/
-df -h
-sudo pacman -Sc
-df -h
-cd
-pacman -Ss chromium
-packer -Ss chromium
-packer -Ss chrome
-pacman -Ss chrome
-sudo systemctl restart crashplan.service
-pacman -Ss npm
-man npm
-npm install -g elm
-ls -l /usr/lib | grep libtinfo
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libtinfo.so
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libncursesw.so.6.0
-sudo ln -s /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-pwd
-git clone --recurive https://github.com/typelead/eta
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-cd ..
-rm -rf eta/
-ls
-df -h
-stack path --local-bin
-cd inline-java
-ls
-stack build
-cd ..
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-stack --help
-ghc --version
-stack setup
-stack clean
-stack setup
-stack path --local-bin
-stack path local-bin
-stack path --local-bin-path
-echo $PATh
-echo $PATH
-cd
-pacman -Ss apache derby
-pacman -Ss apachederby
-cd Downloads/
-ls | grep jar
-ls | grep apache
-ls
-ls | grep derby
-cabal update
-cabal list yampa
-eta --help
-epm --help
-epm list yampa
-epm list vector
-cd
-pacman -Ss xdotool
-cd
-cabal list xmonad
-cabal update
-cabal list xmonad
-cabal unpack xmonad-eval
-cd xmonad-eval-0.1/
-ls
-cd XMonad/
-ls
-cd Actions/
-ls
-o Eval.hs
-emacs Eval.hs
-(find-file-other-window "Eval.hs")
-vi Eval.hs
-(stringp ("Eval.hs"))
-(stringp '("Eval.hs"))
-xb
-o Eval.hs
-o Eval.hs
-o Eval.hs
-vi Eval.hs
-vi Eval.hs
-sudo pacman -Scc
-df -h
-cd Downloads
-plexrun
-sudo pacman -Scc
-df -hs
-df -h
-cd chrisdone-emacs/
-ls
-o init.el
-cd
-hindent --help
-sudo pip list 'reinforcement-learning'
-sudo pip search 'reinforcement-learning'
-cabal list reinforcement
-cabal update
-stack --nix --stack-yaml stack-HEAD.yaml build
-exit
-cd
-blkid
-exit
-ls
-echo $pkgdir
-echo $PKGDIR
-python ./setup.py install
-sudo python ./setup.py install
-df -h
-du -hs /*
-cd ..
-rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 
-ls | grep ufw
-cd
-sudo ufw enable
-sudo ufw status verbose
-sudo ufw status 
-cd tagged-0.8.5/
-cabal install
-cabal install
-ghc-pkg describe bifunctors
-cabal build
-cabal install
-ghc-pkg describe tagged
-cd ..
-rm -rf tagged-0.8.5/
-df -h
-sudo pacman -Sc
-df -h
-cd
-pacman -Ss chromium
-packer -Ss chromium
-packer -Ss chrome
-pacman -Ss chrome
-sudo systemctl restart crashplan.service
-pacman -Ss npm
-man npm
-npm install -g elm
-ls -l /usr/lib | grep libtinfo
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libtinfo.so
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libncursesw.so.6.0
-sudo ln -s /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-pwd
-git clone --recurive https://github.com/typelead/eta
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-cd ..
-rm -rf eta/
-ls
-df -h
-stack path --local-bin
-cd inline-java
-ls
-stack build
-cd ..
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-stack --help
-ghc --version
-stack setup
-stack clean
-stack setup
-stack path --local-bin
-stack path local-bin
-stack path --local-bin-path
-echo $PATh
-echo $PATH
-cd
-pacman -Ss apache derby
-pacman -Ss apachederby
-cd Downloads/
-ls | grep jar
-ls | grep apache
-ls
-ls | grep derby
-cabal update
-cabal list yampa
-eta --help
-epm --help
-epm list yampa
-epm list vector
-cd
-pacman -Ss xdotool
-cd
-cabal list xmonad
-cabal update
-cabal list xmonad
-cabal unpack xmonad-eval
-cd xmonad-eval-0.1/
-ls
-cd XMonad/
-ls
-cd Actions/
-ls
-o Eval.hs
-emacs Eval.hs
-(find-file-other-window "Eval.hs")
-vi Eval.hs
-(stringp ("Eval.hs"))
-(stringp '("Eval.hs"))
-xb
-o Eval.hs
-o Eval.hs
-o Eval.hs
-vi Eval.hs
-vi Eval.hs
-sudo pacman -Scc
-df -h
-cd Downloads
-plexrun
-sudo pacman -Scc
-df -hs
-df -h
-cd chrisdone-emacs/
-ls
-o init.el
-cd
-hindent --help
-sudo pip list 'reinforcement-learning'
-sudo pip search 'reinforcement-learning'
-cabal list reinforcement
-cabal update
-stack --nix --stack-yaml stack-HEAD.yaml build
-exit
-cd
-blkid
-exit
-ls
-echo $pkgdir
-echo $PKGDIR
-python ./setup.py install
-sudo python ./setup.py install
-df -h
-du -hs /*
-cd ..
-rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 
-ls | grep ufw
-cd
-sudo ufw enable
-sudo ufw status verbose
-sudo ufw status 
-cd tagged-0.8.5/
-cabal install
-cabal install
-ghc-pkg describe bifunctors
-cabal build
-cabal install
-ghc-pkg describe tagged
-cd ..
-rm -rf tagged-0.8.5/
-df -h
-sudo pacman -Sc
-df -h
-cd
-pacman -Ss chromium
-packer -Ss chromium
-packer -Ss chrome
-pacman -Ss chrome
-sudo systemctl restart crashplan.service
-pacman -Ss npm
-man npm
-npm install -g elm
-ls -l /usr/lib | grep libtinfo
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libtinfo.so
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libncursesw.so.6.0
-sudo ln -s /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-pwd
-git clone --recurive https://github.com/typelead/eta
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-cd ..
-rm -rf eta/
-ls
-df -h
-stack path --local-bin
-cd inline-java
-ls
-stack build
-cd ..
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-stack --help
-ghc --version
-stack setup
-stack clean
-stack setup
-stack path --local-bin
-stack path local-bin
-stack path --local-bin-path
-echo $PATh
-echo $PATH
-cd
-pacman -Ss apache derby
-pacman -Ss apachederby
-cd Downloads/
-ls | grep jar
-ls | grep apache
-ls
-ls | grep derby
-cabal update
-cabal list yampa
-eta --help
-epm --help
-epm list yampa
-epm list vector
-cd
-pacman -Ss xdotool
-cd
-cabal list xmonad
-cabal update
-cabal list xmonad
-cabal unpack xmonad-eval
-cd xmonad-eval-0.1/
-ls
-cd XMonad/
-ls
-cd Actions/
-ls
-o Eval.hs
-emacs Eval.hs
-(find-file-other-window "Eval.hs")
-vi Eval.hs
-(stringp ("Eval.hs"))
-(stringp '("Eval.hs"))
-xb
-o Eval.hs
-o Eval.hs
-o Eval.hs
-vi Eval.hs
-vi Eval.hs
-sudo pacman -Scc
-df -h
-cd Downloads
-plexrun
-sudo pacman -Scc
-df -hs
-df -h
-cd chrisdone-emacs/
-ls
-o init.el
-cd
-hindent --help
-sudo pip list 'reinforcement-learning'
-sudo pip search 'reinforcement-learning'
-cabal list reinforcement
-cabal update
-stack --nix --stack-yaml stack-HEAD.yaml build
-exit
-cd
-blkid
-exit
-ls
-echo $pkgdir
-echo $PKGDIR
-python ./setup.py install
-sudo python ./setup.py install
-df -h
-du -hs /*
-cd ..
-rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 ufw-0.35.tar.gz 
-sudo rm -r ufw-0.35 
-ls | grep ufw
-cd
-sudo ufw enable
-sudo ufw status verbose
-sudo ufw status 
-cd tagged-0.8.5/
-cabal install
-cabal install
-ghc-pkg describe bifunctors
-cabal build
-cabal install
-ghc-pkg describe tagged
-cd ..
-rm -rf tagged-0.8.5/
-df -h
-sudo pacman -Sc
-df -h
-cd
-pacman -Ss chromium
-packer -Ss chromium
-packer -Ss chrome
-pacman -Ss chrome
-sudo systemctl restart crashplan.service
-pacman -Ss npm
-man npm
-npm install -g elm
-ls -l /usr/lib | grep libtinfo
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libtinfo.so
-sudo ln -s /usr/lib/libtinfo.so.5 /usr/lib/libncursesw.so.6.0
-sudo ln -s /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-pwd
-git clone --recurive https://github.com/typelead/eta
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-cd ..
-rm -rf eta/
-ls
-df -h
-stack path --local-bin
-cd inline-java
-ls
-stack build
-cd ..
-git clone --recursive https://github.com/typelead/eta
-cd eta
-./install.sh
-stack --help
-ghc --version
-stack setup
-stack clean
-stack setup
-stack path --local-bin
-stack path local-bin
-stack path --local-bin-path
-echo $PATh
-echo $PATH
-cd
-pacman -Ss apache derby
-pacman -Ss apachederby
-cd Downloads/
-ls | grep jar
-ls | grep apache
-ls
-ls | grep derby
-cabal update
-cabal list yampa
-eta --help
-epm --help
-epm list yampa
-epm list vector
-cd
-pacman -Ss xdotool
-cd
-cabal list xmonad
-cabal update
-cabal list xmonad
-cabal unpack xmonad-eval
-cd xmonad-eval-0.1/
-ls
-cd XMonad/
-ls
-cd Actions/
-ls
-o Eval.hs
-emacs Eval.hs
-(find-file-other-window "Eval.hs")
-vi Eval.hs
-(stringp ("Eval.hs"))
-(stringp '("Eval.hs"))
-xb
-o Eval.hs
-o Eval.hs
-o Eval.hs
-vi Eval.hs
-vi Eval.hs
-sudo pacman -Scc
-df -h
-cd Downloads
-plexrun
-sudo pacman -Scc
-df -hs
-df -h
-cd chrisdone-emacs/
-ls
-o init.el
-cd
-hindent --help
-sudo pip list 'reinforcement-learning'
-sudo pip search 'reinforcement-learning'
-cabal list reinforcement
-cabal update
+cd .emacs.d/elpa
+git clone https://github.com/DamienCassou/auth-password-store
+cd auth-password-store/
+sudo pacman -Ss cups
+lsusb
+lpinfo -m
+lpinfo -v #
+sudo lpinfo -v #
+lpinfo -v #
+sudo  lpinfo -v #
+smnp
+cups-smpn
+cups-smnp
+pacman -Ss brother
+packer -Ss brother
+packer -S brother-lpr-drivers-laser
+ghc -O2 fences.hs
+(* 17333 17333)
+(split-string "A woman gave birth here")
+(split-string "A woman gave birth here")
+(mapcar 'length (split-string "A woman gave birth here"))
+(apply '*  1(mapcar 'length (split-string "A woman gave birth here")))
+./energy ./digit1/image*.txt > digit1energies
+./energy ./digit2/image*.txt > digit2energies
+./energy ./digit3/image*.txt > digit3energies
+./energy ./digit4/image*.txt > digit4energies
+./energy ./digit5/image*.txt > digit5energies
+./energy ./digit6/image*.txt > digit6energies
+./energy ./digit7/image*.txt > digit7energies
+./energy ./digit8/image*.txt > digit8energies
+./energy ./digit9/image*.txt > digit9energies
+ghc -O2 energy.hs
+./energy ./digit0/image*.txt > digit0energies
+./energy ./digit1/image*.txt > digit1energies
+./energy ./digit2/image*.txt > digit2energies
+./energy ./digit3/image*.txt > digit3energies
+./energy ./digit4/image*.txt > digit4energies
+./energy ./digit5/image*.txt > digit5energies
+./energy ./digit6/image*.txt > digit6energies
+./energy ./digit7/image*.txt > digit7energies
+./energy ./digit8/image*.txt > digit8energies
+./energy ./digit9/image*.txt > digit9energies
+pacman -Ss asciify bsdman crun dataindex ediff 
+packer -Ss asciify bsdman crun dataindex ediff 
+(split-string "This is because of a deficiency of a woman's mind.")
+(split-string "you are an idiot")
+(mapcar 'length (split-string "This is because of a deficiency of a woman's mind."))
+(apply '* (mapcar 'length (split-string "This is because of a deficiency of a woman's mind.")))
+(split-string "\"Category Theory for Programmers\" has been finished!")
+(apply '* (mapcar 'length (split-string "you are an idiot")))
+(apply '+ (mapcar 'length (split-string "you are an idiot")))
+(* 13 7)
+(* 10764 52) 
+104 * 104
+(* 104 104)
+(* 105 105)
+(mapcar (lambda (x) (* (length x) (length x))) (split-string "whatever dude"))
+(apply '+ (mapcar (lambda (x) (* (length x) (length x))) (split-string "whatever dude")))
+(mapcar (lambda (x) (* (length x) (length x))) (split-string "whatever dude you are an idiot"))
+(+ (mapcar (lambda (x) (* (length x) (length x))) (split-string "whatever dude you are an idiot")))
+(apply '+ (mapcar (lambda (x) (* (length x) (length x))) (split-string "whatever dude you are an idiot")))
+(apply '+ (mapcar (lambda (x) (* (length x) (length x)))(split-string "welcome to the party")))
+(apply '+ (mapcar (lambda (x) (* (length x) (length x)))(split-string "welcome to the party")))
+(mapcar (lambda (x) (expt (length x) 2)) (split-string "welcome to the party"))
+(apply '+ (mapcar (lambda (x) (expt (length x) 2)) (split-string "welcome to the party")))
+(find-file "Eval.hs")
+(find-file "/tmp/Eval.hs")
+(tetris)
++ 3 5
+length hi
+4 + 2
+echo *.py
+setq ANSWER 42
+numberp ANSWER
+numberp ANSWER
+mod $ANSWER 5
+(mod ANSWER 5)
+"You should go home."
+message "You should go home."
+(message "You should go home.")
+hoogle HtmlAttr
+hoogle --color HtmlAttr
+hoogle --help
+hoogle --version
+hoogle --verbose
+hoogle --quiet
+hoogle --quiet take
+hoogle --info take
+hoogle --info fromJust
+hoogle --info maybe
+hoogle --color --info maybe
+hoogle --color --info False
+hoogle --color --info otherwise
+hoogle --color --info important
+hoogle --color --info doc
+hoogle --color --info second
+hoogle --color --info arr
+hoogle --color --info uncurry
+hoogle --color --info curry
+hoogle --color --info join
+hoogle --color --info subtract
+hoogle --color --info (<*>)
+hoogle --color --info "<*>"
+hoogle --color --info "apply"
+hoogle --color --info "fix"
+hoogle --color --info "ap"
+hoogle --color --info "flip"
+hoogle --color --info "string"
+hoogle --color --info "reads"
+hoogle --color --info "strings"

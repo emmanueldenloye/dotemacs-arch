@@ -1,13 +1,14 @@
 (use-package avy
   :defer t
   :init
-  (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
-  (setq avy-all-windows t)
-  (setq avy-background t)
-  (setq avy-style 'at)
-  (setq avy-styles-alist '((avy-goto-char-2 . post)
-                           (avy-goto-line . at-full)))
-  (setq avy-dispatch-alist
+  (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
+        avy-all-windows t
+        avy-background t
+        avy-style 'at
+        avy-styles-alist
+        '((avy-goto-char-2 . post)
+          (avy-goto-line . at-full))
+        avy-dispatch-alist
         '((?c . avy-action-copy)
           (?m . avy-action-mark)
           (?k . avy-action-kill)
@@ -26,7 +27,10 @@
   (avy-setup-default)
   (defadvice avy-goto-line (after avy-goto-line-indentation activate)
     (when (derived-mode-p 'prog-mode 'org-mode)
-      (back-to-indentation))))
+      (back-to-indentation)))
+  (defadvice avy-copy-line (after avy-back-indentation activate)
+    (when (derived-mode-p 'prog-mode 'org-mode)
+        (back-to-indentation))))
 
 (provide 'init-avy)
 ;; init-avy.el ends here

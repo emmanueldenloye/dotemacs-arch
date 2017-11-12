@@ -1,17 +1,19 @@
-
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-;;;###autoload
+(use-package isearch-dabbrev
+  :if (fboundp 'isearch-mode)
+  :config
+  (define-key isearch-mode-map (kbd "M-/") 'isearch-dabbrev-expand))
+
 (defun isearch-apropos ()
   (interactive)
   (apropos isearch-string))
 
 (define-key isearch-mode-map (kbd "M-s a") 'isearch-apropos)
 
-;;;###autoload
 (defun isearch-forward-other-window (arg)
   "Isearch in the other window."
   (interactive "p")
@@ -21,7 +23,6 @@
         (isearch-forward)
       (isearch-forward-regexp))))
 
-;;;###autoload
 (defun isearch-backward-other-window (arg)
   "Isearch in the other window."
   (interactive "p")
@@ -31,7 +32,6 @@
         (isearch-backward)
       (isearch-backward-regexp))))
 
-;;;###autoload
 (defun isearch-grab-region-for-search (beg end &optional backward)
   "Grab the current region and use it in as a search term in
 isearch. For regions larger than a word, this function can be
@@ -43,14 +43,23 @@ non-nil then isearch-backward is called instead. "
       (deactivate-mark)
       (isearch-resume text nil nil (or backward t) text t))))
 
-(define-key isearch-mode-map (kbd "M-s C-M-f") 'isearch-yank-sexp)
+(define-key isearch-mode-map (kbd "M-s o") 'isearch-occur) ;weird
 
-;;;###autoload
-(defun isearch-yank-sexp (&optional arg)
+(defun isearch-yank-forward-sexp (&optional arg)
   "Pull the next sexp from buffer into search string.
 If optional ARG is non-nil, pull in the next ARG sexps."
   (interactive "p")
   (isearch-yank-internal (lambda () (forward-sexp arg) (point))))
+
+(define-key isearch-mode-map (kbd "M-s C-M-f") 'isearch-yank-forward-sexp)
+
+(defun isearch-yank-backward-sexp (&optional arg)
+  "Pull the next sexp from buffer into search string.
+If optional ARG is non-nil, pull in the next ARG sexps."
+  (interactive "p")
+  (isearch-yank-internal (lambda () (backward-sexp arg) (point))))
+
+(define-key isearch-mode-map (kbd "M-s C-M-b") 'isearch-yank-backward-sexp)
 
 (provide 'init-isearch)
 ;; init-isearch.el ends here

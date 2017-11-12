@@ -15,13 +15,14 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+ ;;; I'm going to just use delete-indentation
 (global-set-key (kbd "C-c j") 'eod-join-next-line)
 
 (use-package highlight-escape-sequences
   :config
   (hes-mode))
 
-;;; set the time to show partially completed keystrokes to a tenth of a second.
+;;; set the time to show partially completed keystrokes.
 (setq echo-keystrokes 0.25)
 
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -49,7 +50,7 @@
 
 (setq-default tab-width 4)
 
-(setq fill-column 80)
+(setq fill-column 70)
 
 (setq sentence-end-double-space nil)
 
@@ -90,6 +91,7 @@
 (setq savehist-additional-variables '(search ring regexp-search-ring) ; also save your regexp search queries
       savehist-autosave-interval 60)	; save every minute
 
+;;; helm-completing-read-handlers-alist
 ;;; auto refresh dired silently!
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
@@ -128,21 +130,6 @@
         (insert-file-contents "~/Pictures/pepe.txt")
         (buffer-string)))
 
-;;; put fortune in scratch buffer
-;; (setq initial-scratch-message
-;;       (with-temp-buffer
-;;         (insert
-;;          (concat
-;;           (format
-;;            ";; %s\n\n"
-;;            (replace-regexp-in-string
-;;             "\n" "\n;; "                ; comment each line
-;;             (replace-regexp-in-string
-;;              "\n$" ""                   ; remove trailing linebreak
-;;              (shell-command-to-string "fortune"))))))
-;;         (delete-trailing-whitespace (point-min) (point-max))
-;;         (buffer-string)))
-
 (use-package whitespace
   :config
   (setq whitespace-style '(face empty tabs lines-tail trailing))
@@ -166,13 +153,7 @@
 (setq gdb-many-windows t		; use  gdb-many-windows by default
       gdb-show-main t)			; Non-nil means display source file containing the main routine at startup
 
-;; (diminish 'volatile-highlights-mode)
-;; (global-set-key (kbd "RET") 'newline-and-indent)
-;; (require 'volatile-highlights)
-;; (volatile-highlights-mode t)
-;; (diminish 'volatile-highlights-mode)
-
-;; ;;; get rid of some items in the mode line
+;;; get rid of some items in the mode line
 (diminish 'eldoc-mode)
 (diminish 'company-mode)
 (diminish 'elisp-slime-nav-mode)
@@ -184,20 +165,6 @@
 
 (global-set-key (kbd "C-c r b") 'bookmark-jump-other-window)
 
-;; (when (eq major-mode 'emacs-lisp-mode)
-;;   (diminish 'workgroups-mode))
-
-;; (if (fboundp 'with-eval-after-load)
-;;     (defmacro after-load (feature &rest body)
-;;       "After FEATURE is loaded, evaluate BODY"
-;;       (declare (indent defun))
-;;       `(with-eval-after-load ,feature ,@body))
-;;   (defmacro after-load (feature &rest body)
-;;     "After FEATURE is loaded, evaluate BODY."
-;;     (declare (indent  defun))
-;;     `(eval-after-load ,feature
-;;        '(progn ,@body))))
-
 (use-package tetris
   :config
   ;These new bindings will take some time to get used to. It is
@@ -206,14 +173,33 @@
   (define-key tetris-mode-map (kbd "u") 'tetris-rotate-next)
   (define-key tetris-mode-map (kbd "t") 'tetris-move-right)
   (define-key tetris-mode-map (kbd "e") 'tetris-move-left)
+  (define-key tetris-mode-map (kbd "r") 'tetris-move-down)
+  (define-key tetris-mode-map (kbd "n") 'nil)
   (define-key tetris-mode-map (kbd "s") 'tetris-start-game))
+
+;; (defun launch-tetris ()
+;;   (interactive)
+;;   (let (evalstr
+;;         "\"(progn
+;;   (with-eval-after-load 'tetris
+;;     (define-key tetris-mode-map (kbd \"h\") 'tetris-rotate-prev)
+;;     (define-key tetris-mode-map (kbd \"u\") 'tetris-rotate-next)
+;;     (define-key tetris-mode-map (kbd \"t\") 'tetris-move-right)
+;;     (define-key tetris-mode-map (kbd \"e\") 'tetris-move-left)
+;;     (define-key tetris-mode-map (kbd \"r\") 'tetris-move-down)
+;;     (define-key tetris-mode-map (kbd \"n\") 'nil)
+;;     (define-key tetris-mode-map (kbd \"s\") 'tetris-start-game))
+;;   (tetris))\""))
+;;   (async-shell-command (concat "emacs -Q --execute " evalstr)))
 
 (global-set-key (kbd "C-c b h") 'haskell-buffer-list)
 
+(setq-default display-time-day-and-date t)
 (display-time-mode 1)
 
-(add-hook 'messages-buffer-mode-hook
-          (lambda () (turn-off-fci-mode)))  ;I don't want to see that annoying line.
+;; (add-hook 'messages-buffer-mode-hook
+;;           (lambda () (turn-off-fci-mode)))
+                                        ;I don't want to see that annoying line.
 
 (defadvice push-button (around push-button activate)
   (when (eq major-mode 'help-mode)
@@ -245,6 +231,50 @@
 (setq-default indent-tabs-mode nil)
 
 (add-hook 'after-save-hook #'byte-compile-when-byte-compiled-file-exists)
+
+;;; Just some bindings to make help-mode more pleasant.
+(define-key help-mode-map (kbd "C-c C-d d") 'elisp-slime-nav-describe-elisp-thing-at-point)
+(define-key help-mode-map (kbd "C-c C-d C-d") 'elisp-slime-nav-describe-elisp-thing-at-point)
+
+(setq column-number-mode t)
+
+(global-set-key (kbd "C-. C-.") 'ispell-word)
+
+(define-key shell-mode-map (kbd "C-c d") 'delete-region)
+
+(define-key help-mode-map (kbd "n") 'next-line)
+(define-key messages-buffer-mode-map (kbd "n") 'next-line)
+(define-key help-mode-map (kbd "p") 'previous-line)
+(define-key messages-buffer-mode-map (kbd "p") 'previous-line)
+
+(setq tetris-score-file "~/.emacs.d/tetris-scores")
+
+(defun stupid-string-swap-function (str)
+  (if (> (length str ) 3)
+      (concat
+       (substring str 0 1 )
+       (apply 'string
+              (shuffle-list
+               (string-to-list (substring str 1 (1- (length str))))))
+       (substring str (1- (length str)) (length str)))
+    str))
+
+(require 'find-func)
+(find-function-setup-keys)
+
+;; (defun integer-bounds-of-integer-at-point ()
+;;    "Return the start and end points of an integer at the current point.
+;; The result is a paired list of character positions for an integer
+;; located at the current point in the current buffer. An integer is
+;; any decimal digit 0 through 9 with an optional starting minus
+;; symbol \(\"-\")."
+;;    (save-excursion
+;;      (skip-chars-backward "-0123456789")
+;;      (if (looking-at "-?[0-9]+")
+;;          (cons (point) (1- (match-end 0))) ;bounds of integer
+;;        nil)))                              ;no integer at point
+
+;; (put 'integer 'bounds-of-thing-at-point 'integer-bounds-of-integer-at-point)
 
 (provide 'init-misc)
 ;; init-misc.el ends here

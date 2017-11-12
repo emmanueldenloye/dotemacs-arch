@@ -1,12 +1,13 @@
 (use-package recentf-ext
   :defer t
   :ensure t
-  :config
-  (recentf-mode)
+  :init
   (setq
-   recentf-max 100
+   recentf-max 150
    recentf-max-menu-items 30
-   recentf-max-saved-items 5000))
+   recentf-max-saved-items 5000)
+  :config
+  (recentf-mode))
 
 ;;; I am not sure if I need this, but whatever.
 ;; (defun recentf-push-current-buffer ()

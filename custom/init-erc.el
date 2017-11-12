@@ -8,8 +8,7 @@
   (defvar my/erc-mode-hook)
   (setq
    user-login-name
-   "emmanuel_erc")
-  (setq
+   "emmanuel_erc"
    erc-autojoin-channels-alist
    '(("freenode.net" "#haskell"
       "#emacs"

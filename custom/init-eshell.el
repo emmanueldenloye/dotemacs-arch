@@ -5,7 +5,7 @@
   :config
   (add-hook
    'eshell-mode-hook
-   'electric-pair-mode) ;; smartparens isn't necessary here.
+   'electric-pair-local-mode) ;; smartparens isn't necessary here.
   (setq eshell-prompt-function
         (lambda ()
           (concat
@@ -33,6 +33,10 @@
   ;; change  listing sitches based on OS
   (when (not (eq  system-type 'windows-nt))
     (eshell/alias "ls" "ls -color -h --group-directories-first $*")))
+
+(when (executable-find "fortune")
+  (defadvice eshell (before advice-for-eshell activate)
+    (setq eshell-banner-message (concat (shell-command-to-string "fortune") "\n"))))
 
 (provide 'init-eshell)
 ;; init-eshell.el ends here

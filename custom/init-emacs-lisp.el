@@ -11,6 +11,8 @@
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielem-mode-hook 'turn-on-eldoc-mode))
 
+(add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode)
+
 ;;;###autoload
 (defun eod-eval-region-or-buffer (beg end)
   "Evaluate the current active region, otherwise evaluate the current buffer."

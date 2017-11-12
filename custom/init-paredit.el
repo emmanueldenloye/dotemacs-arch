@@ -5,21 +5,49 @@
   (autoload 'enable-paredit-mode "paredit"
     "Turn on pseudo-structural editing of Lisp code." t)
   :config
+  (defvar paredit-wrap-prefix-key "M-(")
   (bind-keys :map paredit-mode-map
+             (paredit-wrap-prefix-key . nil)
+             ((concat paredit-wrap-prefix-key " (") . paredit-wrap-round)
+             ((concat paredit-wrap-prefix-key " [") . paredit-wrap-bracket)
+             ((concat paredit-wrap-prefix-key " {") . paredit-wrap-squiggle)
              ("C-M-)" . paredit-slurp-all-the-way-forward)
              ("C-M-(" . paredit-slurp-all-the-way-backward)
              ("C-M-}" . paredit-barf-all-the-way-forward)
              ("C-M-{" . paredit-barf-all-the-way-backward)
              ("C-c d" . paredit-delete-region)
+             ("M-P" . eod-paredit-previous-sexp)
+             ("M-N" . eod-paredit-next-sexp)
              ("<C-backspace>" . paredit-backward-kill-word))
-  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+  ;; (remove-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
   (add-hook 'ielm-mode-hook #'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook #'enable-paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  ;; (remove-hook 'lisp-mode-hook #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook 'smartparens-mode)
   (add-hook 'minibuffer-setup-hook 'smartparens-mode)
   (eldoc-add-command
    'paredit-backward-delete
    'paredit-close-round))
+
+(defun eod-paredit-next-sexp (&optional arg)
+  "Run `sp-next-sexp' if smartparens-mode is installed.
+The ARG argument is handled by sp-next-sexp."
+  (if (fboundp 'smartparens-mode)
+      (sp-next-sexp arg)
+    (message "Install smartparens-mode")))
+
+(defun eod-paredit-previous-sexp (&optional arg)
+  "Run `sp-previous-sexp' if smartparens-mode is installed.
+The ARG argument is handled by sp-previous-sexp."
+  (if (fboundp 'smartparens-mode)
+      (sp-previous-sexp arg)
+    (message "Install smartparens-mode")))
+
+(defun paredit-wrap-squiggle (argument)
+  (interactive "P")
+  (paredit-wrap-sexp argument ?\{ ?\}))
+(defun paredit-wrap-bracket (argument)
+  (interactive "P")
+    (paredit-wrap-sexp argument ?\[ ?\]))
 
 ;;;###autoload
 (defun  paredit-barf-all-the-way-backward ()

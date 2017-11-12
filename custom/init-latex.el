@@ -24,24 +24,6 @@
 (add-hook 'latex-mode-hook 'turn-on-reftex) ;with Emacs latex mode
 
 ;;; Make RefTeX faster
-(setq reftex-enable-partial-scans t)
-(setq reftex-save-parse-info t)
-(setq reftex-use-multiple-selection-buffers t)
-(setq reftex-plug-into-AUCTeX t)
-
-;; RefTeX formats for biblatex (not natbib)
-(setq reftex-cite-format
-      '(
-        (?\C-m . "\\cite[]{%l}")
-        (?t . "\\textcite{%l}")
-        (?a . "\\autocite[]{%l}")
-        (?p . "\\parencite{%l}")
-        (?f . "\\footcite[][]{%l}")
-        (?F . "\\fullcite[]{%l}")
-        (?x . "[]{%l}")
-        (?X . "{%l}")
-        ))
-
 (setq font-latex-match-reference-keywords
       '(("cite" "[{")
         ("cites" "[{}]")
@@ -53,10 +35,27 @@
         ("fullcite" "[{")
         ("citetitle" "[{")
         ("citetitles" "[{")
-        ("headlessfullcite" "[{")))
+        ("headlessfullcite" "[{"))
+      reftex-cite-prompt-optional-args nil
+      reftex-cite-cleanup-optional-args t
+      reftex-cite-format
+      '(
+        (?\C-m . "\\cite[]{%l}")
+        (?t . "\\textcite{%l}")
+        (?a . "\\autocite[]{%l}")
+        (?p . "\\parencite{%l}")
+        (?f . "\\footcite[][]{%l}")
+        (?F . "\\fullcite[]{%l}")
+        (?x . "[]{%l}")
+        (?X . "{%l}"))
+      reftex-save-parse-info t
+      reftex-use-multiple-selection-buffers t
+      reftex-enable-partial-scans t)
 
-(setq reftex-cite-prompt-optional-args nil)
-(setq reftex-cite-cleanup-optional-args t)
+;; RefTeX formats for biblatex (not natbib)
+(setq reftex-plug-into-AUCTeX t)
+
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
 (provide 'init-latex)
 ;; init-latex.el ends here

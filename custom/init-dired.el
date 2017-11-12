@@ -3,6 +3,7 @@
  dired-recursive-copies 'always
  dired-recursive-deletes 'top
  dired-listing-switches "-lha"
+ dired-omit-verbose nil
  dired-omit-files "\\.dyn_hi$\\|\\.dyn_o$\\|\\.hi$\\|\\.o$|^\\.?#\\|^\\.$\\|^\\.\\.$|\\.aux$"  ; temporarily add .hi, .hs~
  )
 
@@ -42,12 +43,12 @@
   :defer t)
 
 (use-package wdired
-  :defer t)
-
-(setq
- wdired-allow-to-change-premissions t 	; allow to edit permission bits
- wdired-allow-to-redirect-links t		; allow to edit symlinks
- )
+  :defer t
+  :config
+  (setq
+   wdired-allow-to-change-premissions t 	; allow to edit permission bits
+   wdired-allow-to-redirect-links t		; allow to edit symlinks
+   ))
 
 
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
