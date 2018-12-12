@@ -17,5 +17,18 @@
    try-complete-lisp-symbol-partially ;; Try to complete as an Emacs Lisp symbol, as many characters as unique
    try-complete-lisp-symbol)) ;; Try to complete word as an Emacs Lisp symbol.
 
+(defvar my-abbrev-prefix-mark-state nil)
+
+(defadvice abbrev-prefix-mark (after set-state activate)
+  (setq my-abbrev-prefix-mark-state t))
+
+(defadvice hippie-expand (around check-abbrev-prefix-state activate)
+  (not-if my-abbrev-prefix-mark-state
+      ad-do-it
+    (let ((hippie-expand-try-functions-list
+           (remove 'try-expand-flexible-abbrev hippie-expand-try-functions-list)))
+      ad-do-it)
+    (setq my-abbrev-prefix-mark-state nil)))
+
 (provide 'init-hippie-expand)
 ;; init-hippie-expand.el ends here

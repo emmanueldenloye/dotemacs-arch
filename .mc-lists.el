@@ -3,10 +3,14 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        LaTeX-babel-insert-hyphen
+        TeX-insert-backslash
+        TeX-insert-sub-or-superscript
         avy-goto-char-in-line
         backward-kill-sexp
         backward-sexp
         backward-up-list
+        beginning-of-visual-line
         c-electric-brace
         c-electric-colon
         c-electric-delete-forward
@@ -16,18 +20,23 @@
         c-electric-slash
         c-electric-star
         capitalize-dwim
+        choose-eod-comment-line-or-emacs-comment-line-function
         clean-aindent--bsunindent
+        comment-dwim
         delete-char
         delete-horizontal-space
         delete-indentation
         down-list
         downcase-dwim
         downcase-region
+        end-of-visual-line
         eod-decrement-number-at-point
         eod-haskell-mode-insert-undefined-at-point
         eod-increment-number-at-point
         eod-insert-dollar
         eod-insert-parentheses
+        eod-insert-parentheses-with-space
+        eod-insert-tilde
         eod-join-next-line
         eval-expression
         eval-last-sexp
@@ -36,27 +45,40 @@
         haskell-indentation-common-electric-command
         haskell-indentation-newline-and-indent
         haskell-mode-contextual-space
-        helm-M-x
-        helm-show-kill-ring
+        hindent-reformat-decl-or-fill
+        indent-for-tab-command
+        indent-rigidly-right
         insert-parentheses
+        isearch-abort
+        isearch-backward-regexp
+        isearch-exit
         isearch-forward-regexp
         isearch-printing-char
         isearch-repeat-forward
         kill-region
         kill-sexp
+        kill-word
         lispy-braces
         lispy-brackets
         lispy-delete
         lispy-kill
         lispy-parens
         lispy-quotes
+        mark-paragraph
         mark-sexp
         mark-word
+        multiple-cursors-hydra/mc/mark-next-like-this
+        multiple-cursors-hydra/mc/mark-previous-like-this
+        multiple-cursors-hydra/mc/skip-to-next-like-this
+        multiple-cursors-hydra/nil
         org-beginning-of-line
         org-delete-char
         org-demote-subtree
         org-end-of-line
+        org-force-self-insert
+        org-kill-line
         org-metaright
+        org-open-line
         org-return
         org-return-indent
         org-self-insert-command
@@ -79,11 +101,13 @@
         paredit-raise-sexp
         paredit-semicolon
         paredit-wrap-round
+        python-nav-backward-up-list
         rectangle-number-lines
         repeat
         repeat-complex-command
         sh-assignment
         shm/:
+        shm/backward-kill-word
         shm/backward-node
         shm/close-paren
         shm/comma
@@ -106,7 +130,10 @@
         shm/wrap-parens
         shm/yank
         smarter-move-beginning-of-line
+        smie-down-list
+        sp-backward-delete-char
         sp-backward-down-sexp
+        sp-backward-kill-word
         sp-backward-sexp
         sp-backward-up-sexp
         sp-delete-char
@@ -114,6 +141,7 @@
         sp-forward-sexp
         sp-forward-slurp-sexp
         sp-join-sexp
+        sp-kill-word
         sp-remove-active-pair-overlay
         sp-rewrap-sexp
         sp-splice-sexp
@@ -200,6 +228,7 @@
         transpose-words
         upcase-dwim
         upcase-region
+        view-external-packages
         yank-rectangle
         yas-expand
         zap-up-to-char
@@ -207,20 +236,34 @@
 
 (setq mc/cmds-to-run-once
       '(
+        LaTeX-insert-left-brace
         beginning-of-buffer
         copy-rectangle-as-kill
+        elpy-shell-send-region-or-buffer
         end-of-buffer
+        ghc-insert-template-or-signature
+        handle-switch-frame
         haskell-process-load-file
+        helm-M-x
+        helm-maybe-exit-minibuffer
         helm-mini
+        helm-show-kill-ring
+        indent-rigidly
+        insert-register
         isearch-delete-char
         kmacro-end-and-call-macro
         kmacro-end-or-call-macro
         kmacro-start-macro-or-insert-counter
         lispy-cursor-down
         lispy-delete-backward
+        mc/insert-numbers
         move-to-window-line-top-bottom
+        multiple-cursors-hydra/body
+        multiple-cursors-hydra/mc/unmark-previous-like-this
         occur
-        shm/backward-kill-word
+        octave-find-definition
         special-lispy-other-mode
+        switch-to-previous-buffer
         view-lossage
+        xref-find-definitions
         ))

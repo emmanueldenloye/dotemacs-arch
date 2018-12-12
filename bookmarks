@@ -1,8 +1,48 @@
-;;;; Emacs Bookmark Format Version 1 ;;;;
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("dissertation"
+(("otherlibs"
+ (filename . "~/.emacs.d/otherlibs/")
+ (front-context-string . "4clojure.el\n  -r")
+ (rear-context-string . "0K Nov 14  2017 ")
+ (position . 175))
+("resumefolder"
+ (filename . "~/Dropbox/resume/resumetemplate2/")
+ (front-context-string . "auto\n  drwxr-xr-")
+ (rear-context-string . "0K Sep 25 23:05 ")
+ (position . 185))
+("org"
+ (filename . "~/Dropbox/org/")
+ (front-context-string . "postproposalnote")
+ (rear-context-string . "0K Nov 15 21:20 ")
+ (position . 902))
+(".xmobarrc"
+ (filename . "~/.xmobarrc")
+ (front-context-string . "-- -*- mode: has")
+ (rear-context-string)
+ (position . 1))
+("org-capture-last-stored"
+ (filename . "~/.notes")
+ (front-context-string . "** TODO reread [")
+ (rear-context-string . "tions/][link2]]\n")
+ (position . 1577))
+(".zshrc"
+ (filename . "~/.zshrc")
+ (front-context-string . "# The following ")
+ (rear-context-string)
+ (position . 1))
+("Journalattempt2"
+ (filename . "~/Dropbox/org/Journalattempt2/")
+ (front-context-string . "paperTex\n  drwxr")
+ (rear-context-string . "0K Dec  8 17:19 ")
+ (position . 289))
+("Downloads"
+ (filename . "~/Downloads/")
+ (front-context-string . "biblio-20161014.")
+ (rear-context-string . "0K Nov 14 20:50 ")
+ (position . 166))
+("dissertation"
  (filename . "~/Dropbox/dissertation/")
  (front-context-string . "abstract\n  drwxr")
  (rear-context-string . "0K Sep 16 10:22 ")
@@ -22,7 +62,7 @@
  (front-context-string . "hateren98_indep_")
  (rear-context-string . "3K Jan 31 15:13 ")
  (position . 198))
-("init"
+("emacs init file"
  (filename . "~/.emacs.d/init.el")
  (front-context-string . ";;; package --- ")
  (rear-context-string)
@@ -32,11 +72,6 @@
  (front-context-string . "Apps\n  drwxr-xr-")
  (rear-context-string . "0K Oct 21  2015 ")
  (position . 185))
-("init-haskell.el"
- (filename . "~/.emacs.d/custom/init-haskell.el")
- (front-context-string . "(defun eod-hinde")
- (rear-context-string . "ompany-cabal))\n\n")
- (position . 3389))
 ("setup-haskell.el"
  (filename . "~/.emacs.d/custom/setup-haskell.el")
  (front-context-string . "\n\n(add-hook 'inf")

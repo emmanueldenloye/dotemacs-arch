@@ -4,14 +4,16 @@
  dired-recursive-deletes 'top
  dired-listing-switches "-lha"
  dired-omit-verbose nil
- dired-omit-files "\\.dyn_hi$\\|\\.dyn_o$\\|\\.hi$\\|\\.o$|^\\.?#\\|^\\.$\\|^\\.\\.$|\\.aux$"  ; temporarily add .hi, .hs~
+ dired-omit-files "\\.dyn_hi$\\|\\.dyn_o$\\|\\.hi$\\|\\.o$|^\\.?#\\|^\\.$\\|^\\.\\.$|\\.aux$" ; temporarily add .hi, .hs~
  )
 
 ;; automatically refresh dired buffer on changes
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
 ;; if it is not Windows, use the following listing switches
-(when (not (eq system-type 'windows-nt))
+(when
+    (not
+     (eq system-type 'windows-nt))
   (setq dired-listing-switches "-lha --group-directories-first"))
 
 ;; KEY BINDINGS.
@@ -31,13 +33,34 @@
 (use-package dired-x
   :defer t
   :config
-  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode)))
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
+  (setq dired-bind-jump t
+        dired-bind-vm t
+        dired-bind-man t
+        dired-bind-info t)
+  (add-hook 'dired-mode-hook
+            (lambda
+              ()
+              (dired-omit-mode)))
+  (add-hook 'dired-mode-hook
+            (lambda
+              ()
+              (dired-hide-details-mode)))
   (add-to-list 'dired-guess-shell-alist-user
-             '("\\.pdf"
-               (cond ((= 0 (call-process "which" nil nil nil "zathura")) "zathura")
-                     ((= 0 (call-process "which" nil nil nil "evince")) "evince")
-                     (t "xpdf"))))) ; provide extra commands dired
+               '("\\.pdf"
+                 (cond
+                  ((= 0
+                      (call-process "which" nil nil nil "zathura"))
+                   "zathura")
+                  ((= 0
+                      (call-process "which" nil nil nil "evince"))
+                   "evince")
+                  (t "xpdf"))))
+  (add-to-list 'dired-guess-shell-alist-user
+          '("\\.odt"
+            "libreoffice"))
+  (add-to-list 'dired-guess-shell-alist-user
+          '("\\.docx"
+            "libreoffice")))
 
 (use-package dired+
   :defer t)
@@ -46,29 +69,73 @@
   :defer t
   :config
   (setq
-   wdired-allow-to-change-premissions t 	; allow to edit permission bits
+   wdired-allow-to-change-premissions t ; allow to edit permission bits
    wdired-allow-to-redirect-links t		; allow to edit symlinks
    ))
 
-
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
-(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
+(global-set-key
+ (kbd "C-x C-j")
+ 'dired-jump)
+(global-set-key
+ (kbd "C-x 4 j")
+ 'dired-jump-other-window)
 
-(defun dired-run-shell-command-with-all-marked-files (program)
-   ;This could be written so to choose a default program depending on
-   ;the file type
+(defun dired-run-shell-command-with-all-marked-files
+    (program)
+                                        ;This could be written to
+                                        ;choose a default program
+                                        ;depending on the file type
   (interactive "sProgram: ")
-  (if-let ((marked-files (dired-get-marked-files)))
+  (if-let
+      ((marked-files
+        (dired-get-marked-files)))
       (async-shell-command
        (concat program " "
-               (mapconcat (lambda (file) (concat "\'" (f-filename file) "\'") ) marked-files " ")))
+               (mapconcat
+                (lambda
+                  (file)
+                  (concat "\'"
+                          (f-filename file)
+                          "\'")
+                  )
+                marked-files " ")))
     (error "Please mark some files.")))
 
 ;;; Create Trash Directory
 (setq
- trash-directory "/home/emmanuel/Trash"
+ trash-directory "~/Trash"
  delete-by-moving-to-trash t)
+
+(defun dired-create/append-etags-on-mark
+    ()
+  (interactive)
+  (and
+   (eq major-mode 'dired-mode)
+   (if-let
+       ((marked-files
+         (dired-get-marked-files)))
+       (and
+        (or
+         (file-exists-p "TAGS")
+         (shell-command "touch TAGS"))
+        (shell-command
+         (concat "etags --append --output=TAGS "
+                 (mapconcat
+                  (lambda
+                    (file)
+                    (concat "\'"
+                            (f-filename file)
+                            "\'"))
+                  marked-files " ")))
+        (message "The TAGS file has been created.")))))
+
+(use-package dired
+  :bind
+  (:map dired-mode-map
+	("* p" . dired-prev-marked-file)
+	("* n" . dired-next-marked-file)))
 
 (provide 'init-dired)
 ;; init-dired.el ends here

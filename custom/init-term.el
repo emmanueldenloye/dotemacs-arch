@@ -1,3 +1,8 @@
+(setq explicit-shell-file-name "/bin/zsh")
+
+(defadvice term (around set-shell activate)
+  (let ((explicit-shell-file-name "/bin/sh"))
+    ad-do-it))
 
 ;; (setq gud-chdir-before-run nil)
 

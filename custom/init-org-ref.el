@@ -1,7 +1,20 @@
-(use-package org-ref
-  :if 'helm-bibtex
-  :ensure t
-  :config
+;; (use-package org-ref
+;;   :ensure t)
+
+
+(dolist (hook '(jcp-org-mode org-mode-reftex-setup))
+  (remove-hook 'org-mode-hook hook))
+
+(remove-hook 'org-mode-hook 'jcp-org-mode)
+(remove-hook 'org-mode-hook 'org-mode-reftex-setup)
+
+(provide 'init-org-ref)
+;;; init-org-ref.el ends here
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; JUNK JUNK JUNK JUNK JUNK JUNK JUNK JUNK JUNK JUNK JUNK JUNK JUNK  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
   ;; (setq org-ref-insert-cite-function 'org-ref-helm-insert-cite-link)
 
@@ -64,11 +77,3 @@
 
   ;; (setq org-ref-insert-link-function 'my-org-ref-helm-insert-cite-link
   ;;       org-ref-insert-cite-function 'my-org-ref-helm-insert-cite-link)
-  )
-
-
-(remove-hook 'org-mode-hook 'jcp-org-mode)
-(remove-hook 'org-mode-hook 'org-mode-reftex-setup)
-
-(provide 'init-org-ref)
-;;; init-org-ref.el ends here

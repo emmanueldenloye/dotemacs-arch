@@ -1,9 +1,7 @@
 ;; Paredit Settings
 (use-package paredit
+  :defer t
   :ensure t
-  :init
-  (autoload 'enable-paredit-mode "paredit"
-    "Turn on pseudo-structural editing of Lisp code." t)
   :config
   (defvar paredit-wrap-prefix-key "M-(")
   (bind-keys :map paredit-mode-map
@@ -49,7 +47,7 @@ The ARG argument is handled by sp-previous-sexp."
   (interactive "P")
     (paredit-wrap-sexp argument ?\[ ?\]))
 
-;;;###autoload
+
 (defun  paredit-barf-all-the-way-backward ()
   "Barf all the items from point to beginning of sexp surrounding
 the point out."
@@ -58,7 +56,7 @@ the point out."
   (paredit-backward-down)
   (paredit-splice-sexp))
 
-;;;###autoload
+
 (defun paredit-barf-all-the-way-forward ()
   "Barf all the items from point to end of the sexp surrounding
 the point out."
@@ -68,7 +66,7 @@ the point out."
   (paredit-splice-sexp)
   (if (eolp) (delete-horizontal-space)))
 
-;;;###autoload
+
 (defun paredit-slurp-all-the-way-backward ()
   "Slurp baby."
   (interactive)
@@ -80,7 +78,7 @@ the point out."
             (throw 'done t)))
       (paredit-backward-slurp-sexp))))
 
-;;;###autoload
+
 (defun paredit-slurp-all-the-way-forward ()
   "Slurp baby."
   (interactive)
@@ -92,7 +90,7 @@ the point out."
             (throw 'done t)))
       (paredit-forward-slurp-sexp))))
 
-;;;###autoload
+
 (defun paredit-delete-indentation (&optional arg)
   "Handle joining lines that end in a comment."
   (interactive "*P")                    ;you are correct
@@ -108,7 +106,8 @@ the point out."
           (insert " ")
           (insert comt))))))
 
-(define-key paredit-mode-map (kbd "M-^") 'paredit-delete-indentation)
+(with-eval-after-load 'paredit-mode
+    (define-key paredit-mode-map (kbd "M-^") 'paredit-delete-indentation))
 
 (provide 'init-paredit)
 ;; init-paredit.el ends here

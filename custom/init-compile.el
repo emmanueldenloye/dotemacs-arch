@@ -2,6 +2,7 @@
 
 (use-package compile
   :ensure t
+  :defer t
   :bind
   ("<f5>" . compile))
 

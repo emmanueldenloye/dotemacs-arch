@@ -9,5 +9,15 @@
    ("C-c C-<" . mc/mark-all-like-this)
    ("C-S-c C-S-c" . mc/edit-lines)))
 
+
+;; (defun eod)
+;; weird
+;; weird
+;; weird
+;; weird
+;; weird
+;; weird
+;; weird
+
 (provide 'init-multiple-cursors)
 ;;; init-multiple-cursors.el ends here

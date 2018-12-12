@@ -1,44 +1,3 @@
-pass init "65A5BABE77EE6EFC7EC0F296B07330A70A54C261"
-pass insert Games/CleverestIdiot
-pass rm Games/CleverestIdiot.gpg
-pass rm Games/CleverestIdiot
-cd .emacs.d
-ls
-cd my-git-packages
-ls
-..
-ls
-cd elpa
-ls
-git clone https://github.com/jabranham/helm-pass
-ls
-ls | grep pass
-cd helm-pass
-ls
-cd
-cd .emacs.d/elpa
-git clone https://github.com/DamienCassou/auth-password-store
-cd auth-password-store/
-sudo pacman -Ss cups
-lsusb
-lpinfo -m
-lpinfo -v #
-sudo lpinfo -v #
-lpinfo -v #
-sudo  lpinfo -v #
-smnp
-cups-smpn
-cups-smnp
-pacman -Ss brother
-packer -Ss brother
-packer -S brother-lpr-drivers-laser
-ghc -O2 fences.hs
-(* 17333 17333)
-(split-string "A woman gave birth here")
-(split-string "A woman gave birth here")
-(mapcar 'length (split-string "A woman gave birth here"))
-(apply '*  1(mapcar 'length (split-string "A woman gave birth here")))
-./energy ./digit1/image*.txt > digit1energies
 ./energy ./digit2/image*.txt > digit2energies
 ./energy ./digit3/image*.txt > digit3energies
 ./energy ./digit4/image*.txt > digit4energies
@@ -126,3 +85,44 @@ hoogle --color --info "flip"
 hoogle --color --info "string"
 hoogle --color --info "reads"
 hoogle --color --info "strings"
+(split-string"Emacs Shell")
+(split-string "you certainly can if you would like")
+(mapcar 'length (split-string "you certainly can if you would like"))
+(apply '* (mapcar 'length (split-string "you certainly can if you would like")))
+(split-string"you should die in a fire") 
+(mapcar 'length (split-string"you should die in a fire")) 
+(product (mapcar 'length (split-string"you should die in a fire"))) 
+(apply '+ (mapcar 'length (split-string"you should die in a fire"))) 
+(apply '* (mapcar 'length (split-string"you should die in a fire"))) 
+(apply '+ (number-sequence 1 1000))
+(apply '+ (number-sequence 1 100000))
+e
+exit
+which octave
+exit
+(split-string "you idiot you should die in a fire")
+(upcase "you idiot you should die in a fire")
+pacman -Ss porn
+yaourt -Ss porn
+echo sometheing
+list-networks
+connect-network 'FiOS-RVAPE' password fumes9083dan559jig
+nmcli dev wifi connect 'FiOS-RVAPE' password fumes9083dan559jig
+(split-string "You are telling them something that does not actually make any sense.")
+(split-stringc "the hunger games")
+(split-string "the hunger games")
+ls
+(find-file "bonap.hs")
+which 2018-06-12-022125_3840x2160_scrot.png
+ls 2018-06-12-022125_3840x2160_scrot.png
+ls *png
+xzgv 2018-06-12-022125_3840x2160_scrot.png
+rm *png
+ls
+ls edotemacs-arch
+ls dotemacs-arch
+(split-string "The Red Pill")
+ping c -3 8.8.8.8
+(message user-full-name)
+(split-string "you will blacklisted if you are too free with the information you give out about yourself")
+exit

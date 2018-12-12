@@ -1,8 +1,7 @@
 (use-package ace-window
+  :ensure t
   :defer t
   :init
-  (autoload 'ace-window "ace-window" nil t)
-  ;; (bind-key "M-#" 'ace-window)
   (setq aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
         aw-dispatch-always t
         aw-background nil)

@@ -10,16 +10,66 @@
   :init
   (add-to-list
    'load-path
-   "/home/emmanuel/.emacs.d/elpa/biblio-20161014.1604/"))
+   "~/.emacs.d/elpa/biblio")
+  (use-package biblio
+    :defer t
+    :config
+    (define-key biblio-selection-mode-map "n" 'biblio--selection-next)
+    (define-key biblio-selection-mode-map "p" 'biblio--selection-previous)))
 
-(defun my-bibtex-completion-format-citation-org-link-to-PDF (keys)
+(defun eod-bibtex-pdf-open
+    (fpath)
+  (let
+      ((choice
+        (read-char "Zathura (z), Evince(e), Emacs (any other key) : ")))
+    (cond
+     ((string=
+       (string choice)
+       "e")
+      (start-process "evince"
+                     "*helm-bibtex-evince*"
+                     "/usr/bin/evince" fpath))
+     ((string=
+       (string choice)
+       "z")
+      (start-process "zathura"
+                     "*helm-bibtex-zathura*"
+                     "/usr/bin/zathura" fpath))
+     (t
+      (find-file fpath)))))
+
+(defun helm-bibliographies
+    ()
+  (interactive)
+  (find-file
+   (helm-comp-read
+    "bibliographies: "
+    bibtex-completion-bibliography
+    :fc-transformer
+    (lambda
+      (files _source)
+      (mapcar
+       (lambda
+         (file)
+         (cons
+          (file-name-nondirectory file)
+          file))
+       files)))))
+
+(defun my-bibtex-completion-format-citation-org-link-to-PDF
+    (keys)
   "Formatter for org-links to PDF.  Uses first matching PDF if
 several are available.  Entries for which no PDF is available are
 omitted."
-  (s-join ", " (cl-loop
-                for key in keys
-                for pdfs = (bibtex-completion-find-pdf key)
-                append (--map (format "cite:[[%s][%s]]" it key) pdfs))))
+  (s-join ", "
+          (cl-loop
+           for key in keys
+           for pdfs =
+           (bibtex-completion-find-pdf key)
+           append
+           (--map
+            (format "cite:[[%s][%s]]" it key)
+            pdfs))))
 
 (setq
 
@@ -28,29 +78,33 @@ omitted."
   "~/Dropbox/Research_Files/misc/misc.bib"
   "~/Dropbox/Research_Files/topology/topology.bib"
   "~/Dropbox/Research_Files/comp_sense/comp_sense.bib"
+  "~/Dropbox/Research_Files/domainAdaptation/domainAdaptation.bib"
   "~/Dropbox/Research_Files/backgroundSubtraction/backgroundSubtraction.bib"
   "~/Dropbox/Research_Files/functionalData/functionalData.bib"
   "~/Dropbox/Research_Files/Mutual_Information/Mutual_Information.bib"
   "~/Dropbox/Research_Files/mean_shift/mean_shift.bib"
   "~/Dropbox/Research_Files/WienerHopf/WienerHopf.bib"
   "~/Dropbox/Research_Files/OpFlow/OpFlow.bib"
+  "~/Dropbox/Research_Files/VLC/VLC.bib"
   "~/Dropbox/Research_Files/objectRecog/objectRecog.bib"
-  "~/Dropbox/Research_Files/probMonads/probMonads.bib")
-
+  "~/Dropbox/Research_Files/probMonads/probMonads.bib"
+  "~/Dropbox/kadenapapers/kadenapapers.bib")
  bibtex-completion-library-path
  (list
   "~/Dropbox/Research_Files/misc/"
   "~/Dropbox/Research_Files/topology/"
   "~/Dropbox/Research_Files/comp_sense/"
+  "~/Dropbox/Research_Files/domainAdaptation/"
   "~/Dropbox/Research_Files/backgroundSubtraction/"
   "~/Dropbox/Research_Files/functionalData/"
   "~/Dropbox/Research_Files/Mutual_Information/"
   "~/Dropbox/Research_Files/mean_shift/"
   "~/Dropbox/Research_Files/WienerHopf/"
   "~/Dropbox/Research_Files/OpFlow/"
+  "~/Dropbox/Research_Files/VLC"
   "~/Dropbox/Research_Files/objectRecog/"
-  "~/Dropbox/Research_Files/probMonads/")
-
+  "~/Dropbox/Research_Files/probMonads/"
+  "~/Dropbox/kadenapapers/")
  bibtex-completion-notes-path "~/Dropbox/Research_Files/Notes"
 
  bibtex-completion-notes-extension ".org"
@@ -60,10 +114,7 @@ omitted."
  bibtex-completion-notes-symbol "✎"
 
  bibtex-completion-pdf-open-function
- (lambda (fpath)
-   (start-process "zathura"
-                  "*helm-bibtex-zathura*"
-                  "/usr/bin/zathura" fpath))
+ 'eod-bibtex-pdf-open
 
  bibtex-completion-browser-function
  (lambda
@@ -73,9 +124,8 @@ omitted."
     "*chromium*"
     "chromium"
     url))
-
- bibtex-completion-additional-search-fields '(tags)
-
+ bibtex-completion-additional-search-fields
+ '(tags)
  bibtex-completion-format-citation-functions
  '(
    ;; (org-mode . bibtex-completion-format-citation-default)

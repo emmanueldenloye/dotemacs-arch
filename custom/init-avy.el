@@ -1,5 +1,6 @@
 (use-package avy
   :defer t
+  :ensure t
   :init
   (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
         avy-all-windows t
@@ -11,7 +12,9 @@
         avy-dispatch-alist
         '((?c . avy-action-copy)
           (?m . avy-action-mark)
-          (?k . avy-action-kill)
+          (?l . avy-action-teleport)
+          (?k . avy-action-kill-stay)
+          (?K . avy-action-kill-move)
           (?z . avy-action-ispell)))
   :bind
   (("C-c a c" . avy-copy-line)

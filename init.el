@@ -10,11 +10,11 @@
                       (not (gnutls-available-p))))
          (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
     (add-to-list 'package-archives (cons "melpa" url) t))
-  (setq package-archives
-        '(("melpa-stable" . "https://stable.melpa.org/packages/")
-          ("org" . "http://orgmode.org/elpa/")
-          ("marmalade" . "http://marmalade-repo.org/packages/")
-          ("gnu" . "http://elpa.gnu.org/packages/")))
+  (dolist  (package '(("melpa-stable" . "https://stable.melpa.org/packages/")
+                      ("org" . "http://orgmode.org/elpa/")
+                      ("marmalade" . "http://marmalade-repo.org/packages/")
+                      ("gnu" . "http://elpa.gnu.org/packages/")))
+    (add-to-list 'package-archives package))
 
   (setq package-enable-at-startup nil)
   (package-initialize)
@@ -22,18 +22,16 @@
   (add-to-list 'load-path "~/.emacs.d/custom/")
 
   (require 'cl)
-  (require 'use-package)
+  (eval-when-compile (require 'use-package))
   (require 'diminish)
   (require 'bind-key)
 
-  ;; (unless (package-installed-p 'use-package)
-  ;;   (package-install 'use-package))
-  ;; (setq use-package-verbose t)
-  ;; (require 'use-package)
+  (when (package-installed-p 'use-package)
+    (setq use-package-verbose t))
 
-;;; Load and execute the code every .el file in the custom sub directory.
-;;; Also load the custom.el file.
-;;; If there are any errors, print a message to the back trace buffer.
+;;; Load and execute the code in every .el file in the custom sub
+;;; directory. Also load the custom.el file. If there are any errors,
+;;; print a message to the back trace buffer.
   (let ((debug-on-error t)
         (custom-directory (concat user-emacs-directory "custom/"))
         (custom-other-libs (concat user-emacs-directory "otherlibs/")))
@@ -61,9 +59,9 @@
   (diminish 'yas-minor-mode)
   (diminish 'flyspell-mode)
   (setq gc-cons-threshold 800000)
-  (semantic-mode -1))
-
-(put 'erc-remove-text-properties-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
+  ;; (semantic-mode -1)
+  (put 'erc-remove-text-properties-region 'disabled nil)
+  (put 'dired-find-alternate-file 'disabled nil)
+  (global-set-key (kbd "C-x C-c") 'dont-kill-emacs))
 
 ;; init.el ends here

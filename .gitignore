@@ -1,4 +1,11 @@
+/elpa_backup/*
 /auto-save-list/*
+/emms/*
+projectile.cache
+/semanticdb/*
+/newsticker/*
+tetris-scores
+/vimish-fold/*
 *.elc
 /custom/*.elc
 /elpa/*
@@ -23,3 +30,4 @@ tutorial/*
 url/*
 abbrev_defs
 bookmarks
+.session

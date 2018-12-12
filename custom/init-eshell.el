@@ -1,7 +1,12 @@
 (use-package eshell
   :defer t
-  :bind
-  (("C-. m" . eshell))
+  :init
+  (when
+      (executable-find "fortune")
+    (setq eshell-banner-message
+          (concat
+           (shell-command-to-string "fortune")
+           "\n")))
   :config
   (add-hook
    'eshell-mode-hook
@@ -34,9 +39,10 @@
   (when (not (eq  system-type 'windows-nt))
     (eshell/alias "ls" "ls -color -h --group-directories-first $*")))
 
-(when (executable-find "fortune")
-  (defadvice eshell (before advice-for-eshell activate)
-    (setq eshell-banner-message (concat (shell-command-to-string "fortune") "\n"))))
+;; (when (executable-find "fortune")
+;;   (defadvice eshell (before advice-for-eshell activate)
+;;     (eval-after-load 'eshell
+;;      (setq ))))
 
 (provide 'init-eshell)
 ;; init-eshell.el ends here

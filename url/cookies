@@ -2,34 +2,30 @@
 ;; Automatically generated file!!! DO NOT EDIT!!!
 
 (setq url-cookie-storage
- '((".cambridge.org"
-  [url-cookie "HttpOnly" nil "19 Jul 18 07:31:58 [GMT]" "/" ".cambridge.org" nil]
-  [url-cookie "__cfduid" "d47a98dbb5fd859b99b18c1b0ec607d1c1500449518" "19 Jul 18 07:31:58 [GMT]" "/" ".cambridge.org" nil])
+ '((".sciencedirect.com"
+  [url-cookie "SD_REMOTEACCESS" "92845a49cfd32a5b71ae0b4dcea2f3c130924b6c5014f5d6478c476b2064d0cc8b268429a330f0ad7bd2e14f30ef97ed3551fecd7916ae829050b3df7a3ca431fc303667c061fd14825687ee34eeadee5ef08e8eb0bde22d2b509ac9c94416a4a047f99dc15f9ac9" "Sunday, 30 Jan 2022 20:02:54 GMT" "/" ".sciencedirect.com" nil]
+  [url-cookie "EUID" "40577b40-e7f0-11e6-8803-00000aacb360" "Mon, 26 Jan 2037 20:02:53 GMT" "/" ".sciencedirect.com" nil])
+ (".google.com"
+  [url-cookie "NID" "144=txmcQF7nRbWKGtcLWGhrBn2c0uQPYI7xAhO8DW-nFKbyV6_M3VlCT62puE6nJdsukoWR3Fs8rSxRvKBlPqqBTVFIZHF4RjFevoIX24QPfnKdo_BmuGAjZgD20g7f6gb4ya4ci4PhbRdOxZhBlmZC-c83PnFU7nEmcztc0GggZbA" "Sun, 05-May-2019 21:02:20 GMT" "/" ".google.com" nil])
+ ("www.jstor.org"
+  [url-cookie "UUID" "61d13094-eeb0-4812-b4fb-13a6dd61536b" "16-Jul-2020 23:25:30.00 GMT" "/" "www.jstor.org" nil])
  ("linkinghub.elsevier.com"
   [url-cookie "visitorId" "kPACJQkbtMTpG9yww5wL" "06-Aug-2085 10:44:59.00 GMT" "/" "linkinghub.elsevier.com" nil])
- ("www.sciencedirect.com"
-  [url-cookie "Search_AB_20170605" "715" "17-Aug-2017 03:24:02.00 GMT" "/" "www.sciencedirect.com" nil])
- ("www.jstor.org"
-  [url-cookie "csrftoken" "3ima993cTmoCGMFKe5QOoKoV3Y3hlbPY" "17-Jul-2018 03:25:30.00 GMT" "/" "www.jstor.org" nil]
-  [url-cookie "Max-Age" "31449600" "17-Jul-2018 03:25:30.00 GMT" "/" "www.jstor.org" nil]
-  [url-cookie "UUID" "61d13094-eeb0-4812-b4fb-13a6dd61536b" "16-Jul-2020 23:25:30.00 GMT" "/" "www.jstor.org" nil])
- ("epubs.siam.org"
-  [url-cookie "I2KBRCK" "1" "18-Jul-2018 04:34:54.00 GMT" "/" "epubs.siam.org" nil]
-  [url-cookie "MAID" "PbeFipRx1+ix5OdCfaIgfw==" "14-May-2018 04:34:55.00 GMT" "/" "epubs.siam.org" nil]
-  [url-cookie "MACHINE_LAST_SEEN" "2017-07-17T21%3A34%3A54.804-07%3A00" "14-May-2018 04:34:55.00 GMT" "/" "epubs.siam.org" nil])
- (".epubs.siam.org"
-  [url-cookie "MAID" "PbeFipRx1+ix5OdCfaIgfw==" "14-May-2018 04:34:55.00 GMT" "/" ".epubs.siam.org" nil]
-  [url-cookie "MACHINE_LAST_SEEN" "2017-07-17T21%3A34%3A54.804-07%3A00" "14-May-2018 04:34:55.00 GMT" "/" ".epubs.siam.org" nil])
- (".sciencedirect.com"
-  [url-cookie "EUID" "40577b40-e7f0-11e6-8803-00000aacb360" "Mon, 26 Jan 2037 20:02:53 GMT" "/" ".sciencedirect.com" nil]
-  [url-cookie "ANONRA_COOKIE" "03AA538DFC9E43D135BF2FBC9C67DCCE831385EBD2C2BFF9B297B80F02C7FA82E46D1CDFD94AE293077AE066EB53547DC4C22B3FF8F83468" "Wed, 18 Jul 2018 03:24:02 GMT" "/" ".sciencedirect.com" nil]
-  [url-cookie "SD_REMOTEACCESS" "92845a49cfd32a5b71ae0b4dcea2f3c130924b6c5014f5d6478c476b2064d0cc8b268429a330f0ad7bd2e14f30ef97ed3551fecd7916ae829050b3df7a3ca431fc303667c061fd14825687ee34eeadee5ef08e8eb0bde22d2b509ac9c94416a4a047f99dc15f9ac9" "Sunday, 30 Jan 2022 20:02:54 GMT" "/" ".sciencedirect.com" nil]
-  [url-cookie "sid" "e3eae5a4-9f4b-426f-8165-7bd97d053f1a" "Wed, 18 Jul 2018 03:24:02 GMT" "/" ".sciencedirect.com" nil]))
+ ("www.e-reading.club"
+  [url-cookie "pagelang" "ru" "24-May-2019 18:21:26.00 GMT" "/" "www.e-reading.club" nil]
+  [url-cookie "Max-Age" "31536000" "24-May-2019 18:21:26.00 GMT" "/" "www.e-reading.club" nil])
+ (".doi.org"
+  [url-cookie "__cfduid" "d70561dc2c4de291dba66bb47fc95d4b21531558490" "Sun, 14-Jul-19 08:54:50 GMT" "/" ".doi.org" nil]))
 )
 (setq url-cookie-secure-storage
- '((".github.com"
-  [url-cookie "logged_in" "no" "Sun, 22 Feb 2037 19:11:44 -0000" "/" ".github.com" t]
-  [url-cookie "HttpOnly" nil "Sun, 22 Feb 2037 19:11:44 -0000" "/" ".github.com" t]))
+ '(("reddit.com"
+  [url-cookie "loid" "00000000001d9jfox9.2.1526310271679.Z0FBQUFBQmEtYVZfak13TURycHhrM2ZzYTdmMUxmNjZFQVZlRndLd1FOcE1xRDFFOXRCZnpqUnJ3bmlQVnZOb1FzWGdGamxrT1RMY3BhN21uc2dFWGsyRzA5b2dkRWpHbEtycW1VRmVrNXIyMTJ6YlpWcmdnU2dGcEFQdFdOaXBrQTg2WjFydE9OWVQ" "13-May-2020 15:04:31.00 GMT" "/" "reddit.com" t])
+ (".matplotlib.org"
+  [url-cookie "__cfduid" "d63f548b4fce4dcd90c9801eced22d2e01526582144" "17 May 19 18:35:44 [GMT]" "/" ".matplotlib.org" t]
+  [url-cookie "HttpOnly" nil "17 May 19 18:35:44 [GMT]" "/" ".matplotlib.org" t])
+ (".github.com"
+  [url-cookie "HttpOnly" nil "Sun, 22 Feb 2037 19:11:44 -0000" "/" ".github.com" t]
+  [url-cookie "logged_in" "no" "Sun, 22 Feb 2037 19:11:44 -0000" "/" ".github.com" t]))
 )
 
 ;; Local Variables:

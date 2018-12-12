@@ -1,4 +1,4 @@
-(add-to-list 'load-path "/home/emmanuel/.emacs.d/elpa/ample-theme")
+(add-to-list 'load-path "~/.emacs.d/elpa/ample-theme")
 
 ;; (use-package ample-theme
 ;;   :init (progn (load-theme 'ample t t)

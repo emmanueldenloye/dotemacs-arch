@@ -1,4 +1,5 @@
 (use-package ox-latex-subfigure
+  :defer t
   :init
   (setq org-latex-table-caption-above nil
         org-latex-prefer-user-labels t)
